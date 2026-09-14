@@ -31,9 +31,9 @@ export const site = {
    *
    * Replace these two when you have the salon phone number.
    */
-  phone: "+961 70 585 661",
+  phone: "+961 09 215 933",
 
-  phoneHref: "tel:+96170585661",
+  phoneHref: "tel:+96109215933",
 
   /**
    * WhatsApp

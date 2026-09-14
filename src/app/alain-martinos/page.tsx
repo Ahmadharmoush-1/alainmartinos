@@ -131,15 +131,14 @@ function Photo({
     <Reveal
       variant="image"
       delay={delay}
-      className={`zoom-frame ${className}`}
+      className={`relative overflow-hidden ${className}`}
     >
       <Image
         src={img.src}
         alt={img.alt}
         fill
         sizes={sizes}
-        className="object-cover"
-        loading="lazy"
+        className="object-cover object-center"
       />
     </Reveal>
   );
