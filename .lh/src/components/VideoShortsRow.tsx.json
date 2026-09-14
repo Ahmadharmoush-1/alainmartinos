@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/components/VideoShortsRow.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1789387420222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1789387433379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   return (\n     <div className=\"no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4\">\n       {shorts.map((s, i) => (\n         <Reveal key={`${s.id}-${i}`} delay={i * 90} className=\"w-[78vw] max-w-[320px] shrink-0 snap-center sm:w-auto sm:max-w-none\">\n-          <VideoShort title={s.title} playLabel={playLabel} />\n+          <VideoShort title={s.title} />\n         </Reveal>\n       ))}\n     </div>\n   );\n"
+                },
+                {
+                    "date": 1789387608154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,20 +1,67 @@\n import { VideoShort } from \"./VideoShort\";\n import { Reveal } from \"./Reveal\";\n \n-type Short = { id: string; title: string };\n+type Short = {\n+  src: string;\n+  title: string;\n+  poster?: string;\n+};\n \n-/**\n- * Desktop: 3–4 vertical cards in a row. Tablet: 2–3.\n- * Mobile: one main card with horizontal swipe (CSS scroll-snap, no JS).\n- */\n-export function VideoShortsRow({ shorts, playLabel }: { shorts: readonly Short[]; playLabel: string }) {\n+type Props = {\n+  shorts: readonly Short[];\n+  playLabel?: string;\n+};\n+\n+export function VideoShortsRow({\n+  shorts,\n+  playLabel = \"Play video\",\n+}: Props) {\n   return (\n-    <div className=\"no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4\">\n-      {shorts.map((s, i) => (\n-        <Reveal key={`${s.id}-${i}`} delay={i * 90} className=\"w-[78vw] max-w-[320px] shrink-0 snap-center sm:w-auto sm:max-w-none\">\n-          <VideoShort title={s.title} />\n+    <div\n+      className=\"\n+        no-scrollbar\n+        -mx-5\n+        flex\n+        snap-x\n+        snap-mandatory\n+        gap-4\n+        overflow-x-auto\n+        px-5\n+        pb-3\n+\n+        sm:mx-0\n+        sm:grid\n+        sm:grid-cols-2\n+        sm:gap-5\n+        sm:overflow-visible\n+        sm:px-0\n+\n+        lg:grid-cols-4\n+        lg:gap-6\n+      \"\n+    >\n+      {shorts.map((video, i) => (\n+        <Reveal\n+          key={`${video.src}-${i}`}\n+          delay={i * 90}\n+          className=\"\n+            w-[78vw]\n+            max-w-[320px]\n+            shrink-0\n+            snap-center\n+\n+            sm:w-auto\n+            sm:max-w-none\n+          \"\n+        >\n+          <VideoShort\n+            src={video.src}\n+            title={video.title}\n+            poster={video.poster}\n+            playLabel={playLabel}\n+          />\n         </Reveal>\n       ))}\n     </div>\n   );\n-}\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1789387816178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n       \"\n     >\n       {shorts.map((video, i) => (\n         <Reveal\n-          key={`${video.src}-${i}`}\n+          key={video.src}\n           delay={i * 90}\n           className=\"\n             w-[78vw]\n             max-w-[320px]\n"
+                }
+            ],
+            "date": 1789387420222,
+            "name": "Commit-0",
+            "content": "import { VideoShort } from \"./VideoShort\";\nimport { Reveal } from \"./Reveal\";\n\ntype Short = { id: string; title: string };\n\n/**\n * Desktop: 3–4 vertical cards in a row. Tablet: 2–3.\n * Mobile: one main card with horizontal swipe (CSS scroll-snap, no JS).\n */\nexport function VideoShortsRow({ shorts, playLabel }: { shorts: readonly Short[]; playLabel: string }) {\n  return (\n    <div className=\"no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4\">\n      {shorts.map((s, i) => (\n        <Reveal key={`${s.id}-${i}`} delay={i * 90} className=\"w-[78vw] max-w-[320px] shrink-0 snap-center sm:w-auto sm:max-w-none\">\n          <VideoShort title={s.title} playLabel={playLabel} />\n        </Reveal>\n      ))}\n    </div>\n  );\n}\n"
+        }
+    ]
+}

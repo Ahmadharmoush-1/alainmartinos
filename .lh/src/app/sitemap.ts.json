@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/sitemap.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1789320375413,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1789320380781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n import { SITE_URL } from \"@/lib/site\";\n \n export default function sitemap(): MetadataRoute.Sitemap {\n   const now = new Date();\n-  const routes = [\"\", \"/\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n+  const routes = [\"\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n   return routes.map((r) => ({\n     url: `${SITE_URL}${r}`,\n     lastModified: now,\n     changeFrequency: r === \"\" || r === \"/our-work\" ? \"weekly\" : \"monthly\",\n"
+                }
+            ],
+            "date": 1789320375413,
+            "name": "Commit-0",
+            "content": "import type { MetadataRoute } from \"next\";\nimport { SITE_URL } from \"@/lib/site\";\n\nexport default function sitemap(): MetadataRoute.Sitemap {\n  const now = new Date();\n  const routes = [\"\", \"/\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n  return routes.map((r) => ({\n    url: `${SITE_URL}${r}`,\n    lastModified: now,\n    changeFrequency: r === \"\" || r === \"/our-work\" ? \"weekly\" : \"monthly\",\n    priority: r === \"\" ? 1 : r === \"/contact\" || r === \"/services\" ? 0.9 : 0.8,\n  }));\n}\n"
+        }
+    ]
+}
