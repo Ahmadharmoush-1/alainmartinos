@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 101,
+            "activePatchIndex": 109,
             "patches": [
                 {
                     "date": 1789310746748,
@@ -412,6 +412,38 @@
                 {
                     "date": 1789725784997,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1291,9 +1291,9 @@\n             (max-width: 768px) 100vw,\n             (max-width: 1200px) 90vw,\n             1200px\n           \"\n-         className=\"-rotate-90 scale-[1.8] object-contain object-center\"\n+         className=\"rotate-0 scale-[1.8] object-contain object-center\"\n         />\n       </div>\n     </div>\n \n"
+                },
+                {
+                    "date": 1789726713135,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1195,9 +1195,9 @@\n         \"\n       >\n         <img\n           src=\"/images/vanish-machine.png\"\n-          alt=\"Laser hair removal equipment at Salon Alain Hair & Beauty\"\n+          alt=\"Laser hair removal equipment at Salon Alain Ma Hair & Beauty\"\n           loading=\"lazy\"\n           className=\"\n             max-h-[520px] w-auto max-w-full object-contain\n             drop-shadow-[0_30px_35px_rgba(76,26,72,0.18)]\n"
+                },
+                {
+                    "date": 1789726746275,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1128,9 +1128,9 @@\n         </p>\n \n         <div className=\"mt-6 border-l-2 border-plum-400 pl-5\">\n           <p className=\"text-base leading-8 text-plum-700/80\">\n-            At Alain Martinos Salon, experienced care and attention\n+            At SalonAlain Martinos , experienced care and attention\n             to detail make every treatment personal.\n           </p>\n \n           <p className=\"mt-2 text-base leading-8 text-plum-700/80\">\n@@ -1195,9 +1195,9 @@\n         \"\n       >\n         <img\n           src=\"/images/vanish-machine.png\"\n-          alt=\"Laser hair removal equipment at Salon Alain Ma Hair & Beauty\"\n+          alt=\"Laser hair removal equipment at Salon Alain Martinos Hair & Beauty\"\n           loading=\"lazy\"\n           className=\"\n             max-h-[520px] w-auto max-w-full object-contain\n             drop-shadow-[0_30px_35px_rgba(76,26,72,0.18)]\n"
+                },
+                {
+                    "date": 1789726757581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1128,9 +1128,9 @@\n         </p>\n \n         <div className=\"mt-6 border-l-2 border-plum-400 pl-5\">\n           <p className=\"text-base leading-8 text-plum-700/80\">\n-            At SalonAlain Martinos , experienced care and attention\n+            At Salon Alain Martinos , experienced care and attention\n             to detail make every treatment personal.\n           </p>\n \n           <p className=\"mt-2 text-base leading-8 text-plum-700/80\">\n"
+                },
+                {
+                    "date": 1789726767064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1102,9 +1102,9 @@\n           </span>\n         </h2>\n \n         <p className=\"mt-6 text-base leading-8 text-plum-700/80 sm:text-lg\">\n-          Advanced laser hair removal at Salon Alain Hair &amp; Beauty\n+          Advanced laser hair removal at Salon Alain Martinos Hair &amp; Beauty\n           with our UK-made machine.\n         </p>\n \n         <p className=\"mt-5 text-base font-bold leading-7 text-plum-800\">\n"
+                },
+                {
+                    "date": 1789726777926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -632,9 +632,9 @@\n           tracking-[0.28em]\n           !text-plum-500\n         \"\n       >\n-        Salon Alain Services\n+        Salon Alain  Services\n       </p>\n \n       <h2\n         className=\"\n"
+                },
+                {
+                    "date": 1789726784978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -184,9 +184,9 @@\n   \"\n >\n   <Image\n     src=\"/images/logo.jpg\"\n-    alt=\"Salon Alain - Hair & Beauty by Alain Martinos\"\n+    alt=\"Salon Alain Martinos - Hair & Beauty by Alain Martinos\"\n     fill\n     priority\n     className=\"object-contain object-center\"\n     sizes=\"(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1300px\"\n@@ -632,9 +632,9 @@\n           tracking-[0.28em]\n           !text-plum-500\n         \"\n       >\n-        Salon Alain  Services\n+        Salon Alain Martinos Services\n       </p>\n \n       <h2\n         className=\"\n"
+                },
+                {
+                    "date": 1789726791351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n       \"Salon Alain – Hair & Beauty by Alain Martinos | Hairdresser in Jounieh, Lebanon & Germany\",\n   },\n \n   description:\n-    \"Salon Alain in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.\",\n+    \"Salon Alain  in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.\",\n \n   alternates: {\n     canonical: \"/\",\n   },\n"
+                },
+                {
+                    "date": 1789726797635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n       \"Salon Alain – Hair & Beauty by Alain Martinos | Hairdresser in Jounieh, Lebanon & Germany\",\n   },\n \n   description:\n-    \"Salon Alain  in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.\",\n+    \"Salon Alain Martinos in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.\",\n \n   alternates: {\n     canonical: \"/\",\n   },\n"
                 }
             ],
             "date": 1789310746748,

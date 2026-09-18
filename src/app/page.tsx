@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Salon Alain in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.",
+    "Salon Alain Martinos in Zouk Mikael – Jounieh. Alain Martinos, Lebanese-German hairdresser and visagist with 25+ years of experience: haircuts, hair color, balayage, highlights and beauty transformations in Lebanon and Germany.",
 
   alternates: {
     canonical: "/",
@@ -185,7 +185,7 @@ export default function HomePage() {
 >
   <Image
     src="/images/logo.jpg"
-    alt="Salon Alain - Hair & Beauty by Alain Martinos"
+    alt="Salon Alain Martinos - Hair & Beauty by Alain Martinos"
     fill
     priority
     className="object-contain object-center"
@@ -633,7 +633,7 @@ export default function HomePage() {
           !text-plum-500
         "
       >
-        Salon Alain Services
+        Salon Alain Martinos Services
       </p>
 
       <h2
@@ -1103,7 +1103,7 @@ export default function HomePage() {
         </h2>
 
         <p className="mt-6 text-base leading-8 text-plum-700/80 sm:text-lg">
-          Advanced laser hair removal at Salon Alain Hair &amp; Beauty
+          Advanced laser hair removal at Salon Alain Martinos Hair &amp; Beauty
           with our UK-made machine.
         </p>
 
@@ -1129,7 +1129,7 @@ export default function HomePage() {
 
         <div className="mt-6 border-l-2 border-plum-400 pl-5">
           <p className="text-base leading-8 text-plum-700/80">
-            At Alain Martinos Salon, experienced care and attention
+            At Salon Alain Martinos , experienced care and attention
             to detail make every treatment personal.
           </p>
 
@@ -1196,7 +1196,7 @@ export default function HomePage() {
       >
         <img
           src="/images/vanish-machine.png"
-          alt="Laser hair removal equipment at Salon Alain Hair & Beauty"
+          alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
           loading="lazy"
           className="
             max-h-[520px] w-auto max-w-full object-contain
