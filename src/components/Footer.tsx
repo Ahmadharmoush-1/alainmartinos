@@ -51,7 +51,7 @@ export function Footer() {
                 sm:text-4xl
               "
             >
-              Salon Alain
+              Salon Alain Martinos
             </p>
 
             <p
@@ -262,7 +262,7 @@ export function Footer() {
               <li>
                 <a
                   href={whatsappHref(
-                    "Hello Salon Alain, I would like to book an appointment."
+                    "Hello Salon Alain Martinos, I would like to book an appointment."
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
