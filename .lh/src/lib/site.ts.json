@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1789390687164,
@@ -48,6 +48,10 @@
                 {
                     "date": 1789393798817,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n    * because you only gave me the WhatsApp number.\n    *\n    * Replace these two when you have the salon phone number.\n    */\n-  phone: \"+961 70 585 661\",\n+  phone: \"+961 \",\n \n   phoneHref: \"tel:+96109215933\",\n \n   /**\n"
+                },
+                {
+                    "date": 1789548219793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n    * because you only gave me the WhatsApp number.\n    *\n    * Replace these two when you have the salon phone number.\n    */\n-  phone: \"+961 \",\n+  phone: \"+961 09 215 933\",\n \n   phoneHref: \"tel:+96109215933\",\n \n   /**\n@@ -117,34 +117,34 @@\n       bookHref:\n         \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Lebanon\",\n     },\n \n-    {\n-      id: \"germany\",\n+    // {\n+    //   id: \"germany\",\n \n-      country: \"Germany\",\n+    //   country: \"Germany\",\n \n-      title: \"Salon Alain – Germany\",\n+    //   title: \"Salon Alain – Germany\",\n \n-      addressLines: [\n-        \"Location to be announced\",\n-        \"Germany\",\n-      ],\n+    //   addressLines: [\n+    //     \"Location to be announced\",\n+    //     \"Germany\",\n+    //   ],\n \n-      mapEmbed: \"\",\n+    //   mapEmbed: \"\",\n \n-      mapLink: \"\",\n+    //   mapLink: \"\",\n \n-      hours: [\n-        {\n-          days: \"By appointment\",\n-          time: \"Please contact us\",\n-        },\n-      ],\n+    //   hours: [\n+    //     {\n+    //       days: \"By appointment\",\n+    //       time: \"Please contact us\",\n+    //     },\n+    //   ],\n \n-      bookHref:\n-        \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Germany\",\n-    },\n+    //   bookHref:\n+    //     \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Germany\",\n+    // },\n   ],\n \n   /* =======================================================\n      BEAUTY IN MOTION VIDEOS\n"
                 }
             ],
             "date": 1789390687164,

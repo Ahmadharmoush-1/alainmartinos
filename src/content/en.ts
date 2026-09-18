@@ -4,10 +4,10 @@
  */
 export const en = {
   meta: {
-    siteName: "Salon Alain",
-    titleTemplate: "%s | Salon Alain – Hair & Beauty by Alain Martinos",
+    siteName: "Salon Alain Martinos",
+    titleTemplate: "%s | Salon Alain Martinos – Hair & Beauty by Alain Martinos",
     defaultDescription:
-      "Salon Alain – Hair & Beauty by Alain Martinos. Lebanese-German hairdresser and visagist with 25+ years of experience. Haircuts, color, balayage, highlights and beauty transformations in Zouk Mikael – Jounieh, Lebanon, and Germany.",
+      "Salon Alain Martinos – Hair & Beauty by Alain Martinos. Lebanese-German hairdresser and visagist with 25+ years of experience. Haircuts, color, balayage, highlights and beauty transformations in Zouk Mikael – Jounieh, Lebanon, and Germany.",
   },
 
   nav: {
@@ -40,8 +40,8 @@ export const en = {
       kicker: "Introduction",
       heading: "The art of beauty",
       p1: "For more than 25 years, Alain Martinos has dedicated his career to creating beauty through hair, styling, color and personal transformation.",
-      p2: "Blending Lebanese glamour with European elegance, Alain approaches every client individually — creating looks designed around personality, facial features and lifestyle.",
-      cta: "Discover Alain",
+      p2: "Blending Lebanese glamour with European elegance, Alain Martinos approaches every client individually — creating looks designed around personality, facial features and lifestyle.",
+      cta: "Discover Alain Martinos",
       facts: [
         { value: "25+", label: "years of artistry" },
         { value: "2", label: "countries, one signature" },
@@ -69,7 +69,7 @@ export const en = {
     video: {
       kicker: "Video",
       heading: "Beauty in motion",
-      subtitle: "Discover transformations, styling moments and the artistry behind Salon Alain.",
+      subtitle: "Discover transformations, styling moments and the artistry behind Salon Alain Martinos.",
       cta: "View More on YouTube",
       play: "Play video",
     },
@@ -77,7 +77,7 @@ export const en = {
       heading: "Your next look starts here",
       copy: "Whether you're looking for a subtle refresh or a complete transformation, every appointment begins with understanding you.",
       lebanon: "Book in Lebanon",
-      germany: "Book in Germany",
+      
     },
   },
 
@@ -97,7 +97,7 @@ export const en = {
       description: "Haircuts, hair color, balayage, highlights, glossing, brushing & styling, face-framing and complete beauty transformations by Alain Martinos in Lebanon and Germany.",
       heading: "Services",
       subtitle: "Beauty designed around you.",
-      intro: "Every service begins with a conversation. Alain studies your features, your hair and the life you live, then designs a look that belongs to you alone.",
+      intro: "Every service begins with a conversation. Alain Martinos studies your features, your hair and the life you live, then designs a look that belongs to you alone.",
       bookThis: "Book This Service",
       durationLabel: "Duration",
       priceLabel: "From",
@@ -157,8 +157,8 @@ export const en = {
           title: "Transformations",
           lead: "A complete personalized approach combining color, cut, styling and visual harmony.",
           items: [
-            { name: "Beauty Transformation", desc: "Cut, color and styling designed together as one composition — the full Salon Alain experience.", duration: "Half day", price: "—" },
-            { name: "Visagist Consultation", desc: "Alain's trained eye for faces: a personal analysis of features, color harmony and the looks that will suit you best.", duration: "45 min", price: "—" },
+            { name: "Beauty Transformation", desc: "Cut, color and styling designed together as one composition — the full Salon Alain Martinos experience.", duration: "Half day", price: "—" },
+            { name: "Visagist Consultation", desc: "Alain Martinos' trained eye for faces: a personal analysis of features, color harmony and the looks that will suit you best.", duration: "45 min", price: "—" },
           ],
         },
       ],
@@ -167,15 +167,15 @@ export const en = {
 
   about: {
     title: "About",
-    description: "Discover Salon Alain — the philosophy, the 25+ years of experience, and the personalized approach to beauty between Lebanon and Germany.",
-    heading: "About Salon Alain",
+    description: "Discover Salon Alain Martinos — the philosophy, the 25+ years of experience, and the personalized approach to beauty between Lebanon and Germany.",
+    heading: "About Salon Alain Martinos",
     subtitle: "Where beauty is created, not copied.",
     sections: [
       {
         id: "salon",
         title: "The salon",
         body: [
-          "Salon Alain was created as a personal beauty environment — a place where experience, creativity and passion come together in a calm, elegant setting.",
+          "Salon Alain Martinos was created as a personal beauty environment — a place where experience, creativity and passion come together in a calm, elegant setting.",
           "Based in Zouk Mikael – Jounieh, and reaching clients in Germany, the salon is an extension of Alain Martinos himself: artistic, warm and made with an unmistakable love for beauty.",
         ],
       },
@@ -184,7 +184,7 @@ export const en = {
         title: "Our philosophy",
         body: [
           "Beauty should be individual, sophisticated, feminine and expressive. Trends come and go; what stays is the way you feel when you see yourself.",
-          "Every look at Salon Alain is composed rather than copied — adapted to your personality, your features and the life you live.",
+          "Every look at Salon Alain Martinos is composed rather than copied — adapted to your personality, your features and the life you live.",
         ],
         quote: "Beauty is not merely something we see — it is something we create, express and preserve.",
       },
@@ -192,7 +192,7 @@ export const en = {
         id: "experience",
         title: "25+ years of experience",
         body: [
-          "Alain's career in hairdressing and beauty spans more than a quarter of a century — cutting, coloring, balayage, highlights, glossing, styling, brushing, face-framing and complete transformations.",
+          "Alain Martinos' career in hairdressing and beauty spans more than a quarter of a century — cutting, coloring, balayage, highlights, glossing, styling, brushing, face-framing and complete transformations.",
           "That experience means calm hands, an honest eye and the confidence to tell you what will truly suit you.",
         ],
       },
@@ -208,15 +208,15 @@ export const en = {
         id: "personal",
         title: "A personalized approach",
         body: [
-          "There is no menu of looks at Salon Alain. Each appointment begins with understanding you — your face shape, your hair, your routine and the moments you are preparing for.",
-          "From there, Alain designs cut, color and styling as one harmonious composition.",
+          "There is no menu of looks at Salon Alain Martinos. Each appointment begins with understanding you — your face shape, your hair, your routine and the moments you are preparing for.",
+          "From there, Alain Martinos designs cut, color and styling as one harmonious composition.",
         ],
       },
     ],
     why: {
-      title: "Why Salon Alain",
+      title: "Why Salon Alain Martinos?",
       points: [
-        { title: "A trained visagist's eye", desc: "Alain studies faces as well as hair, so color and cut are chosen to flatter your features." },
+        { title: "A trained visagist's eye", desc: "Alain Martinos studies faces as well as hair, so color and cut are chosen to flatter your features." },
         { title: "Two cultures, one signature", desc: "Lebanese glamour meets European elegance in a style that is polished and personal." },
         { title: "Time, not turnover", desc: "Appointments are unhurried. Your consultation is part of the service, never an extra." },
         { title: "Honest advice", desc: "Twenty-five years of experience means you will hear what truly suits you." },
@@ -227,11 +227,11 @@ export const en = {
 
   salon: {
     title: "Hair Salon",
-    description: "Welcome to Salon Alain in Zouk Mikael – Jounieh, Lebanon. Discover the space, the styling stations, the atmosphere and the client experience designed by Alain Martinos.",
-    heading: "Welcome to Salon Alain",
-    subtitle: "A space designed as an extension of Alain's artistic identity.",
+    description: "Welcome to Salon Alain Martinos in Zouk Mikael – Jounieh, Lebanon. Discover the space, the styling stations, the atmosphere and the client experience designed by Alain Martinos.",
+    heading: "Welcome to Salon Alain Martinos",
+    subtitle: "A space designed as an extension of Alain Martinos's artistic identity.",
     intro: [
-      "Salon Alain was never meant to be simply a place to have one's hair done. Alain envisioned a personal beauty environment where experience, creativity and passion could come together.",
+      "Salon Alain Martinos was never meant to be simply a place to have one's hair done. Alain Martinos envisioned a personal beauty environment where experience, creativity and passion could come together.",
       "Soft light, lavender details, unhurried appointments and a single guiding idea: every person who sits in the chair should leave feeling more like themselves.",
     ],
     pullQuote: "Every person who sits in the chair should leave feeling more like themselves.",
@@ -245,7 +245,7 @@ export const en = {
       ],
     },
     galleryTitle: "Inside the salon",
-    locationsTitle: "Our locations",
+    locationsTitle: "Our location",
     mapPlaceholder: "Map will appear here",
     openInMaps: "Open in Maps",
     hoursTitle: "Opening hours",
@@ -281,49 +281,49 @@ export const en = {
       "Alain Martinos is a Lebanese-German hairdresser, visagist, singer, and one of the most passionate Barbie collectors in the Middle East. His life and career have been built around one central idea:",
     thesis: "Beauty is not merely something we see — it is something we create, express, and preserve.",
     introAfter:
-      "For Alain, hair, makeup, music, fashion, and dolls are not separate worlds. They are different forms of the same artistic language: ways of transforming imagination into something real.",
+      "For Alain Martinos, hair, makeup, music, fashion, and dolls are not separate worlds. They are different forms of the same artistic language: ways of transforming imagination into something real.",
     chapters: [
       {
         id: "passion",
         number: "I",
         title: "A passion for beauty",
         paragraphs: [
-          "Alain's professional journey in hairdressing and beauty spans more than 25 years. From an early age, he was fascinated by transformation — the ability of a hairstyle, color, makeup look, or carefully created image to completely change the way someone feels about themselves.",
+          "Alain Martinos's professional journey in hairdressing and beauty spans more than 25 years. From an early age, he was fascinated by transformation — the ability of a hairstyle, color, makeup look, or carefully created image to completely change the way someone feels about themselves.",
           "Over the years, he developed his identity as both a hairdresser and visagist, combining technical precision with an artistic eye. His work encompasses cutting, coloring, balayage, highlights, glossing, styling, brushing, face-framing, and personalized beauty transformations.",
-          "His philosophy is not simply to follow trends. Alain believes that beauty should be individual, sophisticated, feminine, and expressive — adapted to the personality and features of each person.",
+          "His philosophy is not simply to follow trends. Alain Martinos believes that beauty should be individual, sophisticated, feminine, and expressive — adapted to the personality and features of each person.",
         ],
         aside: {
-          title: "This philosophy became the foundation of Salon Alain — Hair & Beauty by Alain Martinos.",
-          body: "Based in Zouk Mikael – Jounieh, Lebanon, Alain created his salon as more than simply a place to have one's hair done. He envisioned a personal beauty environment where experience, creativity, and passion could come together. The salon is an extension of Alain himself: elegant, artistic, personal, and created with an unmistakable love for beauty.",
+          title: "This philosophy became the foundation of Salon Alain Martinos — Hair & Beauty by Alain Martinos.",
+          body: "Based in Zouk Mikael – Jounieh, Lebanon, Alain Martinos created his salon as more than simply a place to have one's hair done. He envisioned a personal beauty environment where experience, creativity, and passion could come together. The salon is an extension of Alain Martinos himself: elegant, artistic, personal, and created with an unmistakable love for beauty.",
         },
       },
       {
         id: "singer",
         number: "II",
-        title: "Alain the singer",
+        title: "Alain Martinos the singer",
         paragraphs: [
-          "Alain has been singing since 2001. Music has remained an important part of his creative identity for more than two decades.",
-          "Singing offered Alain another medium through which to express emotion, dreams, vulnerability, strength, glamour, and femininity.",
-          "One of his most important artistic inspirations is Lebanese superstar Nawal Al Zoghbi. Her presence, femininity, elegance, glamour, and distinctive artistic identity became a lasting source of inspiration. For Alain, her artistry represented the possibility of bringing together femininity, glamour, music, personality, and visual identity into something unforgettable.",
-          "Music remains an important part of Alain's identity today.",
+          "Alain Martinos has been singing since 2001. Music has remained an important part of his creative identity for more than two decades.",
+          "Singing offered Alain Martinos another medium through which to express emotion, dreams, vulnerability, strength, glamour, and femininity.",
+          "One of his most important artistic inspirations is Lebanese superstar Nawal Al Zoghbi. Her presence, femininity, elegance, glamour, and distinctive artistic identity became a lasting source of inspiration. For Alain Martinos, her artistry represented the possibility of bringing together femininity, glamour, music, personality, and visual identity into something unforgettable.",
+          "Music remains an important part of Alain Martinos's identity today.",
         ],
         quote: "Singing is another way of creating beauty — with emotion instead of color.",
       },
       {
         id: "collector",
         number: "III",
-        title: "Alain the Barbie collector",
+        title: "Alain Martinos the Barbie collector",
         paragraphs: [
-          "Alain's passion for Barbie collecting began in 2002, although the emotional connection began much earlier. As a child, Alain's first Barbie was a 1991 Hawaii Barbie, made in China. The doll became deeply associated with childhood imagination and his fascination with beauty, fashion, femininity, and fantasy.",
-          "Years later, losing that childhood Barbie became an emotional memory that stayed with him. Instead of allowing that connection to disappear, Alain transformed it into something extraordinary. He began collecting.",
-          "What started as a personal passion eventually became a lifelong project. Today, Alain has assembled a collection of more than 10,000 Barbie dolls, with a particular appreciation for the classic eras — especially the glamorous Superstar aesthetic of the 1980s and 1990s.",
+          "Alain Martinos's passion for Barbie collecting began in 2002, although the emotional connection began much earlier. As a child, Alain Martinos's first Barbie was a 1991 Hawaii Barbie, made in China. The doll became deeply associated with childhood imagination and his fascination with beauty, fashion, femininity, and fantasy.",
+          "Years later, losing that childhood Barbie became an emotional memory that stayed with him. Instead of allowing that connection to disappear, Alain Martinos transformed it into something extraordinary. He began collecting.",
+          "What started as a personal passion eventually became a lifelong project. Today, Alain Martinos has assembled a collection of more than 10,000 Barbie dolls, with a particular appreciation for the classic eras — especially the glamorous Superstar aesthetic of the 1980s and 1990s.",
         ],
         studies: {
           title: "He studies",
           items: ["Eras", "Editions", "Manufacturing countries", "Packaging variations", "Fashion designs", "Collectible versions", "Photography", "Cultural history"],
         },
         closing: [
-          "For Alain, these dolls are not simply toys. They are pieces of fashion history, pop culture, design, childhood, and memory.",
+          "For Alain Martinos, these dolls are not simply toys. They are pieces of fashion history, pop culture, design, childhood, and memory.",
         ],
         triptych: ["Each doll represents a moment in time.", "Each box preserves an aesthetic.", "Each face carries a story."],
       },
@@ -332,7 +332,7 @@ export const en = {
         number: "IV",
         title: "More than a collection",
         paragraphs: [
-          "Alain considers himself not simply a collector, but also a Barbie historian, enthusiast, and preservationist. His collection represents decades of dedication.",
+          "Alain Martinos considers himself not simply a collector, but also a Barbie historian, enthusiast, and preservationist. His collection represents decades of dedication.",
           "His love for Barbie connects naturally with the other worlds in his life.",
         ],
         lenses: [
@@ -341,14 +341,14 @@ export const en = {
           { role: "As a singer", what: "he studies performance and glamour." },
           { role: "As a collector", what: "he studies fashion, styling, photography, packaging, and cultural history." },
         ],
-        closing: ["Barbie brings many different parts of Alain's creative personality together."],
+        closing: ["Barbie brings many different parts of Alain Martinos's creative personality together."],
       },
       {
         id: "two-worlds",
         number: "V",
         title: "A life between two worlds",
         paragraphs: [
-          "Born in Lebanon, Alain later built a life in Germany while maintaining a deep connection to his Lebanese roots. Living between cultures gave him a distinctive perspective on beauty and identity.",
+          "Born in Lebanon, Alain Martinos later built a life in Germany while maintaining a deep connection to his Lebanese roots. Living between cultures gave him a distinctive perspective on beauty and identity.",
           "He understands both the glamour and aesthetic traditions of the Middle East and the European approach to fashion, beauty, and individual expression. His life has never fitted neatly into one category.",
         ],
         identities: ["A hairdresser.", "A visagist.", "A singer.", "A collector.", "A creative personality."],
@@ -359,7 +359,7 @@ export const en = {
         number: "VI",
         title: "Education beyond beauty",
         paragraphs: [
-          "Although Alain is known professionally for hair and beauty, his academic background extends into another field: law. He completed advanced legal studies, including a D.E.A. in Intellectual Property Law.",
+          "Although Alain Martinos is known professionally for hair and beauty, his academic background extends into another field: law. He completed advanced legal studies, including a D.E.A. in Intellectual Property Law.",
           "This unusual combination of law, beauty, music, and collecting reflects the complexity of his interests. Intellectual property, fashion, design, celebrity culture, art, and collectibles all intersect with worlds Alain naturally understands from different perspectives.",
         ],
       },
@@ -373,13 +373,13 @@ export const en = {
         { title: "His own journey", sub: "Resilience", desc: "The long road between two countries, and the will to rebuild whenever it was needed." },
       ],
       resilience: {
-        lead: "Alain's path has not always been easy. He has experienced difficult periods, professional disappointments, personal challenges, and moments when he had to rebuild himself.",
-        lines: ["Yet creativity remained.", "Beauty remained.", "Music remained.", "Barbie remained.", "And so did Alain."],
+        lead: "Alain Martinos's path has not always been easy. He has experienced difficult periods, professional disappointments, personal challenges, and moments when he had to rebuild himself.",
+        lines: ["Yet creativity remained.", "Beauty remained.", "Music remained.", "Barbie remained.", "And so did Alain Martinos."],
       },
     },
     meaning: {
       title: "The meaning behind Alain Martinos",
-      lead: "Alain's story is ultimately not about the number of years he has worked, the number of songs he has sung, or even the number of Barbie dolls he owns. It is about passion.",
+      lead: "Alain Martinos's story is ultimately not about the number of years he has worked, the number of songs he has sung, or even the number of Barbie dolls he owns. It is about passion.",
       passions: ["A passion for creating beauty.", "A passion for music.", "A passion for fashion.", "A passion for preserving memories.", "A passion for remaining authentic."],
       arcs: [
         { from: "From a childhood Barbie", to: "to a collection exceeding 10,000 dolls." },
@@ -396,7 +396,7 @@ export const en = {
       lines: ["Beauty is my profession.", "Music is my voice.", "Barbie is my history.", "Creativity is who I am."],
       attribution: "Alain Martinos",
     },
-    cta: "Book with Alain",
+    cta: "Book with Alain Martinos",
   },
 
   contact: {
@@ -405,7 +405,7 @@ export const en = {
     heading: "Let's create your next look",
     subtitle: "Tell us a little about yourself and we will be in touch to confirm your appointment.",
     whatsapp: "Book via WhatsApp",
-    whatsappMessage: "Hello Salon Alain, I would like to book an appointment.",
+    whatsappMessage: "Hello Salon Alain Martinos, I would like to book an appointment.",
     details: { phone: "Phone", whatsapp: "WhatsApp", instagram: "Instagram", email: "Email" },
     form: {
       name: "Name",
@@ -417,7 +417,7 @@ export const en = {
       servicePlaceholder: "Choose a service",
       date: "Preferred date",
       message: "Message",
-      messagePlaceholder: "Anything you'd like Alain to know beforehand?",
+      messagePlaceholder: "Anything you'd like Alain Martinos to know beforehand?",
       submit: "Request Appointment",
       sending: "Sending…",
       success: "Thank you — your request has been received. We will confirm your appointment shortly.",
@@ -431,10 +431,10 @@ export const en = {
     navTitle: "Navigation",
     contactTitle: "Contact",
     hoursTitle: "Opening hours",
-    locationsTitle: "Locations",
+    locationsTitle: "Location",
     follow: "Follow",
     rights: "All Rights Reserved.",
-    copyright: "© {year} Salon Alain – Hair & Beauty by Alain Martinos.",
+    copyright: "© {year} Salon Alain Martinos – Hair & Beauty by Alain Martinos.",
   },
 
   common: {

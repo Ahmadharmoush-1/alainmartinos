@@ -118,32 +118,32 @@ export const site = {
         "https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Lebanon",
     },
 
-    {
-      id: "germany",
+    // {
+    //   id: "germany",
 
-      country: "Germany",
+    //   country: "Germany",
 
-      title: "Salon Alain – Germany",
+    //   title: "Salon Alain – Germany",
 
-      addressLines: [
-        "Location to be announced",
-        "Germany",
-      ],
+    //   addressLines: [
+    //     "Location to be announced",
+    //     "Germany",
+    //   ],
 
-      mapEmbed: "",
+    //   mapEmbed: "",
 
-      mapLink: "",
+    //   mapLink: "",
 
-      hours: [
-        {
-          days: "By appointment",
-          time: "Please contact us",
-        },
-      ],
+    //   hours: [
+    //     {
+    //       days: "By appointment",
+    //       time: "Please contact us",
+    //     },
+    //   ],
 
-      bookHref:
-        "https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Germany",
-    },
+    //   bookHref:
+    //     "https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Germany",
+    // },
   ],
 
   /* =======================================================

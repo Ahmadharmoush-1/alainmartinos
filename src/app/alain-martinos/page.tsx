@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-
-import { Reveal } from "@/components/Reveal";
-import { Divider } from "@/components/Divider";
-import { Button } from "@/components/Button";
+import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
-
 import { getContent } from "@/lib/i18n";
 import { alainImages } from "@/lib/images";
 import { SITE_URL } from "@/lib/site";
 
-const t = getContent();
-const a = t.alain;
+const a = getContent().alain;
 
 export const metadata: Metadata = {
   title: `${a.title} – Hairdresser, Visagist, Singer & Collector`,
   description: a.description,
-
   alternates: {
     canonical: "/alain-martinos",
   },
-
   openGraph: {
-    title: `${a.title} | Salon Alain`,
+    title: `${a.title} | Salon Alain Martinos`,
     description: a.description,
     url: "/alain-martinos",
     type: "profile",
   },
 };
+
+const portrait = alainImages[0];
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -38,7 +33,9 @@ const personSchema = {
   description: a.description,
   nationality: ["Lebanese", "German"],
   url: `${SITE_URL}/alain-martinos`,
-  image: `${SITE_URL}${alainImages[0].src}`,
+  ...(portrait
+    ? { image: new URL(portrait.src, SITE_URL).href }
+    : {}),
   worksFor: {
     "@id": `${SITE_URL}/#salon`,
   },
@@ -53,1022 +50,716 @@ const personSchema = {
   ],
 };
 
-/* =========================================================
-   CHAPTER HEADING
-========================================================= */
+const styles = {
+  container: "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12",
+  section: "py-16 sm:py-20 lg:py-24",
+  heading:
+    "font-serif text-[2rem] font-semibold leading-tight tracking-tight sm:text-[2.5rem] lg:text-[3.25rem]",
+  prose: "space-y-5 text-lg leading-8 sm:text-xl",
+  button:
+    "inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full border border-[#7028B5] bg-[#7028B5] px-7 py-3.5 text-center text-base font-bold leading-6 text-white shadow-sm transition-colors hover:border-[#571D90] hover:bg-[#571D90] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7028B5] motion-reduce:transition-none sm:text-lg",
+};
 
-function ChapterHeading({
-  number,
-  title,
-}: {
+type Chapter = {
+  id: string;
   number: string;
   title: string;
-}) {
+  paragraphs: readonly string[];
+  quote?: string;
+  lenses?: readonly {
+    role: string;
+    what: string;
+  }[];
+  identities?: readonly string[];
+  closing?: readonly string[];
+};
+
+type Portrait = {
+  src: string;
+  alt: string;
+};
+
+function Arrow({ className = "" }: { className?: string }) {
   return (
-    <Reveal>
-      <p className="font-serif text-2xl italic text-plum-500">
-        {number}
-      </p>
-
-      <h2 className="mt-2 text-display-lg font-medium">
-        {title}
-      </h2>
-
-      <span
-        aria-hidden="true"
-        className="mt-6 block h-px w-16 bg-plum-500"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      className={`h-5 w-5 shrink-0 ${className}`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4 12h16m-6-6 6 6-6 6"
       />
-    </Reveal>
+    </svg>
   );
 }
 
-/* =========================================================
-   PROSE
-========================================================= */
+function ContactButton({ label }: { label: string }) {
+  return (
+    <Link href="/contact" className={styles.button}>
+      {label}
+      <Arrow />
+    </Link>
+  );
+}
 
 function Prose({
   paragraphs,
-  dropcap = false,
-  delay = 120,
+  dark = false,
 }: {
   paragraphs: readonly string[];
-  dropcap?: boolean;
-  delay?: number;
+  dark?: boolean;
 }) {
   return (
-    <Reveal
-      delay={delay}
-      className="space-y-5 text-[1.05rem] leading-[1.85] text-ink/80"
+    <div
+      className={`${styles.prose} ${
+        dark ? "text-white/90" : "text-[#6527A7]"
+      }`}
     >
-      {paragraphs.map((p, i) => (
-        <p
-          key={i}
-          className={dropcap && i === 0 ? "dropcap" : undefined}
-        >
-          {p}
-        </p>
+      {paragraphs.map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
       ))}
-    </Reveal>
+    </div>
   );
 }
-
-/* =========================================================
-   PHOTO
-========================================================= */
 
 function Photo({
-  img,
-  className = "",
-  sizes = "(max-width: 1024px) 100vw, 40vw",
-  delay = 0,
+  image,
+  priority = false,
+  square = false,
 }: {
-  img: (typeof alainImages)[number];
-  className?: string;
-  sizes?: string;
-  delay?: number;
+  image: Portrait;
+  priority?: boolean;
+  square?: boolean;
 }) {
   return (
-    <Reveal
-      variant="image"
-      delay={delay}
-      className={`relative overflow-hidden ${className}`}
+    <div
+      className={`
+        relative mx-auto w-full max-w-lg overflow-hidden
+        rounded-[2rem] bg-[#D5B7F1]
+        ${square ? "aspect-square" : "aspect-[4/5]"}
+      `}
     >
       <Image
-        src={img.src}
-        alt={img.alt}
+        src={image.src}
+        alt={image.alt}
         fill
-        sizes={sizes}
+        priority={priority}
+        sizes="(max-width: 1024px) 90vw, 42vw"
         className="object-cover object-center"
       />
-    </Reveal>
+    </div>
   );
 }
-
-/* =========================================================
-   PULL QUOTE
-========================================================= */
 
 function PullQuote({
   text,
-  light = false,
+  dark = false,
 }: {
   text: string;
-  light?: boolean;
+  dark?: boolean;
 }) {
   return (
-    <Reveal className="my-6">
-      <blockquote
-        className={`border-l border-plum-500 pl-6 font-serif text-2xl italic leading-snug sm:text-3xl ${
-          light ? "text-cream" : "text-plum-700"
-        }`}
-      >
-        “{text}”
-      </blockquote>
-    </Reveal>
+    <blockquote
+      className={`
+        border-l-2 pl-5 font-serif text-[1.625rem]
+        italic leading-snug sm:pl-6 sm:text-[2rem]
+        ${
+          dark
+            ? "border-white/50 !text-white"
+            : "border-[#A774D1] !text-[#6527A7]"
+        }
+      `}
+    >
+      “{text}”
+    </blockquote>
   );
 }
 
-/* =========================================================
-   PAGE
-========================================================= */
+function ChapterSection({
+  chapter,
+  index,
+}: {
+  chapter: Chapter;
+  index: number;
+}) {
+  const dark = index % 2 === 1;
 
-export default function AlainPage() {
-  const [
-    passion,
-    singer,
-    collector,
-    more,
-    twoWorlds,
-    education,
-  ] = a.chapters;
+  // Chapter II: singer — no image.
+  // Chapter III: Barbie collector — dedicated collection photograph.
+  const image: Portrait | undefined =
+    index === 0
+      ? {
+          src: "/images/alain-intro.jpg",
+          alt: "Alain Martinos",
+        }
+      : index === 2
+        ? {
+            src: "/images/alain-04.jpg",
+            alt: "Alain Martinos’s Barbie collection",
+          }
+        : index === 4
+          ? {
+              src: "/images/about-alain.jpg",
+              alt: "Alain Martinos between Lebanon and Germany",
+            }
+          : undefined;
+
+  const hasLenses = Boolean(chapter.lenses?.length);
+  const hasAside = Boolean(image || hasLenses);
 
   return (
-    <>
-      {/* =====================================================
-          MAIN HERO / MASTHEAD
-      ===================================================== */}
-
-      <section
-        className="
-          relative
-          overflow-hidden
-          bg-cover
-          bg-center
-          bg-no-repeat
-          pt-32
-          sm:pt-40
-        "
-        style={{
-          backgroundImage: "url('/images/footer-bg.jpg')",
-        }}
-      >
-        {/* WHITE OVERLAY */}
-
-        <div className="absolute inset-0 bg-white/55" />
-
-        {/* SOFT LUXURY GRADIENT */}
-
+    <section
+      id={chapter.id}
+      aria-labelledby={`${chapter.id}-heading`}
+      className={`
+        scroll-mt-28 border-t ${styles.section}
+        ${
+          dark
+            ? "border-[#7040AD] bg-gradient-to-br from-[#51218A] via-[#662BA5] to-[#7436B5] text-white"
+            : "border-[#C7A6EB] bg-gradient-to-br from-[#E6D5FA] to-[#D5B7F1] text-[#6527A7]"
+        }
+      `}
+    >
+      <div className={styles.container}>
         <div
+          className={`
+            grid gap-9 lg:gap-14
+            ${
+              hasAside
+                ? "lg:grid-cols-12 lg:items-start"
+                : "mx-auto max-w-3xl"
+            }
+          `}
+        >
+          {/* Chapter text */}
+          <div
+            className={`
+              min-w-0
+              ${hasAside ? "lg:col-span-7" : ""}
+              ${image && index % 2 === 1 ? "lg:order-2" : ""}
+            `}
+          >
+            <header>
+              <p
+                className={`
+                  mb-4 text-sm font-bold uppercase tracking-[0.18em]
+                  ${dark ? "text-white/80" : "text-[#6527A7]"}
+                `}
+              >
+                <span className="sr-only">Chapter </span>
+                {chapter.number}
+              </p>
+
+              <h2
+                id={`${chapter.id}-heading`}
+                className={`
+                  ${styles.heading}
+                  ${dark ? "!text-white" : "!text-[#6527A7]"}
+                `}
+              >
+                {chapter.title}
+              </h2>
+
+              <span
+                aria-hidden="true"
+                className={`
+                  mt-6 block h-px w-14
+                  ${dark ? "bg-white/50" : "bg-[#A774D1]"}
+                `}
+              />
+            </header>
+
+            <div className="mt-7">
+              <Prose paragraphs={chapter.paragraphs} dark={dark} />
+            </div>
+
+            {Boolean(chapter.identities?.length) && (
+              <div className="mt-8 rounded-3xl bg-gradient-to-br from-[#6527A7] to-[#7C3ABD] p-6 text-white sm:p-8">
+                <p className="text-sm font-bold uppercase tracking-[0.18em] text-white/80">
+                  He is
+                </p>
+
+                <ul className="mt-5 space-y-3 font-serif text-[1.625rem] font-semibold leading-tight text-white sm:text-[2rem]">
+                  {chapter.identities?.map((identity) => (
+                    <li key={identity}>{identity}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {Boolean(chapter.closing?.length) && (
+              <div className="mt-7">
+                <Prose
+                  paragraphs={chapter.closing ?? []}
+                  dark={dark}
+                />
+              </div>
+            )}
+
+            {/* Singer quote stays below the text */}
+            {chapter.quote && !image && (
+              <div className="mt-8">
+                <PullQuote text={chapter.quote} dark={dark} />
+              </div>
+            )}
+          </div>
+
+          {/* Chapter image / supporting content */}
+          {hasAside && (
+            <div
+              className={`
+                min-w-0 lg:col-span-5
+                ${image && index % 2 === 1 ? "lg:order-1" : ""}
+              `}
+            >
+              {image && <Photo image={image} />}
+
+              {image && chapter.quote && (
+                <div className="mt-7">
+                  <PullQuote text={chapter.quote} dark={dark} />
+                </div>
+              )}
+
+              {hasLenses && (
+                <dl
+                  className={`
+                    divide-y rounded-3xl border px-6 sm:px-8
+                    ${
+                      dark
+                        ? "divide-white/20 border-white/20 bg-white/10"
+                        : "divide-[#C7A6EB] border-[#C7A6EB] bg-[#E4CFF8]"
+                    }
+                  `}
+                >
+                  {chapter.lenses?.map((lens) => (
+                    <div key={lens.role} className="py-6">
+                      <dt
+                        className={`
+                          font-serif text-[1.625rem]
+                          font-semibold leading-tight
+                          ${dark ? "!text-white" : "!text-[#6527A7]"}
+                        `}
+                      >
+                        {lens.role}
+                      </dt>
+
+                      <dd
+                        className={`
+                          mt-3 text-lg leading-7
+                          ${dark ? "text-white/90" : "text-[#6527A7]"}
+                        `}
+                      >
+                        {lens.what}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function AlainPage() {
+  return (
+    <div className="min-w-0 break-words bg-[#F1E7FC] !text-[#6527A7]">
+      {/* Masthead */}
+      <section
+        aria-labelledby="alain-heading"
+        className="
+          relative isolate overflow-hidden bg-[#D7B7F3]
+          pb-14 pt-28 sm:pb-20 sm:pt-32 lg:pt-36
+        "
+      >
+        <div
+          aria-hidden="true"
           className="
-            absolute
-            inset-0
-            bg-gradient-to-r
-            from-white/50
-            via-white/20
-            to-transparent
+            absolute inset-0 -z-20
+            bg-[url('/images/footer-bg.jpg')] bg-cover bg-center
           "
         />
 
-        {/* CONTENT */}
+        <div
+          aria-hidden="true"
+          className="
+            absolute inset-0 -z-10 bg-gradient-to-r
+            from-[#E6D5FA]/95 via-[#D7B7F3]/90 to-[#BB8BE4]/90
+          "
+        />
 
         <div
-          className="
-            container-page
-            relative
-            z-10
-            grid
-            items-end
-            gap-10
-            pb-16
-            lg:grid-cols-12
-            lg:pb-24
-          "
+          className={`
+            ${styles.container}
+            grid items-center gap-10 lg:grid-cols-12 lg:gap-16
+          `}
         >
-          {/* LEFT */}
-
-          <div className="lg:col-span-7">
-            <p className="kicker animate-rise">
-              Salon Alain · Founder
-            </p>
-
+          <div className="min-w-0 lg:col-span-7">
             <h1
+              id="alain-heading"
               className="
-                mt-4
-                text-display-xl
-                font-medium
-                animate-rise
-                [animation-delay:120ms]
+                mt-5 break-words font-serif text-[3.25rem]
+                font-semibold leading-[1.08] tracking-tight
+                !text-[#6527A7] sm:text-[4rem] lg:text-[4.75rem]
               "
             >
               {a.heading}
             </h1>
 
-            <p
-              className="
-                mt-6
-                flex
-                flex-wrap
-                gap-x-4
-                gap-y-1
-                font-serif
-                text-xl
-                italic
-                text-plum-700
-                animate-rise
-                [animation-delay:240ms]
-              "
+            <ul
+              aria-label="Roles"
+              className="mt-7 flex flex-wrap gap-2.5"
             >
-              {a.roles.map((r, i) => (
-                <span key={r}>
-                  {r}
-
-                  {i < a.roles.length - 1 && (
-                    <span
-                      aria-hidden="true"
-                      className="ml-4 text-plum-300"
-                    >
-                      /
-                    </span>
-                  )}
-                </span>
-              ))}
-            </p>
-          </div>
-
-          {/* RIGHT — ALAIN */}
-
-          <div className="lg:col-span-5">
-            <div
-              className="
-                relative
-                aspect-[4/5]
-                w-full
-                overflow-hidden
-                rounded-[28px]
-                animate-bloom
-                [animation-delay:200ms]
-              "
-            >
-              <Image
-                src={alainImages[0].src}
-                alt={alainImages[0].alt}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          THESIS / INTRO
-      ===================================================== */}
-
-      <section className="py-20 sm:py-28">
-        <div className="container-page mx-auto max-w-3xl">
-          <Reveal>
-            <p className="dropcap text-[1.1rem] leading-[1.85] text-ink/80">
-              {a.intro}
-            </p>
-          </Reveal>
-
-          <Reveal
-            delay={150}
-            className="my-12 text-center"
-          >
-            <Divider className="mb-8" />
-
-            <p
-              className="
-                font-serif
-                text-3xl
-                font-medium
-                italic
-                leading-tight
-                text-plum-700
-                sm:text-4xl
-              "
-            >
-              “{a.thesis}”
-            </p>
-
-            <Divider className="mt-8" />
-          </Reveal>
-
-          <Reveal delay={200}>
-            <p className="text-[1.1rem] leading-[1.85] text-ink/80">
-              {a.introAfter}
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* =====================================================
-          I — A PASSION FOR BEAUTY
-      ===================================================== */}
-
-      <section
-        id={passion.id}
-        className="scroll-mt-24 py-20 sm:py-28"
-      >
-        <div
-          className="
-            container-page
-            grid
-            items-center
-            gap-12
-            lg:grid-cols-12
-            lg:gap-16
-          "
-        >
-          {/* LEFT — TEXT */}
-
-          <div className="lg:col-span-7">
-            <ChapterHeading
-              number={passion.number}
-              title={passion.title}
-            />
-
-            <div className="mt-8">
-              <Prose paragraphs={passion.paragraphs} />
-            </div>
-          </div>
-
-          {/* RIGHT — IMAGE */}
-
-          <div className="lg:col-span-5">
-            <div
-              className="
-                relative
-                mx-auto
-                aspect-[4/5]
-                w-full
-                max-w-[520px]
-                overflow-hidden
-                rounded-[28px]
-              "
-            >
-              <Image
-                src="/images/alain-portrait.jpg"
-                alt="Alain Martinos"
-                fill
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="
-                  object-cover
-                  object-center
-                  transition-transform
-                  duration-[1400ms]
-                  hover:scale-[1.03]
-                "
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          II — THE SINGER
-      ===================================================== */}
-
-      <section
-        id={singer.id}
-        className="
-          scroll-mt-24
-          bg-plum-50/70
-          py-20
-          sm:py-28
-        "
-      >
-        <div
-          className="
-            container-page
-            grid
-            gap-12
-            lg:grid-cols-12
-            lg:gap-16
-          "
-        >
-          <div className="lg:order-2 lg:col-span-7">
-            <ChapterHeading
-              number={singer.number}
-              title={singer.title}
-            />
-
-            <div className="mt-8">
-              <Prose paragraphs={singer.paragraphs} />
-            </div>
-          </div>
-
-          <div className="lg:order-1 lg:col-span-5">
-            <Photo
-              img={alainImages[2]}
-              className="aspect-square"
-            />
-
-            <PullQuote text={singer.quote!} />
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          III — THE COLLECTOR
-      ===================================================== */}
-
-      <section
-        id={collector.id}
-        className="scroll-mt-24 py-20 sm:py-28"
-      >
-        <div className="container-page">
-          <div
-            className="
-              grid
-              gap-12
-              lg:grid-cols-12
-              lg:gap-16
-            "
-          >
-            <div className="lg:col-span-7">
-              <ChapterHeading
-                number={collector.number}
-                title={collector.title}
-              />
-
-              <div className="mt-8">
-                <Prose paragraphs={collector.paragraphs} />
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <Photo
-                img={alainImages[3]}
-                className="aspect-[4/5]"
-              />
-            </div>
-          </div>
-
-          {/* STUDIES */}
-
-          <div
-            className="
-              mt-16
-              grid
-              gap-12
-              border-t
-              border-plum-200/60
-              pt-14
-              lg:grid-cols-12
-            "
-          >
-            <Reveal className="lg:col-span-4">
-              <p className="font-serif text-2xl font-medium text-plum-700">
-                {collector.studies!.title}
-              </p>
-
-              <ul
-                className="
-                  mt-5
-                  grid
-                  grid-cols-2
-                  gap-x-6
-                  gap-y-2
-                  text-[0.95rem]
-                  text-ink/80
-                "
-              >
-                {collector.studies!.items.map((it) => (
-                  <li
-                    key={it}
-                    className="
-                      border-b
-                      border-plum-200/60
-                      py-2
-                    "
-                  >
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-
-            <div className="lg:col-span-7 lg:col-start-6">
-              <Prose
-                paragraphs={collector.closing!}
-                delay={80}
-              />
-
-              <Reveal
-                delay={160}
-                className="
-                  mt-10
-                  grid
-                  gap-6
-                  sm:grid-cols-3
-                "
-              >
-                {collector.triptych!.map((line) => (
-                  <p
-                    key={line}
-                    className="
-                      border-t
-                      border-plum-700
-                      pt-4
-                      font-serif
-                      text-xl
-                      italic
-                      leading-snug
-                      text-plum-700
-                    "
-                  >
-                    {line}
-                  </p>
-                ))}
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          IV — MORE THAN A COLLECTION
-      ===================================================== */}
-
-      <section
-        id={more.id}
-        className="
-          scroll-mt-24
-          silk-bg-dark
-          py-20
-          text-cream
-          sm:py-28
-        "
-      >
-        <div
-          className="
-            container-page
-            grid
-            gap-12
-            lg:grid-cols-12
-            lg:gap-16
-          "
-        >
-          <div className="lg:col-span-5">
-            <Reveal>
-              <p className="font-serif text-2xl italic text-plum-300">
-                {more.number}
-              </p>
-
-              <h2 className="mt-2 text-display-lg font-medium text-cream">
-                {more.title}
-              </h2>
-
-              <span
-                aria-hidden="true"
-                className="mt-6 block h-px w-16 bg-plum-300"
-              />
-            </Reveal>
-
-            <Reveal
-              delay={120}
-              className="
-                mt-8
-                space-y-5
-                text-[1.05rem]
-                leading-[1.85]
-                text-plum-100
-              "
-            >
-              {more.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-6 lg:col-start-7">
-            <ul className="divide-y divide-plum-300/30 border-y border-plum-300/30">
-              {more.lenses!.map((l, i) => (
-                <Reveal
-                  as="li"
-                  key={l.role}
-                  delay={i * 90}
+              {a.roles.map((role) => (
+                <li
+                  key={role}
                   className="
-                    grid
-                    gap-1
-                    py-6
-                    sm:grid-cols-5
-                    sm:gap-6
+                    rounded-full border border-[#B58ADC]
+                    bg-[#EBDDFA] px-4 py-2
+                    text-base font-medium text-[#6527A7]
                   "
                 >
-                  <span className="font-serif text-xl italic text-plum-200 sm:col-span-2">
-                    {l.role}
-                  </span>
-
-                  <span className="text-plum-50 sm:col-span-3">
-                    {l.what}
-                  </span>
-                </Reveal>
+                  {role}
+                </li>
               ))}
             </ul>
 
-            <Reveal
-              delay={400}
-              className="mt-10"
-            >
-              <p
-                className="
-                  font-serif
-                  text-2xl
-                  italic
-                  leading-snug
-                  text-cream
-                  sm:text-3xl
-                "
-              >
-                {more.closing![0]}
-              </p>
-            </Reveal>
+            <div className="mt-8">
+              <ContactButton label={a.cta} />
+            </div>
           </div>
+
+          {portrait && (
+            <div className="lg:col-span-5">
+              <Photo image={portrait} priority />
+            </div>
+          )}
         </div>
       </section>
 
-      {/* =====================================================
-          V — A LIFE BETWEEN TWO WORLDS
-      ===================================================== */}
-
-      <section
-        id={twoWorlds.id}
-        className="scroll-mt-24 py-20 sm:py-28"
+      {/* Chapter navigation */}
+      <nav
+        aria-label="Biography chapters"
+        className="border-y border-[#B58ADC] bg-[#DCC2F5]"
       >
-        <div
-          className="
-            container-page
-            grid
-            items-center
-            gap-12
-            lg:grid-cols-12
-            lg:gap-16
-          "
+        <ol
+          className={`
+            ${styles.container}
+            grid gap-2 py-5 sm:grid-cols-2 lg:grid-cols-3
+          `}
         >
-          {/* LEFT — DIRECT PATH IMAGE */}
-
-          <div className="lg:col-span-5">
-            <Reveal variant="image">
-              <div
+          {a.chapters.map((chapter) => (
+            <li key={chapter.id} className="min-w-0">
+              <a
+                href={`#${chapter.id}`}
                 className="
-                  relative
-                  aspect-[4/5]
-                  w-full
-                  overflow-hidden
-                  rounded-[28px]
+                  flex min-h-[48px] items-center gap-3
+                  rounded-xl px-3 py-3 text-base font-medium
+                  leading-6 text-[#6527A7] transition-colors
+                  hover:bg-[#C9A2EB]
+                  focus-visible:outline focus-visible:outline-2
+                  focus-visible:outline-offset-2
+                  focus-visible:outline-[#7028B5]
+                  motion-reduce:transition-none
                 "
               >
-           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[28px]">
-  <Image
-    src="/images/about-alain.jpg"
-    alt="Alain Martinos between Lebanon and Germany"
-    fill
-    sizes="(max-width: 1024px) 100vw, 40vw"
-    className="
-      object-cover
-      object-center
-      transition-transform
-      duration-[1400ms]
-      ease-out
-      hover:scale-[1.03]
-    "
-  />
-</div>
-              </div>
-            </Reveal>
-          </div>
+                <span className="w-9 shrink-0 text-sm font-bold text-[#6527A7]">
+                  {chapter.number}
+                </span>
 
-          {/* RIGHT — TEXT */}
+                {chapter.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
 
-          <div className="lg:col-span-7">
-            <ChapterHeading
-              number={twoWorlds.number}
-              title={twoWorlds.title}
-            />
+      {/* Introduction */}
+      <section
+        aria-label="Introduction"
+        className={`
+          ${styles.section}
+          [&_p]:!text-[#6527A7]
+          [&_strong]:!text-[#6527A7]
+          [&_em]:!text-[#6527A7]
+        `}
+      >
+        <div className={`${styles.container} max-w-4xl`}>
+          <Prose paragraphs={[a.intro]} />
 
-            <div className="mt-8">
-              <Prose paragraphs={twoWorlds.paragraphs} />
-            </div>
-
-            <Reveal
-              delay={200}
-              className="
-                mt-10
-                border-l
-                border-plum-500
-                pl-6
-              "
-            >
-              <p
-                className="
-                  font-sans
-                  text-[0.65rem]
-                  uppercase
-                  tracking-wider2
-                  text-plum-500
-                "
-              >
-                He is
-              </p>
-
-              <ul
-                className="
-                  mt-3
-                  font-serif
-                  text-2xl
-                  leading-snug
-                  text-ink
-                  sm:text-3xl
-                "
-              >
-                {twoWorlds.identities!.map((identity) => (
-                  <li key={identity}>
-                    {identity}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-
-            <div className="mt-8">
-              <Prose
-                paragraphs={twoWorlds.closing!}
-                delay={280}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          INSPIRATION
-      ===================================================== */}
-
-      <section className="bg-plum-50/70 py-20 sm:py-28">
-        <div className="container-page">
-          <Reveal className="text-center">
-            <Divider className="mx-auto mb-8 max-w-xs" />
-
-            <h2 className="text-display-lg font-medium">
-              {a.inspiration.title}
-            </h2>
-          </Reveal>
-
-          <ul
+          <blockquote
             className="
-              mt-14
-              grid
-              gap-x-10
-              gap-y-12
-              sm:grid-cols-2
-              lg:grid-cols-4
+              my-9 rounded-3xl border border-[#7439B3]
+              bg-gradient-to-br from-[#6527A7] to-[#7938BB]
+              px-6 py-8 text-center font-serif text-[2rem]
+              italic leading-snug !text-white
+              sm:px-10 sm:py-10 sm:text-[2.5rem]
             "
           >
-            {a.inspiration.items.map((it, i) => (
-              <Reveal
-                as="li"
-                key={it.title}
-                delay={i * 90}
+            “{a.thesis}”
+          </blockquote>
+
+          <Prose paragraphs={[a.introAfter]} />
+        </div>
+      </section>
+
+      {/* Biography chapters */}
+      {a.chapters.map((chapter, index) => (
+        <ChapterSection
+          key={chapter.id}
+          chapter={chapter}
+          index={index}
+        />
+      ))}
+
+      {/* Inspiration */}
+      <section
+        aria-labelledby="inspiration-heading"
+        className={`
+          border-t border-[#C7A6EB] bg-[#DDC3F5]
+          ${styles.section}
+          !text-[#6527A7]
+          [&_h2]:!text-[#6527A7]
+          [&_h3]:!text-[#6527A7]
+          [&_p]:!text-[#6527A7]
+          [&_li]:!text-[#6527A7]
+          [&_span]:!text-[#6527A7]
+          [&_strong]:!text-[#6527A7]
+        `}
+      >
+        <div className={styles.container}>
+          <h2
+            id="inspiration-heading"
+            className={`
+              ${styles.heading}
+              mx-auto max-w-3xl text-center !text-[#6527A7]
+            `}
+          >
+            {a.inspiration.title}
+          </h2>
+
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {a.inspiration.items.map((item, index) => (
+              <li
+                key={item.title}
                 className="
-                  border-t
-                  border-plum-700
-                  pt-5
+                  group min-w-0 rounded-3xl
+                  border border-[#BE94E5]
+                  bg-gradient-to-br from-[#F1E4FB]
+                  via-[#E7D2F7] to-[#DDC3F5]
+                  p-6 !text-[#6527A7]
+                  shadow-[0_12px_35px_rgba(101,39,167,0.08)]
+                  transition-all duration-500
+                  hover:-translate-y-1 hover:border-[#A977D5]
+                  hover:shadow-[0_20px_45px_rgba(101,39,167,0.14)]
+                  sm:p-7 [&_*]:!text-[#6527A7]
                 "
               >
-                <h3 className="font-serif text-2xl font-medium leading-tight">
-                  {it.title}
+                <span
+                  aria-hidden="true"
+                  className="!text-sm !font-bold tracking-widest !text-[#6527A7]/70"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <h3 className="mt-6 font-serif !text-[1.625rem] !font-semibold !leading-tight !text-[#6527A7]">
+                  {item.title}
                 </h3>
 
-                <p className="mt-1 font-serif text-lg italic text-plum-500">
-                  {it.sub}
+                <p className="mt-3 font-serif !text-2xl italic !leading-snug !text-[#6527A7]">
+                  {item.sub}
                 </p>
 
-                <p className="mt-4 text-[0.95rem] leading-relaxed text-ink/75">
-                  {it.desc}
+                <p className="mt-5 !text-lg !font-medium !leading-7 !text-[#6527A7]">
+                  {item.desc}
                 </p>
-              </Reveal>
+              </li>
             ))}
           </ul>
 
-          <div className="mx-auto mt-20 max-w-3xl text-center">
-            <Reveal>
-              <p className="text-[1.05rem] leading-[1.85] text-ink/80">
-                {a.inspiration.resilience.lead}
-              </p>
-            </Reveal>
+          {/* Resilience */}
+          <div className="mx-auto mt-12 max-w-3xl text-center lg:mt-16 [&_p]:!text-[#6527A7]">
+            <p className="!text-lg !font-medium !leading-8 !text-[#6527A7] sm:!text-xl">
+              {a.inspiration.resilience.lead}
+            </p>
 
-            <Reveal
-              delay={150}
+            <div
               className="
-                mt-10
-                space-y-2
-                font-serif
-                text-3xl
-                font-medium
-                leading-tight
-                sm:text-4xl
+                mt-7 space-y-3 font-serif !text-[1.625rem]
+                !font-semibold !leading-snug !text-[#6527A7]
+                sm:!text-[2rem] [&_p]:!text-[#6527A7]
               "
             >
-              {a.inspiration.resilience.lines.map((line, i) => (
+              {a.inspiration.resilience.lines.map((line, index) => (
                 <p
                   key={line}
-                  className={
-                    i ===
-                    a.inspiration.resilience.lines.length - 1
-                      ? "mt-6 italic text-plum-700"
-                      : ""
-                  }
+                  className={`
+                    !text-[#6527A7]
+                    ${
+                      index === a.inspiration.resilience.lines.length - 1
+                        ? "italic"
+                        : ""
+                    }
+                  `}
                 >
                   {line}
                 </p>
               ))}
-            </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          THE MEANING
-      ===================================================== */}
-
-      <section className="py-20 sm:py-28">
-        <div className="container-page">
+      {/* Meaning */}
+      <section
+        aria-labelledby="meaning-heading"
+        className={`
+          ${styles.section}
+          !text-[#6527A7]
+          [&_h2]:!text-[#6527A7]
+          [&_p]:!text-[#6527A7]
+          [&_li]:!text-[#6527A7]
+          [&_span]:!text-[#6527A7]
+          [&_strong]:!text-[#6527A7]
+          [&_svg]:!text-[#6527A7]
+        `}
+      >
+        <div className={styles.container}>
           <div className="mx-auto max-w-3xl">
-            <Reveal className="text-center">
-              <h2 className="text-display-lg font-medium">
-                {a.meaning.title}
-              </h2>
+            <h2
+              id="meaning-heading"
+              className={`${styles.heading} text-center !text-[#6527A7]`}
+            >
+              {a.meaning.title}
+            </h2>
 
-              <span
-                aria-hidden="true"
-                className="
-                  mx-auto
-                  mt-6
-                  block
-                  h-px
-                  w-16
-                  bg-plum-500
-                "
-              />
-            </Reveal>
+            <p className="mt-7 !text-lg !font-medium !leading-8 !text-[#6527A7] sm:!text-xl">
+              {a.meaning.lead}
+            </p>
 
-            <Reveal delay={120}>
-              <p className="mt-10 text-[1.05rem] leading-[1.85] text-ink/80">
-                {a.meaning.lead}
-              </p>
-            </Reveal>
-
-            <Reveal
-              delay={180}
+            <ul
               className="
-                mt-8
-                font-serif
-                text-2xl
-                italic
-                leading-relaxed
-                text-plum-700
+                mt-7 space-y-3 border-l-2 border-[#C7A6EB]
+                pl-6 font-serif !text-[1.625rem]
+                !text-[#6527A7] italic leading-snug
+                sm:!text-[2rem] [&_li]:!text-[#6527A7]
               "
             >
-              {a.meaning.passions.map((p) => (
-                <p key={p}>{p}</p>
+              {a.meaning.passions.map((passion) => (
+                <li key={passion} className="!text-[#6527A7]">
+                  {passion}
+                </li>
               ))}
-            </Reveal>
+            </ul>
           </div>
 
-          <ul
-            className="
-              mx-auto
-              mt-16
-              grid
-              max-w-5xl
-              gap-8
-              sm:grid-cols-2
-            "
-          >
-            {a.meaning.arcs.map((arc, i) => (
-              <Reveal
-                as="li"
+          {/* Meaning cards */}
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-2">
+            {a.meaning.arcs.map((arc) => (
+              <li
                 key={arc.from}
-                delay={i * 90}
                 className="
-                  border-t
-                  border-plum-200
-                  pt-5
+                  rounded-3xl border border-[#BE94E5]
+                  bg-[#DDC3F5] p-6 !text-[#6527A7]
+                  sm:p-8 [&_*]:!text-[#6527A7]
                 "
               >
-                <p className="font-sans text-[0.68rem] uppercase tracking-wider2 text-plum-500">
+                <p className="!text-sm !font-bold uppercase !leading-6 tracking-[0.14em] !text-[#6527A7]">
                   {arc.from}
                 </p>
 
-                <p className="mt-2 font-serif text-2xl font-medium leading-snug">
+                <Arrow className="my-4 !text-[#6527A7]" />
+
+                <p className="font-serif !text-[1.625rem] !font-semibold !leading-snug !text-[#6527A7] sm:!text-[2rem]">
                   {arc.to}
                 </p>
-              </Reveal>
+              </li>
             ))}
           </ul>
 
-          <Reveal
+          <div
             className="
-              mx-auto
-              mt-16
-              max-w-3xl
-              text-center
-              font-serif
-              text-2xl
-              leading-snug
-              text-ink
-              sm:text-3xl
+              mx-auto mt-10 max-w-3xl space-y-4
+              text-center font-serif !text-[1.625rem]
+              !text-[#6527A7] leading-snug
+              sm:!text-[2rem] [&_p]:!text-[#6527A7]
             "
           >
-            {a.meaning.closing.map((c) => (
-              <p
-                key={c}
-                className="mt-3"
-              >
-                {c}
+            {a.meaning.closing.map((line) => (
+              <p key={line} className="!text-[#6527A7]">
+                {line}
               </p>
             ))}
-          </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* =====================================================
-          FINAL QUOTE
-      ===================================================== */}
-
+      {/* Closing statement */}
       <section
-        className="
-          silk-bg-dark
-          relative
-          overflow-hidden
-          py-28
-          text-center
-          text-cream
-          sm:py-40
-        "
+        aria-label="A personal reflection"
+        className={`
+          border-t border-[#B58ADC] bg-gradient-to-br
+          from-[#D5B5F2] via-[#DFC4F8] to-[#C59AE9]
+          ${styles.section}
+        `}
       >
-        <div className="container-page">
-          <Reveal>
-            <Divider
-              light
-              className="mx-auto mb-12 max-w-xs"
-            />
-
-            <blockquote className="mx-auto max-w-4xl">
-              {a.finalQuote.lines.map((line, i) => (
-                <p
-                  key={line}
-                  className="
-                    font-serif
-                    text-3xl
-                    font-medium
-                    leading-tight
-                    sm:text-5xl
-                  "
-                  style={{
-                    transitionDelay: `${i * 120}ms`,
-                  }}
-                >
-                  {line}
-                </p>
+        <div className={`${styles.container} text-center`}>
+          <figure className="mx-auto max-w-4xl">
+            <blockquote
+              className="
+                space-y-3 font-serif text-[2rem]
+                font-semibold leading-tight tracking-tight
+                !text-[#6527A7] [&_p]:!text-[#6527A7]
+                sm:text-[2.5rem] lg:text-[3.25rem]
+              "
+            >
+              {a.finalQuote.lines.map((line) => (
+                <p key={line}>{line}</p>
               ))}
-
-              <footer
-                className="
-                  mt-10
-                  font-sans
-                  text-[0.72rem]
-                  uppercase
-                  tracking-[0.34em]
-                  text-plum-200
-                "
-              >
-                — {a.finalQuote.attribution}
-              </footer>
             </blockquote>
 
-            <Divider
-              light
-              className="mx-auto mt-12 max-w-xs"
-            />
+            <figcaption className="mt-7 text-sm font-bold uppercase leading-6 tracking-[0.18em] text-[#6527A7]">
+              — {a.finalQuote.attribution}
+            </figcaption>
+          </figure>
 
-            <div className="mt-12">
-              <Button
-                href="/contact"
-                variant="light"
-                size="lg"
-              >
-                {a.cta}
-              </Button>
-            </div>
-          </Reveal>
+          <div className="mt-9">
+            <ContactButton label={a.cta} />
+          </div>
         </div>
       </section>
 
-      <CtaBand />
-
-      {/* SEO STRUCTURED DATA */}
+      {/* Shared CTA */}
+      <div
+        className="
+          [&_a]:!border-[#7028B5]
+          [&_a]:!bg-[#7028B5]
+          [&_a]:!text-white
+          [&_a:hover]:!bg-[#571D90]
+          [&_a_span]:!text-white
+          [&_button]:!border-[#7028B5]
+          [&_button]:!bg-[#7028B5]
+          [&_button]:!text-white
+          [&_button:hover]:!bg-[#571D90]
+          [&_button_span]:!text-white
+        "
+      >
+        <CtaBand />
+      </div>
 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personSchema),
+          __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
         }}
       />
-    </>
+    </div>
   );
 }

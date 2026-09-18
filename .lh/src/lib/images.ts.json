@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 19,
             "patches": [
                 {
                     "date": 1789321645606,
@@ -72,6 +72,18 @@
                 {
                     "date": 1789393487413,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n export const alainImages: SiteImage[] = [\n   { src: \"/images/alain-01.jpg\", alt: \"Alain Martinos in the salon\", width: 1200, height: 1500 },\n   { src: \"/images/alain-02.jpg\", alt: \"Alain Martinos at work\", width: 1200, height: 1500 },\n   { src: \"/images/alain-03.jpg\", alt: \"Alain Martinos performing\", width: 1200, height: 1200 },\n-  { src: \"C:\\Users\\GamingCorner\\Desktop\\salon-alain\\public\\images\\alain-04.jpg\", alt: \"Part of Alain's Barbie collection\", width: 1200, height: 1500 },\n+  { src: \"/images\\alain-04.jpg\", alt: \"Part of Alain's Barbie collection\", width: 1200, height: 1500 },\n   { src: \"/images/alain-05.jpg\", alt: \"Alain Martinos between Lebanon and Germany\", width: 1200, height: 1500 },\n ];\n \n export const heroImages = {\n"
+                },
+                {
+                    "date": 1789548748216,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,12 +42,12 @@\n   { src: \"/images/work-12.jpg\", alt: \"Complete beauty transformation\", title: \"Complete transformation\", category: [\"transformations\", \"before-after\", \"color\"], width: 1200, height: 1300 },\n ];\n \n export const alainImages: SiteImage[] = [\n-  { src: \"/images/alain-01.jpg\", alt: \"Alain Martinos in the salon\", width: 1200, height: 1500 },\n+  { src: \"C:\\Users\\GamingCorner\\Desktop\\salon-alain\\public\\images\\alain-intro.jpg\", alt: \"Alain Martinos in the salon\", width: 1200, height: 1500 },\n   { src: \"/images/alain-02.jpg\", alt: \"Alain Martinos at work\", width: 1200, height: 1500 },\n   { src: \"/images/alain-03.jpg\", alt: \"Alain Martinos performing\", width: 1200, height: 1200 },\n-  { src: \"/images\\alain-04.jpg\", alt: \"Part of Alain's Barbie collection\", width: 1200, height: 1500 },\n+  { src: \"/images/alain-04.jpg\", alt: \"Part of Alain's Barbie collection\", width: 1200, height: 1500 },\n   { src: \"/images/alain-05.jpg\", alt: \"Alain Martinos between Lebanon and Germany\", width: 1200, height: 1500 },\n ];\n \n export const heroImages = {\n"
+                },
+                {
+                    "date": 1789548754776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n   { src: \"/images/work-12.jpg\", alt: \"Complete beauty transformation\", title: \"Complete transformation\", category: [\"transformations\", \"before-after\", \"color\"], width: 1200, height: 1300 },\n ];\n \n export const alainImages: SiteImage[] = [\n-  { src: \"/images\\alain-intro.jpg\", alt: \"Alain Martinos in the salon\", width: 1200, height: 1500 },\n+  { src: \"/images/alain-intro.jpg\", alt: \"Alain Martinos in the salon\", width: 1200, height: 1500 },\n   { src: \"/images/alain-02.jpg\", alt: \"Alain Martinos at work\", width: 1200, height: 1500 },\n   { src: \"/images/alain-03.jpg\", alt: \"Alain Martinos performing\", width: 1200, height: 1200 },\n   { src: \"/images/alain-04.jpg\", alt: \"Part of Alain's Barbie collection\", width: 1200, height: 1500 },\n   { src: \"/images/alain-05.jpg\", alt: \"Alain Martinos between Lebanon and Germany\", width: 1200, height: 1500 },\n"
+                },
+                {
+                    "date": 1789558329057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,5 +102,6 @@\n   {\n     src: \"/videos/alain-video-4.mp4\",\n     title: \"The Art of Hair\",\n   },\n+  \n ];\n"
                 }
             ],
             "date": 1789321645606,

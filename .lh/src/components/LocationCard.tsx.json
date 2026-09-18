@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/LocationCard.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1789548181165,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1789548181165,
+            "name": "Commit-0",
+            "content": "import { Button } from \"./Button\";\nimport { site } from \"@/lib/site\";\nimport { getContent } from \"@/lib/i18n\";\n\nconst t = getContent();\ntype Location = (typeof site.locations)[number];\n\nexport function LocationCard({ location, showMap = true }: { location: Location; showMap?: boolean }) {\n  return (\n    <article className=\"border-t border-plum-700 pt-6\">\n      <p className=\"kicker\">{location.country}</p>\n      <h3 className=\"mt-2 text-display-sm font-medium\">{location.title}</h3>\n      <address className=\"mt-4 not-italic leading-relaxed text-ink/80\">\n        {location.addressLines.map((l, i) => (\n          <span key={i} className=\"block\">{l}</span>\n        ))}\n      </address>\n\n      {showMap && (\n        <div className=\"mt-6 aspect-[4/3] w-full overflow-hidden bg-plum-50\">\n          {location.mapEmbed ? (\n            <iframe\n              src={location.mapEmbed}\n              title={`Map – ${location.title}`}\n              loading=\"lazy\"\n              referrerPolicy=\"no-referrer-when-downgrade\"\n              className=\"h-full w-full border-0\"\n            />\n          ) : (\n            <div className=\"silk-bg flex h-full w-full flex-col items-center justify-center gap-2 text-center\">\n              <svg viewBox=\"0 0 24 24\" className=\"h-7 w-7 text-plum-500\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.2\" aria-hidden=\"true\">\n                <path d=\"M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11z\" />\n                <circle cx=\"12\" cy=\"10\" r=\"2.2\" />\n              </svg>\n              {/* <span className=\"font-serif text-lg italic text-plum-700\">{t.salon.mapPlaceholder}</span> */}\n            </div>\n          )}\n        </div>\n      )}\n\n      <dl className=\"mt-6 space-y-2 text-sm\">\n        <dt className=\"font-sans text-[0.65rem] font-medium uppercase tracking-wider2 text-plum-500\">{t.salon.hoursTitle}</dt>\n        {location.hours.map((h) => (\n          <dd key={h.days} className=\"flex justify-between gap-4 border-b border-plum-200/60 pb-2 text-ink/80\">\n            <span>{h.days}</span>\n            <span className=\"text-plum-700\">{h.time}</span>\n          </dd>\n        ))}\n      </dl>\n\n      <div className=\"mt-6 flex flex-wrap gap-3\">\n        <Button href={location.bookHref} size=\"md\">{t.salon.book}</Button>\n        {location.mapLink && (\n          <Button href={location.mapLink} variant=\"ghost\">{t.salon.openInMaps}</Button>\n        )}\n      </div>\n    </article>\n  );\n}\n"
+        }
+    ]
+}

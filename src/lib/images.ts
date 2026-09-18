@@ -43,7 +43,7 @@ export const workImages: WorkImage[] = [
 ];
 
 export const alainImages: SiteImage[] = [
-  { src: "/images/alain-01.jpg", alt: "Alain Martinos in the salon", width: 1200, height: 1500 },
+  { src: "/images/alain-intro.jpg", alt: "Alain Martinos in the salon", width: 1200, height: 1500 },
   { src: "/images/alain-02.jpg", alt: "Alain Martinos at work", width: 1200, height: 1500 },
   { src: "/images/alain-03.jpg", alt: "Alain Martinos performing", width: 1200, height: 1200 },
   { src: "/images/alain-04.jpg", alt: "Part of Alain's Barbie collection", width: 1200, height: 1500 },
@@ -102,5 +102,24 @@ export const videos = [
   {
     src: "/videos/alain-video-4.mp4",
     title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-5.mp4",
+    title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-6.mp4",
+    title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-7.mp4",
+    title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-8.mp4",
+    title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-9.mp4",
+    title: "The Art of Hair",
+  }, {
+    src: "/videos/alain-video-10.mp4",
+    title: "The Art of Hair",
   },
+  
 ];
