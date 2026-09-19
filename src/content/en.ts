@@ -93,75 +93,549 @@ export const en = {
       { slug: "beauty-transformations", name: "Beauty Transformations", short: "A complete personalized approach combining color, cut, styling and visual harmony.", group: "transformations" },
     ],
     page: {
-      title: "Services",
-      description: "Haircuts, hair color, balayage, highlights, glossing, brushing & styling, face-framing and complete beauty transformations by Alain Martinos in Lebanon and Germany.",
-      heading: "Services",
-      subtitle: "Beauty designed around you.",
-      intro: "Every service begins with a conversation. Alain Martinos studies your features, your hair and the life you live, then designs a look that belongs to you alone.",
-      bookThis: "Book This Service",
-      durationLabel: "Duration",
-      priceLabel: "From",
-      priceNote: "Prices are indicative and confirmed during your consultation.",
-      groups: [
+      "title": "Services",
+      "description": "Explore haircuts, hair color, balayage, highlights, treatments, extensions, brows, lashes, threading, laser hair removal, bridal styling and signature services at Salon Alain Hair & Beauty.",
+      "heading": "Services",
+      "subtitle": "Beauty designed around you.",
+      "intro": "Every service begins with a conversation. Your features, your hair and the life you live inspire a look that belongs to you alone.",
+      "bookThis": "Book This Service",
+      "durationLabel": "Duration",
+      "priceLabel": "From",
+      "priceNote": "Prices and treatment durations are confirmed during your consultation.",
+      "groups": [
         {
-          id: "cut",
-          title: "Cut",
-          lead: "Precision shaping that respects the way your hair falls and the way you move.",
-          items: [
-            { name: "Signature Haircut", desc: "A personalized cut designed around face shape, personality and lifestyle, finished with a blow-dry.", duration: "60 min", price: "—" },
-            { name: "Restyle & Reshape", desc: "A complete change of length or shape, planned together during a dedicated consultation.", duration: "75 min", price: "—" },
-            { name: "Fringe & Maintenance", desc: "Keep your signature cut sharp between full appointments.", duration: "20 min", price: "—" },
-          ],
+          "id": "cut",
+          "title": "Hair — Cut & Styling",
+          "lead": "Considered cuts and polished styling, shaped around you.",
+          "items": [
+            {
+              "name": "Hair consultation",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Women’s haircut",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Men’s haircut",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Children’s haircut",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Wash & blow-dry",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Blow-dry styling",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Straightening",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Waves & curls",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Curtain bangs",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Layered haircut",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Special occasion styling",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Updos & elegant hairstyles",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
         {
-          id: "color",
-          title: "Color",
-          lead: "Depth, dimension and elegance — color that looks like it grew that way.",
-          items: [
-            { name: "Full Color", desc: "Professional color transformation with depth and shine, matched to your skin tone and eyes.", duration: "90 min", price: "—" },
-            { name: "Root Touch-Up", desc: "Seamless regrowth coverage that blends invisibly into your existing color.", duration: "60 min", price: "—" },
-            { name: "Color Correction", desc: "Careful, multi-step correction for color that didn't turn out as planned.", duration: "By consultation", price: "—" },
-          ],
+          "id": "color",
+          "title": "Hair Color",
+          "lead": "Personalized color, from subtle refreshes to a new look.",
+          "items": [
+            {
+              "name": "Root color",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Full hair color",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Color refresh",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "2 in 1: Roots + Highlights + Gloss",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Gloss / toner",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Color correction",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Grey coverage",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Blonde transformation",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Brunette transformation",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Fashion colors",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Face-framing color",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
         {
-          id: "balayage",
-          title: "Balayage & Highlights",
-          lead: "Hand-painted light — natural, luminous and seamlessly blended.",
-          items: [
-            { name: "Balayage", desc: "Sun-kissed, low-maintenance dimension painted by hand for a soft, natural grow-out.", duration: "150 min", price: "—" },
-            { name: "Highlights", desc: "Classic and modern foil techniques customized to every client, from subtle to bright.", duration: "120 min", price: "—" },
-            { name: "Face-Framing Highlights", desc: "Strategically placed brightness around the face to open up and illuminate your features.", duration: "75 min", price: "—" },
-          ],
+          "id": "balayage",
+          "title": "Highlights & Balayage",
+          "lead": "Light, dimension and beautifully blended color.",
+          "items": [
+            {
+              "name": "Classic highlights",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Babylights",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Balayage with foils",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Balayage without foils",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hair painting — full",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hair painting — partial",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Face-framing balayage",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Full balayage",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Partial balayage",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Ombré",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Highlights + toner",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Balayage + gloss",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Blonde correction",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
         {
-          id: "treatments",
-          title: "Treatments",
-          lead: "Restore, refresh and protect.",
-          items: [
-            { name: "Glossing", desc: "Enhance shine, refresh tone and restore vibrancy between color appointments.", duration: "45 min", price: "—" },
-            { name: "Deep Repair Treatment", desc: "Intensive nourishment for hair that has been colored, heat-styled or exposed to the sun.", duration: "45 min", price: "—" },
-          ],
+          "id": "treatments",
+          "title": "Hair Treatments",
+          "lead": "Dedicated care for your hair and scalp.",
+          "items": [
+            {
+              "name": "Olaplex / Wellaplex treatment",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Intensive hair repair",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hydration treatment",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Nourishing treatment",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Anti-frizz treatment",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Keratin treatment",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hair reconstruction",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Scalp care",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
         {
-          id: "styling",
-          title: "Styling",
-          lead: "Elegant styling for everyday confidence or special occasions.",
-          items: [
-            { name: "Brushing", desc: "A polished blow-dry finish — smooth, voluminous or softly waved.", duration: "45 min", price: "—" },
-            { name: "Occasion Styling", desc: "Editorial styling for weddings, evenings and moments that deserve to be remembered.", duration: "60–90 min", price: "—" },
-            { name: "Bridal Hair", desc: "A trial session and wedding-day styling, planned around your dress, veil and vision.", duration: "By consultation", price: "—" },
-          ],
+          "id": "extensions",
+          "title": "Hair Extensions",
+          "lead": "Length, fullness and a carefully matched finish.",
+          "items": [
+            {
+              "name": "Hair extensions consultation",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hair lengthening",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Hair volume enhancement",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Extension maintenance",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Color matching",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
         {
-          id: "transformations",
-          title: "Transformations",
-          lead: "A complete personalized approach combining color, cut, styling and visual harmony.",
-          items: [
-            { name: "Beauty Transformation", desc: "Cut, color and styling designed together as one composition — the full Salon Alain Martinos experience.", duration: "Half day", price: "—" },
-            { name: "Visagist Consultation", desc: "Alain Martinos' trained eye for faces: a personal analysis of features, color harmony and the looks that will suit you best.", duration: "45 min", price: "—" },
-          ],
+          "id": "brows-lashes",
+          "title": "Brows & Lashes",
+          "lead": "Thoughtful details that frame your features.",
+          "items": [
+            {
+              "name": "Eyebrow shaping",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Eyebrow threading",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Eyebrow tint",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Brow lifting",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Eyelash tinting",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
         },
-      ],
+        {
+          "id": "laser",
+          "title": "Laser Hair Removal",
+          "lead": "Diode Laser • Alexandrite • Nd:YAG. Three technologies for different skin and hair characteristics, with treatment selection discussed during consultation.",
+          "items": [
+            {
+              "name": "Face",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Underarms",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Arms",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Legs",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Bikini",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Full body",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Men’s laser hair removal",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Women’s laser hair removal",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
+        },
+        {
+          "id": "threading",
+          "title": "Threading",
+          "lead": "Precise shaping and facial hair removal.",
+          "items": [
+            {
+              "name": "Eyebrow threading",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Upper lip",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Chin",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Full face",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Men’s facial threading",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
+        },
+        {
+          "id": "bridal",
+          "title": "Bridal & Special Events",
+          "lead": "Personal styling for the moments you want to remember.",
+          "items": [
+            {
+              "name": "Bridal hair",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Bridal trial",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Bridesmaids styling",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Event hair & styling",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Photo-shoot styling",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Complete hair + make-up packages",
+              "desc": "",
+              "duration": "",
+              "price": ""
+            }
+          ]
+        },
+        {
+          "id": "signature",
+          "title": "Signature Services",
+          "lead": "Done personally by Alain Martinos.",
+          "items": [
+            {
+              "name": "Alain Martinos Signature Color",
+              "desc": "Personalized color designed around your skin tone, eye color, natural hair and desired image.",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Alain Martinos Balayage",
+              "desc": "Customized balayage with face framing, dimensional highlights and professional toning.",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Alain Martinos Signature Cut",
+              "desc": "A personalized haircut designed according to your face shape, hair texture and lifestyle.",
+              "duration": "",
+              "price": ""
+            },
+            {
+              "name": "Alain Martinos Glam Make-up",
+              "desc": "Professional make-up for events, photography and special occasions.",
+              "duration": "",
+              "price": ""
+            }
+          ]
+        }
+      ]
     },
   },
 
