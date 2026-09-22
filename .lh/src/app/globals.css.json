@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1789553731320,
@@ -32,6 +32,26 @@
                 {
                     "date": 1790085099908,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -494,66 +494,4 @@\n     font-size: 1rem;\r\n     line-height: 1.8;\r\n   }\r\n }\r\n-.laser-wave {\r\n-  animation: laser-wave-float 3s ease-in-out infinite;\r\n-}\r\n-\r\n-.laser-wave-shine {\r\n-  animation: laser-wave-shine 3s ease-in-out infinite;\r\n-}\r\n-\r\n-.laser-wave-icon {\r\n-  animation: laser-spark 2.2s ease-in-out infinite;\r\n-}\r\n-\r\n-@keyframes laser-wave-float {\r\n-  0%,\r\n-  100% {\r\n-    transform: translateY(0);\r\n-    border-color: rgba(181, 122, 205, 0.2);\r\n-    box-shadow: 0 2px 8px rgba(76, 21, 100, 0.1);\r\n-  }\r\n-\r\n-  50% {\r\n-    transform: translateY(-4px);\r\n-    border-color: rgba(228, 181, 255, 0.75);\r\n-    box-shadow: 0 0 24px rgba(181, 122, 205, 0.5);\r\n-  }\r\n-}\r\n-\r\n-@keyframes laser-wave-shine {\r\n-  0% {\r\n-    transform: translateX(-220%);\r\n-    opacity: 0;\r\n-  }\r\n-\r\n-  20% {\r\n-    opacity: 1;\r\n-  }\r\n-\r\n-  55%,\r\n-  100% {\r\n-    transform: translateX(320%);\r\n-    opacity: 0;\r\n-  }\r\n-}\r\n-\r\n-@keyframes laser-spark {\r\n-  0%,\r\n-  100% {\r\n-    transform: rotate(0deg) scale(1);\r\n-  }\r\n-\r\n-  50% {\r\n-    transform: rotate(25deg) scale(1.22);\r\n-  }\r\n-}\r\n-\r\n-@media (prefers-reduced-motion: reduce) {\r\n-  .laser-wave,\r\n-  .laser-wave-shine,\r\n-  .laser-wave-icon {\r\n-    animation: none;\r\n-  }\r\n-}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790088085054,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -494,4 +494,14 @@\n     font-size: 1rem;\r\n     line-height: 1.8;\r\n   }\r\n }\r\n+.alain-editorial .am-instagram-icon {\r\n+  position: relative;\r\n+  display: block;\r\n+  flex: none;\r\n+  width: 46px;\r\n+  height: 46px;\r\n+  overflow: hidden;s\r\n+  border-radius: 15px;\r\n+  box-shadow: 0 0 18px #eab2ff44;\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790088100497,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -500,8 +500,8 @@\n   display: block;\r\n   flex: none;\r\n   width: 46px;\r\n   height: 46px;\r\n-  overflow: hidden;s\r\n+  overflow: hidden;\r\n   border-radius: 15px;\r\n   box-shadow: 0 0 18px #eab2ff44;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790088634594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -498,10 +498,11 @@\n .alain-editorial .am-instagram-icon {\r\n   position: relative;\r\n   display: block;\r\n   flex: none;\r\n-  width: 46px;\r\n-  height: 46px;\r\n+  width: 64px;\r\n+  height: 64px;\r\n   overflow: hidden;\r\n-  border-radius: 15px;\r\n-  box-shadow: 0 0 18px #eab2ff44;\r\n+  border-radius: 0;\r\n+  background: transparent;\r\n+  box-shadow: none;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790088704367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -498,10 +498,10 @@\n .alain-editorial .am-instagram-icon {\r\n   position: relative;\r\n   display: block;\r\n   flex: none;\r\n-  width: 64px;\r\n-  height: 64px;\r\n+  width: 88px;\r\n+  height: 88px;\r\n   overflow: hidden;\r\n   border-radius: 0;\r\n   background: transparent;\r\n   box-shadow: none;\r\n"
+                },
+                {
+                    "date": 1790088759758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -497,12 +497,12 @@\n }\r\n .alain-editorial .am-instagram-icon {\r\n   position: relative;\r\n   display: block;\r\n-  flex: none;\r\n-  width: 88px;\r\n-  height: 88px;\r\n+  flex: 0 0 110px !important;\r\n+  width: 110px !important;\r\n+  height: 110px !important;\r\n   overflow: hidden;\r\n-  border-radius: 0;\r\n-  background: transparent;\r\n-  box-shadow: none;\r\n+  border-radius: 0 !important;\r\n+  background: transparent !important;\r\n+  box-shadow: none !important;\r\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1789553731320,

@@ -32,7 +32,7 @@ export function Footer() {
             <Logo size={80} />
 
             <p className="mt-6 font-serif text-2xl font-light leading-tight text-chalk sm:text-3xl">
-              Salon Alain Martinos
+              Salon Alain
             </p>
 
             <p className="mt-3 max-w-sm font-serif text-lg font-light italic leading-relaxed text-dusk sm:text-xl">

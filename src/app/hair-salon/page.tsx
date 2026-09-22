@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     canonical: "/hair-salon",
   },
   openGraph: {
-    title: `${s.title} | Salon Alain Martinos`,
+    title: `${s.title} | Salon Alain Hair & Beauty`,
     description: s.description,
     url: "/hair-salon",
   },
@@ -232,7 +232,7 @@ function IllustratedLocationMap({ id, title }: { id: string; title: string }) {
     <svg aria-hidden="true" className="absolute inset-0 h-full w-full opacity-90" preserveAspectRatio="xMidYMid meet" viewBox="0 0 700 500" fill="none">
       <defs><linearGradient id={`${id}-sea`} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#150629" /><stop offset="1" stopColor="#231437" /></linearGradient><linearGradient id={`${id}-land`} x1=".2" y1="0" x2="1" y2="1"><stop stopColor="#27183b" /><stop offset="1" stopColor="#322346" /></linearGradient></defs>
       <rect width="700" height="500" fill={`url(#${id}-sea)`} /><path d="M280 0c10 90-10 140-30 190-20 50-40 80-15 130 25 50 55 100 35 180h430V0Z" fill={`url(#${id}-land)`} /><path d="M280 0c10 90-10 140-30 190-20 50-40 80-15 130 25 50 55 100 35 180" stroke="#633382" strokeWidth="3" /><path d="M370 30q50 90 30 210t30 240M480 0q50 150 30 290t50 210" stroke="#3d2e52" strokeDasharray="4 6" strokeWidth="1.5" /><path d="M260 220c30 10 70 0 110 15M252 240c38 20 88 35 138 50M280 160c40 10 80 0 130 15M270 330c40 15 90 20 150 10" stroke="#4d444f" strokeWidth="1.5" />
-      <text x="80" y="210" fill="#4d444f" fontFamily="Georgia" fontSize="11" fontStyle="italic" letterSpacing="2">MEDITERRANEAN SEA</text><text x="340" y="90" fill="#998d9a" fontFamily="Arial" fontSize="9" letterSpacing="2">JOUNIEH BAY</text><circle cx="290" cy="230" r="38" fill="#eab2ff" fillOpacity=".08" /><circle cx="290" cy="230" r="22" fill="#b57acd" fillOpacity=".25" /><circle cx="290" cy="230" r="10" fill="#eab2ff" /><circle cx="290" cy="230" r="5" fill="#4c1564" /><text x="316" y="226" fill="#f7d8ff" fontFamily="Arial" fontSize="12" fontWeight="600" letterSpacing="1">SALON ALAIN MARTINOS</text><text x="316" y="242" fill="#d3c0dd" fontFamily="Arial" fontSize="10">{title}</text>
+      <text x="80" y="210" fill="#4d444f" fontFamily="Georgia" fontSize="11" fontStyle="italic" letterSpacing="2">MEDITERRANEAN SEA</text><text x="340" y="90" fill="#998d9a" fontFamily="Arial" fontSize="9" letterSpacing="2">JOUNIEH BAY</text><circle cx="290" cy="230" r="38" fill="#eab2ff" fillOpacity=".08" /><circle cx="290" cy="230" r="22" fill="#b57acd" fillOpacity=".25" /><circle cx="290" cy="230" r="10" fill="#eab2ff" /><circle cx="290" cy="230" r="5" fill="#4c1564" /><text x="316" y="226" fill="#f7d8ff" fontFamily="Arial" fontSize="12" fontWeight="600" letterSpacing="1">SALON ALAIN HAIR & BEAUTY</text><text x="316" y="242" fill="#d3c0dd" fontFamily="Arial" fontSize="10">{title}</text>
     </svg>
   );
 }
@@ -607,7 +607,7 @@ export default function HairSalonPage() {
       <section aria-labelledby="locations-heading" className={`w-full ${styles.section}`}>
         <div className={styles.container}>
           <Reveal className="salon-reveal mb-9">
-            <span className={styles.eyebrow}>Salon Alain</span>
+            <span className={styles.eyebrow}>Salon Alain Hair & Beauty</span>
             <h2 id="locations-heading" className="mt-2 font-serif text-m3-headline-md !font-normal leading-tight !text-m3-on-surface lg:text-m3-headline-lg">{s.locationsTitle}</h2>
             <p className="mt-3 max-w-xl font-sans text-m3-body-md font-semibold text-m3-tertiary">Find your salon and plan your visit.</p>
           </Reveal>
@@ -652,7 +652,7 @@ export default function HairSalonPage() {
                           <Stars />
                           <p className="mt-3 font-sans text-[0.72rem] font-medium uppercase tracking-[0.23em] text-[#e4b5ff]">Your experience</p>
                           <h3 className="mt-2 font-serif text-2xl font-normal leading-tight text-[#eddcff] sm:text-3xl">Loved your visit? Tell Google.</h3>
-                          <p className="mt-3 font-sans text-base font-semibold leading-relaxed text-[#d3c0dd]">A few words about your appointment helps other clients find Salon Alain Martinos. It takes less than a minute.</p>
+                          <p className="mt-3 font-sans text-base font-semibold leading-relaxed text-[#d3c0dd]">A few words about your appointment helps other clients find Salon Alain Hair & Beauty. It takes less than a minute.</p>
                         </div>
                         <a href={reviewHref} target="_blank" rel="noopener noreferrer" aria-label={`Leave a Google review for ${location.title} (opens in a new tab)`} className="inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full bg-[#eab2ff] px-7 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.13em] text-[#4c1564] shadow-[0_0_34px_rgba(234,178,255,0.2)] transition hover:-translate-y-0.5 hover:bg-[#f7d8ff]">
                           Leave a Google review

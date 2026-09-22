@@ -155,7 +155,7 @@ function ChapterSection({ chapter, index }: { chapter: Chapter; index: number })
       className={`am-chapter ${index % 2 === 1 ? "am-chapter-card" : ""}`}>
       <header className="am-chapter-header">
         <div className="am-chapter-top">
-          <p className="am-eyebrow">Chapter {chapter.number}</p>
+          {/* <p className="am-eyebrow">Chapter {chapter.number}</p> */}
           <span className="am-chapter-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         </div>
         <h2 id={`${chapter.id}-heading`}>{chapter.title}</h2>
@@ -227,7 +227,7 @@ export default function AlainPage() {
             </details>
             {portrait && <figure className="am-founder">
               <Photo image={portrait} priority />
-              <figcaption><span className="am-eyebrow">Salon Alain · Founder</span><span>Alain Martinos</span></figcaption>
+              <figcaption>Alain Martinos</figcaption>
             </figure>}
           </aside>
           <div className="am-editorial-flow">
@@ -271,12 +271,12 @@ export default function AlainPage() {
         <header className="am-section-header">
           <div>
             <p className="am-eyebrow">In Motion</p>
-            <h2 id="films-heading">Alain Martinos on film</h2>
+            <h2 id="films-heading">Alain Martinos Reels & Videos</h2>
             <p className="am-media-lead">{v.subtitle}</p>
           </div>
         </header>
         <div className="am-video-rail">
-          <VideoShortsRow shorts={videos} playLabel={v.play} badge="Salon Alain" />
+          <VideoShortsRow shorts={videos} playLabel={v.play} badge="Salon Alain Hair & Beauty   " />
         </div>
       </section>
 
@@ -285,7 +285,7 @@ export default function AlainPage() {
         <header className="am-section-header">
           <div>
             <p className="am-eyebrow">The Gallery</p>
-            <h2 id="am-gallery-heading">Alain Martinos gallery</h2>
+            <h2 id="am-gallery-heading">Alain Martinos Pictures & Photoshoots</h2>
             <p className="am-media-lead">Moments from the atelier, the stage and the collection.</p>
           </div>
         </header>
@@ -315,6 +315,28 @@ export default function AlainPage() {
       {collectorChapter && (
         <section className="am-collector am-container" aria-label={collectorChapter.title}>
           <ChapterSection chapter={collectorChapter} index={collectorIndex} />
+          <a
+            href="https://www.instagram.com/barbie80s/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="am-instagram-collection"
+            aria-label="Follow Alain Martinos on Instagram and see his Barbie collection (opens in a new tab)"
+          >
+      <span className="am-instagram-icon" aria-hidden="true">
+  <Image
+    src="/images/barbie-collection-icon2.png"
+    alt=""
+    fill
+    sizes="90px"
+    className="object-cover scale-100"
+  />
+</span>
+            <span className="am-instagram-copy">
+              <strong>Follow Alain on Instagram and See his Huge Barbie Collection</strong>
+              <span></span>
+            </span>
+            <span className="am-instagram-arrow" aria-hidden="true"><Arrow /></span>
+          </a>
         </section>
       )}
 
@@ -445,6 +467,15 @@ const pageCss = `
 @media(max-width:639px){.alain-editorial .am-hero{padding-top:88px;padding-bottom:44px}.alain-editorial .am-hero .am-eyebrow{font-size:.62rem;letter-spacing:.16em}.alain-editorial .am-roles{gap:7px}.alain-editorial .am-roles li{font-size:.62rem;padding:7px 12px}.alain-editorial .am-hero-description{font-size:1rem}.alain-editorial .am-actions{flex-direction:column;gap:12px}.alain-editorial .am-actions .am-button{width:100%}.alain-editorial .am-intro-columns .am-prose{columns:1}.alain-editorial .am-chapter-top{min-height:64px}.alain-editorial .am-chapter-card{padding:24px 20px}.alain-editorial .am-chapter{gap:22px}.alain-editorial .am-archive{grid-template-columns:minmax(0,1fr)}.alain-editorial .am-archive-note{padding:24px}.alain-editorial .am-archive-note strong{margin:8px 0}.alain-editorial .am-lenses{grid-template-columns:minmax(0,1fr)}.alain-editorial .am-identities{padding:24px}.alain-editorial .am-inspiration-grid{grid-template-columns:minmax(0,1fr);gap:14px}.alain-editorial .am-inspiration-grid>li{padding:26px}.alain-editorial .am-inspiration{padding-bottom:48px}.alain-editorial .am-meaning{padding:48px 0}.alain-editorial .am-arcs{margin-top:36px}.alain-editorial .am-arcs li{grid-template-columns:minmax(0,1fr);gap:12px;padding:24px}.alain-editorial .am-arcs svg{transform:rotate(90deg)}.alain-editorial .am-signature{padding-block:48px}.alain-editorial .am-signature-card{border-radius:24px;padding:32px 22px}.alain-editorial .am-signature .am-button{width:100%;padding-inline:18px}.alain-editorial .am-passions{gap:12px;font-size:.68rem}.alain-editorial .am-passions li{width:100%}}
 .alain-editorial .am-media{padding-block:12px 72px}
 .alain-editorial .am-collector{padding-block:12px 72px}
+.alain-editorial .am-instagram-collection{display:flex;align-items:center;gap:16px;width:min(100%,580px);margin:32px auto 0;padding:18px 20px;border:1px solid #b57acd66;border-radius:22px;background:linear-gradient(135deg,#3d174e,#25143c);box-shadow:0 12px 32px #10051f55,0 0 24px #b57acd22;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.alain-editorial .am-instagram-collection:hover{transform:translateY(-3px);border-color:#eab2ff;box-shadow:0 18px 38px #10051f77,0 0 30px #eab2ff44}
+.alain-editorial .am-instagram-icon{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#eab2ff,#b57acd 58%,#633382);color:#301047;box-shadow:0 0 18px #eab2ff44}
+.alain-editorial .am-instagram-icon svg{width:24px;height:24px}
+.alain-editorial .am-instagram-copy{display:grid;gap:3px;min-width:0}
+.alain-editorial .am-instagram-copy strong{font-family:Georgia,serif;font-size:1.28rem;font-weight:400;color:var(--am-text)}
+.alain-editorial .am-instagram-copy span{font-size:.76rem;font-weight:600;letter-spacing:.03em;color:#d3c0dd}
+.alain-editorial .am-instagram-arrow{display:grid;place-items:center;flex:none;margin-left:auto;width:38px;height:38px;border-radius:50%;background:#eab2ff;color:#4c1564}
+.alain-editorial .am-instagram-arrow svg{width:18px;height:18px}
 .alain-editorial .am-media-lead{margin-top:14px;max-width:560px;color:var(--am-muted);font-size:1rem;line-height:1.8}
 .alain-editorial .am-video-rail{margin-top:4px}
 .alain-editorial .am-video-rail p{color:var(--am-accent)}
@@ -457,6 +488,6 @@ const pageCss = `
 .alain-editorial .am-gallery-index{flex:none;font-family:Georgia,serif;font-size:.95rem;color:#b57acd}
 .alain-editorial .am-gallery-action{display:flex;justify-content:center;margin-top:32px}
 @media(max-width:1023px){.alain-editorial .am-media{padding-bottom:56px}}
-@media(max-width:639px){.alain-editorial .am-media,.alain-editorial .am-collector{padding-bottom:44px}.alain-editorial .am-media-lead{font-size:.95rem}.alain-editorial .am-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alain-editorial .am-gallery-photo{border-radius:16px}.alain-editorial .am-gallery-grid figcaption{gap:8px;padding-top:10px;font-size:.74rem}.alain-editorial .am-gallery-index{font-size:.8rem}.alain-editorial .am-gallery-action .am-button{width:100%}}
+@media(max-width:639px){.alain-editorial .am-media,.alain-editorial .am-collector{padding-bottom:44px}.alain-editorial .am-media-lead{font-size:.95rem}.alain-editorial .am-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alain-editorial .am-gallery-photo{border-radius:16px}.alain-editorial .am-gallery-grid figcaption{gap:8px;padding-top:10px;font-size:.74rem}.alain-editorial .am-gallery-index{font-size:.8rem}.alain-editorial .am-gallery-action .am-button{width:100%}.alain-editorial .am-instagram-collection{align-items:flex-start;padding:16px}.alain-editorial .am-instagram-copy strong{font-size:1.1rem}.alain-editorial .am-instagram-copy span{font-size:.7rem}.alain-editorial .am-instagram-arrow{display:none}}
 @media(prefers-reduced-motion:reduce){.alain-editorial *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 `;

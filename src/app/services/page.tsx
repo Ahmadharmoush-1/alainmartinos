@@ -679,7 +679,7 @@ export default function ServicesPage() {
         <div className="container-page relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
           <Reveal className="flex flex-col items-center">
             <span className="mb-1.5 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
-              Salon Alain Martinos
+              Salon Alain Hair & Beauty
             </span>
 
             <h2 className="font-serif text-m3-headline-md !font-normal leading-[1.15] !text-m3-on-surface lg:text-m3-headline-lg">

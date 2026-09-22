@@ -4,10 +4,10 @@
  */
 export const en = {
   meta: {
-    siteName: "Salon Alain Martinos",
-    titleTemplate: "%s | Salon Alain Martinos – Hair & Beauty by Alain Martinos",
+    siteName: "Salon Alain Hair & Beauty - by Alain Martinos",
+    titleTemplate: "%s | Salon Alain Hair & Beauty by Alain Martinos",
     defaultDescription:
-      "Salon Alain Martinos – Hair & Beauty by Alain Martinos. Lebanese hairdresser and visagist with 25+ years of experience. Haircuts, color, balayage, highlights and beauty transformations in Zouk Mikael – Jounieh, Lebanon, and Germany.",
+      "Salon Alain Hair & Beauty – Hair & Beauty by Alain Martinos. Lebanese hairdresser and visagist with 25+ years of experience. Haircuts, color, balayage, highlights and beauty transformations in Zouk Mikael – Jounieh, Lebanon, and Germany.",
   },
 
   nav: {
@@ -55,10 +55,10 @@ export const en = {
       cta: "View All Services",
     },
     salon: {
-      kicker: "The Salon",
-      heading: "The Salon",
+      kicker: "Salon Alain Hair & Beauty",
+      heading: "Salon Alain Hair & Beauty",
       subtitle: "A Personal Space Created for Beauty.",
-      cta: "Discover the Salon",
+      cta: "Discover Salon Alain Hair & Beauty",
     },
     work: {
       kicker: "Portfolio",
@@ -69,7 +69,7 @@ export const en = {
     video: {
       kicker: "Video",
       heading: "Beauty in Motion",
-      subtitle: "Discover transformations, styling moments and the artistry behind Salon Alain Martinos.",
+      subtitle: "Discover transformations, styling moments and the artistry behind Salon Alain Hair & Beauty.",
       cta: "View More on YouTube",
       play: "Play video",
     },
@@ -641,16 +641,16 @@ export const en = {
 
   about: {
     title: "About",
-    description: "Discover Salon Alain Martinos — the philosophy, the 25+ years of experience, and the personalized approach to beauty between in Lebanon.",
-    heading: "About Salon Alain Martinos",
+    description: "Discover Salon Alain Hair & Beauty — the philosophy, the 25+ years of experience, and the personalized approach to beauty between in Lebanon.",
+    heading: "About Salon Alain Hair & Beauty",
     subtitle: "Where beauty is created, not copied.",
     sections: [
       {
         id: "salon",
-        title: "The salon",
+        title: "Salon Alain Hair & Beauty",
         body: [
-          "Salon Alain Martinos was created as a personal beauty environment — a place where experience, creativity and passion come together in a calm, elegant setting.",
-          "Based in Zouk Mikael – Jounieh, the salon is an extension of Alain Martinos himself: artistic, warm and made with an unmistakable love for beauty.",
+          "Salon Alain Hair & Beauty was created as a personal beauty environment — a place where experience, creativity and passion come together in a calm, elegant setting.",
+          "Based in Zouk Mikael – Jounieh, Salon Alain Hair & Beauty is an extension of Alain Martinos himself: artistic, warm and made with an unmistakable love for beauty.",
         ],
       },
       {
@@ -658,7 +658,7 @@ export const en = {
         title: "Our philosophy",
         body: [
           "Beauty should be individual, sophisticated, feminine and expressive. Trends come and go; what stays is the way you feel when you see yourself.",
-          "Every look at Salon Alain Martinos is composed rather than copied — adapted to your personality, your features and the life you live.",
+          "Every look at Salon Alain Hair & Beauty is composed rather than copied — adapted to your personality, your features and the life you live.",
         ],
         quote: "Beauty is not merely something we see — it is something we create, express and preserve.",
       },
@@ -682,13 +682,13 @@ export const en = {
         id: "personal",
         title: "A personalized approach",
         body: [
-          "There is no menu of looks at Salon Alain Martinos. Each appointment begins with understanding you — your face shape, your hair, your routine and the moments you are preparing for.",
+          "There is no menu of looks at Salon Alain Hair & Beauty. Each appointment begins with understanding you — your face shape, your hair, your routine and the moments you are preparing for.",
           "From there, Alain Martinos designs cut, color and styling as one harmonious composition.",
         ],
       },
     ],
     why: {
-      title: "Why Salon Alain Martinos?",
+      title: "Why Salon Alain Hair & Beauty?",
       points: [
         { title: "A trained visagist's eye", desc: "Alain Martinos studies faces as well as hair, so color and cut are chosen to flatter your features." },
         { title: "Two cultures, one signature", desc: "Lebanese glamour meets European elegance in a style that is polished and personal." },
@@ -701,11 +701,11 @@ export const en = {
 
   salon: {
     title: "Hair Salon",
-    description: "Welcome to Salon Alain Martinos in Zouk Mikael – Jounieh, Lebanon. Discover the space, the styling stations, the atmosphere and the client experience designed by Alain Martinos.",
-    heading: "Welcome to Salon Alain Martinos",
+    description: "Welcome to Salon Alain Hair & Beauty in Zouk Mikael – Jounieh, Lebanon. Discover the space, the styling stations, the atmosphere and the client experience designed by Alain Martinos.",
+    heading: "Welcome to Salon Alain Hair & Beauty",
     subtitle: "A space designed as an extension of Alain Martinos's artistic identity.",
     intro: [
-      "Salon Alain Martinos was never meant to be simply a place to have one's hair done. Alain Martinos envisioned a personal beauty environment where experience, creativity and passion could come together.",
+      "Salon Alain Hair & Beauty was never meant to be simply a place to have one's hair done. Alain Martinos envisioned a personal beauty environment where experience, creativity and passion could come together.",
       "Soft light, lavender details, unhurried appointments and a single guiding idea: every person who sits in the chair should leave feeling more like themselves.",
     ],
     pullQuote: "Every Person Who Sits in the Chair Should Leave Feeling More Like Themselves.",
@@ -718,7 +718,7 @@ export const en = {
         { title: "Atmosphere", desc: "Music, warmth and the personal attention of a stylist who has done this for 25 years." },
       ],
     },
-    galleryTitle: "Inside the Salon",
+    galleryTitle: "Inside Salon Alain Hair & Beauty",
     locationsTitle: "Our Location",
     mapPlaceholder: "Map will appear here",
     openInMaps: "Open in Maps",
@@ -729,7 +729,7 @@ export const en = {
   work: {
     title: "Our Work",
     description: "Portfolio of hair color, balayage, blonde, brunette, highlights, haircuts, styling and complete transformations by Alain Martinos.",
-    heading: "Our work",
+    heading: "Our Work",
     subtitle: "Every look is personal. Every transformation tells a story.",
     all: "All",
     // categories: [
@@ -767,8 +767,8 @@ export const en = {
           "His philosophy is not simply to follow trends. Alain Martinos believes that beauty should be individual, sophisticated, feminine, and expressive — adapted to the personality and features of each person.",
         ],
         aside: {
-          title: "This philosophy became the foundation of Salon Alain Martinos — Hair & Beauty by Alain Martinos.",
-          body: "Based in Zouk Mikael – Jounieh, Lebanon, Alain Martinos created his salon as more than simply a place to have one's hair done. He envisioned a personal beauty environment where experience, creativity, and passion could come together. The salon is an extension of Alain Martinos himself: elegant, artistic, personal, and created with an unmistakable love for beauty.",
+          title: "This philosophy became the foundation of Salon Alain Hair & Beauty — by Alain Martinos.",
+          body: "Based in Zouk Mikael – Jounieh, Lebanon, Alain Martinos created his salon as more than simply a place to have one's hair done. He envisioned a personal beauty environment where experience, creativity, and passion could come together. Salon Alain Hair & Beauty is an extension of Alain Martinos himself: elegant, artistic, personal, and created with an unmistakable love for beauty.",
         },
       },
       {
@@ -870,7 +870,7 @@ export const en = {
       lines: ["Beauty is My Profession.", "Music is My Voice.", "Barbie is my History.", "Creativity is who I am."],
       attribution: "Alain Martinos",
     },
-    cta: "Book with Alain Martinos",
+    cta: "Book with Salon Alain Hair & Beauty",
   },
 
   contact: {
@@ -879,7 +879,7 @@ export const en = {
     heading: "Let's Create Your Next Look",
     subtitle: "Tell us a little about yourself and we will be in touch to confirm your appointment.",
     whatsapp: "Book via WhatsApp",
-    whatsappMessage: "Hello Salon Alain Martinos, I would like to book an appointment.",
+    whatsappMessage: "Hello Salon Alain Hair & Beauty, I would like to book an appointment.",
     details: { phone: "Phone", whatsapp: "WhatsApp", instagram: "Instagram", email: "Email" },
     form: {
       name: "Name",
@@ -908,7 +908,7 @@ export const en = {
     locationsTitle: "Location",
     follow: "Follow",
     rights: "All Rights Reserved.",
-    copyright: "© {year} Salon Alain Martinos – Hair & Beauty by Alain Martinos.",
+    copyright: "© {year} Salon Alain – Hair & Beauty by Alain Martinos.",
   },
 
   common: {

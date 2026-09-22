@@ -294,7 +294,7 @@ export default function HomePage() {
               light
               kicker={h.services.kicker}
               title={h.services.heading}
-              subtitle={h.services.subtitle}
+             
               className="home-section-heading !max-w-2xl"
             />
             <Reveal delay={120} className="shrink-0">
@@ -484,7 +484,7 @@ export default function HomePage() {
             className="home-section-heading"
             light
             align="center"
-            kicker={h.salon.kicker}
+           
             title={h.salon.subtitle}
           />
 
@@ -514,7 +514,7 @@ export default function HomePage() {
               light
               kicker={h.work.kicker}
               title={h.work.heading}
-              subtitle={h.work.subtitle}
+             
               className="home-section-heading !max-w-2xl"
             />
             <Reveal delay={120} className="shrink-0">

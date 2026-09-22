@@ -495,3 +495,14 @@
     line-height: 1.8;
   }
 }
+.alain-editorial .am-instagram-icon {
+  position: relative;
+  display: block;
+  flex: 0 0 110px !important;
+  width: 110px !important;
+  height: 110px !important;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}

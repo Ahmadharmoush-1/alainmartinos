@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: w.description,
   alternates: { canonical: "/our-work" },
   openGraph: {
-    title: `${w.title} | Salon Alain`,
+    title: `${w.title} | Salon Alain Hair & Beauty  `,
     description: w.description,
     url: "/our-work",
   },
@@ -164,12 +164,12 @@ export default function OurWorkPage() {
 
         <div className={`${container} mx-auto flex max-w-4xl flex-col items-center`}>
           {/* Eyebrow */}
-          <div className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-m3-low px-5 py-1 shadow-sm">
+          {/* <div className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-m3-low px-5 py-1 shadow-sm">
             <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-m3-primary" />
             <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-tertiary">
-              Salon Alain Martinos · Portfolio
+              Salon Alain Hair & Beauty - Alain Martinos · Portfolio
             </span>
-          </div>
+          </div> */}
 
           <h1
             id="portfolio-heading"
@@ -245,7 +245,7 @@ export default function OurWorkPage() {
 
             <p className="max-w-md font-sans text-m3-body-md font-light text-m3-tertiary">
               Explore balayage, colour and transformations. Find inspiration for your next visit
-              to Salon Alain.
+              to Salon Alain Hair & Beauty  .
             </p>
           </div>
 
@@ -261,7 +261,7 @@ export default function OurWorkPage() {
       <CtaBand />
 
       <p className="sr-only">
-        Salon Alain Martinos portfolio — {site.locations[0].addressLines.join(", ")}
+        Salon Alain Hair & Beauty portfolio — {site.locations[0].addressLines.join(", ")}
       </p>
     </div>
   );
