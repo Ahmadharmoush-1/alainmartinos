@@ -1,6 +1,6 @@
-import { Button } from "./Button";
+import Link from "next/link";
+
 import { Reveal } from "./Reveal";
-import { Divider } from "./Divider";
 import { getContent } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
@@ -17,167 +17,44 @@ export function CtaBand({
   const [lb] = site.locations;
 
   return (
-    <section
-      className="
-        relative
-        overflow-hidden
-        bg-[url('/images/services-purple-bg.png')]
-        bg-cover
-        bg-center
-        bg-no-repeat
-      "
-    >
-      {/* =================================================
-          DARK PURPLE OVERLAY
-      ================================================= */}
+    <section className="theme-purple relative overflow-hidden border-t border-night-line bg-night-raised">
+      {/* Soft radial purple glow for depth. */}
       <div
-        className="
-          absolute
-          inset-0
-          bg-[#12001F]/35
-        "
+        aria-hidden="true"
+        className="glow-purple pointer-events-none absolute left-1/2 top-1/2 h-[560px] w-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full"
       />
 
-      {/* =================================================
-          SOFT PURPLE GRADIENT
-      ================================================= */}
-      <div
-        className="
-          absolute
-          inset-0
-          bg-gradient-to-b
-          from-[#220638]/20
-          via-transparent
-          to-[#12001F]/35
-        "
-      />
+      <div className="container-page relative z-10 py-24 text-center sm:py-28 lg:py-32">
+        <Reveal>
+          <span
+            aria-hidden="true"
+            className="mx-auto block h-px w-24 bg-gradient-to-r from-transparent via-bright to-transparent"
+          />
 
-      {/* =================================================
-          CONTENT
-      ================================================= */}
-     {/* =================================================
-    CONTENT
-================================================= */}
-<div
-  className="
-    container-page
-    relative
-    z-10
-    py-24
-    text-center
-    sm:py-32
-    lg:py-36
-  "
->
- <Reveal>
-  {/* DIVIDER */}
-  <Divider
-    light
-    className="
-      mx-auto
-      mb-10
-      max-w-xs
-      !border-white
-    "
-  />
+          <h2 className="mx-auto mt-10 max-w-3xl font-serif text-[2.2rem] font-light leading-[1.1] text-chalk sm:text-[3rem] lg:text-[3.4rem]">
+            {heading}
+          </h2>
 
-  {/* HEADING */}
-  <h2
-    className="
-      mx-auto
-      max-w-4xl
-      text-5xl
-      !font-extrabold
-      leading-[1.1]
-      tracking-tight
-      !text-white
-      drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]
-      sm:text-6xl
-      lg:text-7xl
-    "
-    style={{
-      color: "#ffffff",
-    }}
-  >
-    <span
-      className="!text-white"
-      style={{ color: "#ffffff" }}
-    >
-      {heading}
-    </span>
-  </h2>
+         <p className="mx-auto mt-7 max-w-2xl font-sans text-[1rem] font-semibold leading-[1.85] text-lavender sm:text-[1.08rem]">
+  {copy}
+</p>
 
-  {/* DESCRIPTION */}
-  <p
-    className="
-      mx-auto
-      mt-8
-      max-w-3xl
-      font-serif
-      text-2xl
-      !font-bold
-      leading-[1.6]
-      !text-white
-      drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]
-      sm:text-3xl
-      lg:text-[2.2rem]
-    "
-    style={{
-      color: "#ffffff",
-    }}
-  >
-    <span
-      className="!text-white"
-      style={{ color: "#ffffff" }}
-    >
-      {copy}
-    </span>
-  </p>
+          <div className="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href={lb.bookHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill pill-solid w-full sm:w-auto"
+            >
+              {t.home.cta.lebanon}
+            </a>
 
-  {/* BUTTON */}
-  <div
-    className="
-      mt-12
-      flex
-      flex-col
-      items-center
-      justify-center
-      gap-4
-      sm:flex-row
-    "
-  >
-    <Button
-      href={lb.bookHref}
-      variant="outline"
-      size="lg"
-      className="
-        w-full
-        !border-2
-        !border-white
-        !bg-transparent
-        !px-10
-        !py-5
-        !text-xl
-        !font-extrabold
-        !normal-case
-        !text-white
-        shadow-[0_10px_30px_rgba(0,0,0,0.3)]
-        transition-all
-        duration-300
-        hover:!bg-white
-        hover:!text-[#3A0A55]
-        sm:w-auto
-        sm:!text-2xl
-      "
-      style={{
-        color: "#ffffff",
-      }}
-    >
-      {t.home.cta.lebanon}
-    </Button>
-  </div>
-</Reveal>
-</div>
+            <Link href="/contact" className="pill pill-outline w-full sm:w-auto">
+              {t.nav.book}
+            </Link>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

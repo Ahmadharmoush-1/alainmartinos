@@ -166,7 +166,7 @@ export function VideoShortsRow({
           sm:[--video-card-width:310px]
           lg:[--video-card-width:330px]
           focus-visible:outline focus-visible:outline-2
-          focus-visible:outline-plum-700
+          focus-visible:outline-bright
         "
         style={{
           paddingInline:
@@ -249,18 +249,19 @@ export function VideoShortsRow({
             aria-label="Previous video"
             className="
               flex h-11 w-11 items-center justify-center
-              rounded-full bg-plum-700 !text-white
-              hover:bg-plum-800
+              rounded-full border border-night-line bg-night-card
+              text-bright transition-colors duration-300
+              hover:border-bright/50 hover:bg-night-hover
               disabled:cursor-not-allowed disabled:opacity-40
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-offset-4
-              focus-visible:outline-plum-700
+              focus-visible:outline-bright
             "
           >
             <span aria-hidden="true">←</span>
           </button>
 
-          <p className="text-sm font-semibold text-plum-700">
+          <p className="font-sans text-[0.7rem] font-light tracking-[0.2em] text-lilac">
             {activeIndex + 1} / {shorts.length}
           </p>
 
@@ -273,12 +274,13 @@ export function VideoShortsRow({
             aria-label="Next video"
             className="
               flex h-11 w-11 items-center justify-center
-              rounded-full bg-plum-700 !text-white
-              hover:bg-plum-800
+              rounded-full border border-night-line bg-night-card
+              text-bright transition-colors duration-300
+              hover:border-bright/50 hover:bg-night-hover
               disabled:cursor-not-allowed disabled:opacity-40
               focus-visible:outline focus-visible:outline-2
               focus-visible:outline-offset-4
-              focus-visible:outline-plum-700
+              focus-visible:outline-bright
             "
           >
             <span aria-hidden="true">→</span>

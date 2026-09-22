@@ -10,14 +10,14 @@ export function LocationCard({ location, showMap = true }: { location: Location;
     <article className="border-t border-plum-700 pt-6">
       <p className="kicker">{location.country}</p>
       <h3 className="mt-2 text-display-sm font-medium">{location.title}</h3>
-      <address className="mt-4 not-italic leading-relaxed text-ink/80">
+      <address className="mt-4 not-italic leading-relaxed text-lavender/80">
         {location.addressLines.map((l, i) => (
           <span key={i} className="block">{l}</span>
         ))}
       </address>
 
       {showMap && (
-        <div className="mt-6 aspect-[4/3] w-full overflow-hidden bg-plum-50">
+        <div className="mt-6 aspect-[4/3] w-full overflow-hidden bg-night-raised">
           {location.mapEmbed ? (
             <iframe
               src={location.mapEmbed}
@@ -28,22 +28,22 @@ export function LocationCard({ location, showMap = true }: { location: Location;
             />
           ) : (
             <div className="silk-bg flex h-full w-full flex-col items-center justify-center gap-2 text-center">
-              <svg viewBox="0 0 24 24" className="h-7 w-7 text-plum-500" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="h-7 w-7 text-bright" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
                 <path d="M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11z" />
                 <circle cx="12" cy="10" r="2.2" />
               </svg>
-              <span className="font-serif text-lg italic text-plum-700">{t.salon.mapPlaceholder}</span>
+              <span className="font-serif text-lg italic text-lavender">{t.salon.mapPlaceholder}</span>
             </div>
           )}
         </div>
       )}
 
       <dl className="mt-6 space-y-2 text-sm">
-        <dt className="font-sans text-[0.65rem] font-medium uppercase tracking-wider2 text-plum-500">{t.salon.hoursTitle}</dt>
+        <dt className="font-sans text-[0.65rem] font-medium uppercase tracking-wider2 text-bright">{t.salon.hoursTitle}</dt>
         {location.hours.map((h) => (
-          <dd key={h.days} className="flex justify-between gap-4 border-b border-plum-200/60 pb-2 text-ink/80">
+          <dd key={h.days} className="flex justify-between gap-4 border-b border-night-line/60 pb-2 text-lavender/80">
             <span>{h.days}</span>
-            <span className="text-plum-700">{h.time}</span>
+            <span className="text-lavender">{h.time}</span>
           </dd>
         ))}
       </dl>

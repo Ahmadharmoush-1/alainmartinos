@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Gallery } from "@/components/Gallery";
+import { Gallery, type Category, type WorkNote } from "@/components/Gallery";
 import { CtaBand } from "@/components/CtaBand";
 import { getContent } from "@/lib/i18n";
 import { workImages } from "@/lib/images";
+import { site } from "@/lib/site";
 
-// Complete replacement for app/our-work/page.tsx (or src/app/our-work/page.tsx).
-// Keeps all portfolio images and the existing Gallery and CtaBand components.
-// No new dependencies, client state or global stylesheet changes required.
 const w = getContent().work;
 
 export const metadata: Metadata = {
@@ -21,92 +19,250 @@ export const metadata: Metadata = {
   },
 };
 
-const styles = {
-  container: "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12",
-  button:
-    "inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full border border-[#7028B5] bg-[#7028B5] px-7 py-3.5 text-center text-lg font-semibold leading-7 text-white shadow-sm transition-colors hover:border-[#571D90] hover:bg-[#571D90] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7028B5] motion-reduce:transition-none",
+/* =========================================================
+   FILTER PILLS
+========================================================= */
+
+// const categories: readonly Category[] = [
+//   { id: "all", label: "All Works" },
+//   { id: "balayage", label: "Balayage" },
+//   { id: "blonde", label: "Blonde" },
+//   { id: "highlights", label: "Highlights" },
+//   { id: "haircuts", label: "Haircuts" },
+//   { id: "styling", label: "Styling" },
+//   { id: "brunette", label: "Brunette" },
+//   { id: "color", label: "Color" },
+//   { id: "transformations", label: "Transformations" },
+// ];
+
+/* =========================================================
+   ATELIER NOTES — keyed by the title in lib/images.ts
+========================================================= */
+
+const notes: Record<string, WorkNote> = {
+  "Caramel balayage": {
+    short: "Melted warm toffee gradients tailored for sunlit depth.",
+    long: "Custom freehand sweeping technique infused with cold gloss treatment for maximum mirror sheen and dimension.",
+  },
+  "Luminous blonde": {
+    short: "High-clarity platinum and pearl balance without brassiness.",
+    long: "Multi-zone tone correction using bond-protecting elixir. Preserves silkiness while achieving high Nordic illumination.",
+  },
+  "Face-framing highlights": {
+    short: "Artisanal contour ribbons illuminating facial features.",
+    long: "Babylights micro-placement around cheekbones and jawline, engineered to mimic natural Aegean summer sunlight.",
+  },
+  "Precision bob": {
+    short: "Architectural lines sculpted with classic Paris shears.",
+    long: "Dry-cutting technique following natural cranial geometry to ensure effortless everyday movement and weightlessness.",
+  },
+  "Evening styling": {
+    short: "Regal sculpted texture created for galas and nocturnal events.",
+    long: "Effortless French undone texture fortified with structural thermal foundation for long-lasting red carpet wear.",
+  },
+  "Chocolate brunette": {
+    short: "Deep cocoa depth infused with multidimensional velvet luster.",
+    long: "Formulated with rich Italian pigments to deliver deep cool espresso undertones without flat opacity.",
+  },
+  "Dimensional color": {
+    short: "Layered chromatic formulation yielding subtle tonal shifts.",
+    long: "Layered lowlights and translucent glazes crafted to adapt smoothly under shifting outdoor and indoor light sources.",
+  },
+  "Honey balayage": {
+    short: "Warm golden nectar highlights painted in soft organic waves.",
+    long: "Gentle feathering with clay lightener, keeping the root naturally blended for an effortless six-month grow-out.",
+  },
+  "Long layers": {
+    short: "Fluid kinetic tiers created to enhance natural bounce and body.",
+    long: "Slid-cut internal graduation that eliminates bulk while retaining dense, luxurious density through ends.",
+  },
+  "Ash blonde highlights": {
+    short: "Cool neutral micro-weaves neutralizing all brass undertones.",
+    long: "High precision foil placement combined with an iced-lilac gloss to lock in crystal cool brightness.",
+  },
+  "Bridal styling": {
+    short: "Timeless bridal architecture balancing romantic grace and hold.",
+    long: "Sculpted to harmonize perfectly with gown necklines and veil placements, maintaining effortless elegance until dawn.",
+  },
+  "Complete transformation": {
+    short: "Holistic color correction, deep rejuvenation, and new silhouette.",
+    long: "A comprehensive six-hour master session featuring tone restoration, micro-layering, and deep molecular keratin recovery.",
+  },
 };
 
-// Scope caption styling to captions so image overlays keep their own contrast.
-// Interactive controls remain purple with white labels and icons.
-const galleryTheme = `
-  min-w-0 text-[#6527A7]
-  [&_figure]:min-w-0
-  [&_figcaption]:!text-lg [&_figcaption]:!font-semibold
-  [&_figcaption]:!leading-7 [&_figcaption]:!text-[#6527A7]
-  [&_figcaption]:!bg-[#F1E7FC]
-  [&_figcaption_p]:!text-[#6527A7] [&_figcaption_span]:!text-[#6527A7]
-  sm:[&_figcaption]:!text-xl sm:[&_figcaption]:!leading-8
-  [&_button]:!border-[#7028B5] [&_button]:!bg-[#7028B5]
-  [&_button]:!text-white [&_button_*]:!text-white
-  [&_button:hover]:!bg-[#571D90]
-  [&_button:focus-visible]:!outline-[#7028B5]
-`;
+/* =========================================================
+   ATELIER STATS
+========================================================= */
 
-const ctaTheme = `
-  bg-[#5C2398] text-white
-  [&_h1]:!text-white [&_h2]:!text-white [&_h3]:!text-white
-  [&_h2]:!text-3xl [&_h2]:!font-semibold [&_h2]:!leading-tight
-  sm:[&_h2]:!text-4xl lg:[&_h2]:!text-5xl
-  [&_p]:!text-lg [&_p]:!leading-8 [&_p]:!text-white
-  sm:[&_p]:!text-xl [&_span]:!text-white
-  [&_strong]:!text-white [&_em]:!text-white
-  [&_a]:!min-h-[52px] [&_a]:!rounded-full
-  [&_a]:!border-[#7028B5] [&_a]:!bg-[#7028B5]
-  [&_a]:!text-lg [&_a]:!font-semibold [&_a]:!text-white [&_a_*]:!text-white
-  [&_a:hover]:!bg-[#571D90] [&_a:focus-visible]:!outline-[#7028B5]
-  [&_button]:!border-[#7028B5] [&_button]:!bg-[#7028B5]
-  [&_button]:!text-white [&_button_*]:!text-white
-  [&_button:hover]:!bg-[#571D90]
-`;
+const atelierStats = [
+  { value: "100%", label: "Bespoke Tone" },
+  { value: "20+", label: "Years Atelier" },
+  { value: "Zouk Mikael", label: "Lebanon Studio" },
+];
 
-function Arrow({ down = false }: { down?: boolean }) {
+/* =========================================================
+   ICONS
+========================================================= */
+
+function ArrowDown() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={`h-5 w-5 shrink-0 ${down ? "rotate-90" : ""}`}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16m-6-6 6 6-6 6" />
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      className="h-[18px] w-[18px] shrink-0"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m-6-6 6 6 6-6" />
     </svg>
   );
 }
 
-export default function OurWorkPage() {
+function CalendarIcon() {
   return (
-    <div className="min-w-0 break-words bg-[#F1E7FC] text-[#6527A7]">
-      {/* Introduction: clear title, generous spacing and direct actions. */}
-      <section aria-labelledby="portfolio-heading" className="relative isolate overflow-hidden border-b border-[#C7A6EB] bg-gradient-to-br from-[#E6D5FA] via-[#DCC2F5] to-[#C59AE9] pb-14 pt-28 sm:pb-20 sm:pt-32 lg:pt-36">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-28 -z-10 h-80 w-80 rounded-full border border-white/40 sm:h-[30rem] sm:w-[30rem]" />
-        <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-24 -z-10 h-72 w-72 rounded-full border border-[#A774D1]/30" />
-        <div className={`${styles.container} text-center`}>
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#6527A7]">Salon Alain · Portfolio</p>
-          <h1 id="portfolio-heading" className="mx-auto mt-5 max-w-4xl font-serif text-4xl font-semibold leading-tight tracking-tight text-[#6527A7] sm:text-5xl lg:text-6xl">{w.heading}</h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#6527A7] sm:text-xl">{w.subtitle}</p>
-          <div className="mx-auto mt-8 flex max-w-xl flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <a href="#portfolio-gallery" className={styles.button}>Explore our work<Arrow down /></a>
-            <Link href="/contact" className={styles.button}>Book an appointment<Arrow /></Link>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      className="h-[18px] w-[18px] shrink-0"
+    >
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path strokeLinecap="round" d="M8 3.5V6.5M16 3.5V6.5M3.5 10h17" />
+    </svg>
+  );
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+export default function OurWorkPage() {
+  const container = "mx-auto w-full max-w-[1440px] px-5 sm:px-10 lg:px-20";
+
+  return (
+    <div className="page-purple-background theme-purple flex w-full min-w-0 flex-col break-words">
+      {/* =====================================================
+          SECTION 1 — HERO
+      ===================================================== */}
+
+      <section
+        aria-labelledby="portfolio-heading"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden py-[4.5rem] pt-32 text-center sm:pt-36"
+      >
+        {/* Ambient violet glow orbs */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[350px] w-[600px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-m3-primary-container/20 blur-[130px]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-1/4 top-0 -z-10 h-[220px] w-[320px] rounded-full bg-m3-secondary-container/30 blur-[90px]"
+        />
+
+        <div className={`${container} mx-auto flex max-w-4xl flex-col items-center`}>
+          {/* Eyebrow */}
+          <div className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-m3-low px-5 py-1 shadow-sm">
+            <span aria-hidden="true" className="h-1.5 w-1.5 animate-pulse rounded-full bg-m3-primary" />
+            <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-tertiary">
+              Salon Alain Martinos · Portfolio
+            </span>
+          </div>
+
+          <h1
+            id="portfolio-heading"
+            className="mb-5 max-w-3xl font-serif text-m3-display-mobile !font-normal tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
+          >
+            {w.heading}
+          </h1>
+
+          <p className="mx-auto mb-10 max-w-2xl font-sans text-m3-body-lg font-light leading-relaxed text-m3-on-surface-variant">
+            {w.subtitle} Crafted under the discerning eye of Parisian couture technique in our
+            Lebanese atelier.
+          </p>
+
+          {/* Pill buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-5">
+            <a
+              href="#collection"
+              className="flex items-center gap-1.5 rounded-full bg-m3-primary px-10 py-3 font-sans text-m3-label font-medium uppercase text-m3-on-primary shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-m3-secondary motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            >
+              <span>Explore Our Work</span>
+              <ArrowDown />
+            </a>
+
+            <Link
+              href="/contact"
+              className="flex items-center gap-1.5 rounded-full bg-m3-high px-10 py-3 font-sans text-m3-label font-medium uppercase text-m3-secondary shadow-sm transition-all duration-300 hover:bg-m3-variant hover:text-m3-on-surface"
+            >
+              <CalendarIcon />
+              <span>Book an appointment</span>
+            </Link>
+          </div>
+
+          {/* Atelier stats bar */}
+          <div className="mt-[4.5rem] grid w-full max-w-xl grid-cols-3 gap-10 pt-10">
+            {atelierStats.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <span className="font-serif text-m3-headline-sm !font-normal text-m3-secondary">
+                  {stat.value}
+                </span>
+                <span className="mt-1 font-sans text-m3-eyebrow font-medium uppercase text-m3-tertiary">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Three desktop columns give individual images more room to breathe.
-          The existing Gallery retains ownership of its mobile grid and interactions. */}
-      <section id="portfolio-gallery" aria-labelledby="gallery-heading" className="scroll-mt-24 py-12 sm:py-16 lg:py-20">
-        <div className={styles.container}>
-          <header className="mb-8 grid gap-5 border-b border-[#C7A6EB] pb-7 lg:mb-10 lg:grid-cols-2 lg:items-end lg:gap-12">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#6527A7]">The collection</p>
-              <h2 id="gallery-heading" className="mt-4 font-serif text-3xl font-semibold leading-tight tracking-tight text-[#6527A7] sm:text-4xl">Colour. Shape. Individuality.</h2>
+      {/* =====================================================
+          SECTION 2 — THE COLLECTION
+      ===================================================== */}
+
+      <section
+        id="collection"
+        aria-labelledby="gallery-heading"
+        className="relative w-full scroll-mt-24 bg-m3-low py-[4.5rem]"
+      >
+        <div className={container}>
+          {/* Section header */}
+          <div className="mb-5 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div className="flex flex-col">
+              <span className="mb-1.5 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                The Collection
+              </span>
+
+              <h2
+                id="gallery-heading"
+                className="font-serif text-m3-headline-md !font-normal tracking-tight !text-m3-on-surface lg:text-m3-headline-lg"
+              >
+                Colour. Shape. Individuality.
+              </h2>
             </div>
-            <p className="max-w-xl text-lg leading-8 text-[#6527A7] sm:text-xl">Explore balayage, colour and transformations. Find inspiration for your next visit to Salon Alain.</p>
-          </header>
-          <div className="rounded-[2rem] border border-[#C7A6EB] bg-gradient-to-br from-[#E4CFF8] to-[#D5B7F1] p-3 sm:p-5 lg:p-7">
-            <div className={galleryTheme}>
-              <Gallery images={workImages} columns={3} />
-            </div>
+
+            <p className="max-w-md font-sans text-m3-body-md font-light text-m3-tertiary">
+              Explore balayage, colour and transformations. Find inspiration for your next visit
+              to Salon Alain.
+            </p>
           </div>
+
+          {/* Filters + 12-card grid + lightbox */}
+          <Gallery images={workImages}  notes={notes} />
         </div>
       </section>
 
-      {/* Preserve existing booking content while keeping actions purple and white. */}
-      <div className={ctaTheme}><CtaBand /></div>
+      {/* =====================================================
+          SECTION 3 — CLOSING CTA
+      ===================================================== */}
+
+      <CtaBand />
+
+      <p className="sr-only">
+        Salon Alain Martinos portfolio — {site.locations[0].addressLines.join(", ")}
+      </p>
     </div>
   );
 }

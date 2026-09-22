@@ -2,62 +2,120 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { SiteImage, WorkImage } from "@/lib/images";
+import type { WorkImage } from "@/lib/images";
 import { getContent } from "@/lib/i18n";
 
 const t = getContent();
 
-type Category = { id: string; label: string };
+export type Category = { id: string; label: string };
+
+/** Per-look copy: the one-line card caption and the longer atelier note. */
+export type WorkNote = { short: string; long: string };
 
 type Props = {
-  images: (SiteImage | WorkImage)[];
-  /** Pass categories to show the filter bar. Images must then carry `category`. */
+  images: WorkImage[];
+  /** Filter pills. The first entry should be the "all" pill. */
   categories?: readonly Category[];
-  columns?: 2 | 3 | 4;
-  /** Show the image title on hover (WorkImage only). */
-  captions?: boolean;
+  /** Keyed by image title. */
+  notes?: Record<string, WorkNote>;
   className?: string;
 };
 
-function isWork(img: SiteImage | WorkImage): img is WorkImage {
-  return "category" in img;
+/* =========================================================
+   ICONS
+========================================================= */
+
+function NorthEast() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      className="h-5 w-5 shrink-0"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M8 7h9v9" />
+    </svg>
+  );
 }
 
-/**
- * Editorial masonry gallery (CSS columns) with optional category filtering and
- * an accessible fullscreen lightbox. Images lazy-load through next/image.
- */
-export function Gallery({ images, categories, columns = 3, captions = true, className = "" }: Props) {
-  const [active, setActive] = useState<string>("all");
+function FullscreenIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      className="h-4 w-4 shrink-0"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      className="h-5 w-5"
+    >
+      <path strokeLinecap="round" d="M5 5l14 14M19 5 5 19" />
+    </svg>
+  );
+}
+
+function CalendarIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      className="h-[18px] w-[18px] shrink-0"
+    >
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path strokeLinecap="round" d="M8 3.5V6.5M16 3.5V6.5M3.5 10h17" />
+    </svg>
+  );
+}
+
+/* =========================================================
+   PORTFOLIO GALLERY
+   Filter pills, 12-card atelier grid with hover dossier,
+   and a full-resolution lightbox.
+========================================================= */
+
+export function Gallery({ images, categories, notes = {}, className = "" }: Props) {
+  const [active, setActive] = useState<string>(categories?.[0]?.id ?? "all");
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [fading, setFading] = useState(false);
 
   const visible = useMemo(
-    () => (active === "all" ? images : images.filter((img) => isWork(img) && img.category.includes(active as WorkImage["category"][number]))),
+    () =>
+      active === "all"
+        ? images
+        : images.filter((img) => img.category.includes(active as WorkImage["category"][number])),
     [images, active],
   );
 
-  const changeCategory = (id: string) => {
-    if (id === active) return;
-    setFading(true);
-    window.setTimeout(() => {
-      setActive(id);
-      setFading(false);
-    }, 220);
-  };
+  /** Stable reference number, independent of the active filter. */
+  const refOf = useCallback(
+    (img: WorkImage) => `AM-${String(images.indexOf(img) + 1).padStart(2, "0")}`,
+    [images],
+  );
 
   const close = useCallback(() => setLightbox(null), []);
-  const step = useCallback(
-    (dir: 1 | -1) => setLightbox((i) => (i === null ? null : (i + dir + visible.length) % visible.length)),
-    [visible.length],
-  );
 
   useEffect(() => {
     if (lightbox === null) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
-      if (e.key === "ArrowRight") step(1);
-      if (e.key === "ArrowLeft") step(-1);
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -65,121 +123,221 @@ export function Gallery({ images, categories, columns = 3, captions = true, clas
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [lightbox, close, step]);
+  }, [lightbox, close]);
 
-  const colClass = { 2: "sm:columns-2", 3: "columns-2 lg:columns-3", 4: "columns-2 lg:columns-3 xl:columns-4" }[columns];
+  const current = lightbox !== null ? visible[lightbox] : null;
+  const currentNote = current ? notes[current.title] : undefined;
 
   return (
     <div className={className}>
+      {/* ---------- Filter pills ---------- */}
       {categories && (
-        <div className="no-scrollbar -mx-5 mb-10 flex gap-1 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0" role="tablist" aria-label="Filter portfolio">
-          {categories.map((c) => {
-            const on = c.id === active;
+        <div className="no-scrollbar w-full overflow-x-auto pb-3 pt-1.5">
+          <div
+            className="inline-flex items-center gap-2"
+            role="tablist"
+            aria-label="Filter portfolio"
+          >
+            {categories.map((c) => {
+              const on = c.id === active;
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => setActive(c.id)}
+                  className={`
+                    whitespace-nowrap rounded-full px-5 py-2 font-sans text-m3-label
+                    font-medium uppercase transition-all duration-300
+                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4
+                    focus-visible:outline-m3-primary
+                    ${
+                      on
+                        ? "bg-m3-primary text-m3-on-primary shadow-sm"
+                        : "bg-m3-container text-m3-tertiary hover:bg-m3-high hover:text-m3-on-surface"
+                    }
+                  `}
+                >
+                  {c.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ---------- Atelier light hint ---------- */}
+      <div className="mt-3 flex items-center gap-2 text-m3-tertiary/70">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          className="h-4 w-4 shrink-0"
+        >
+          <circle cx="11" cy="11" r="6.5" />
+          <path strokeLinecap="round" d="M16 16l4.5 4.5M11 8.5v5M8.5 11h5" />
+        </svg>
+        <span className="font-sans text-m3-body-sm italic">
+          Click any work to view in high-resolution atelier light.
+        </span>
+      </div>
+
+      {/* ---------- Grid ---------- */}
+      {visible.length === 0 ? (
+        <p className="py-16 text-center font-serif text-m3-headline-sm italic text-m3-tertiary">
+          {t.work.empty}
+        </p>
+      ) : (
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {visible.map((img, i) => {
+            const note = notes[img.title];
+
             return (
               <button
-                key={c.id}
-                role="tab"
-                aria-selected={on}
-                onClick={() => changeCategory(c.id)}
-                className={`link-line whitespace-nowrap px-3 py-2 font-sans text-[0.7rem] font-medium uppercase tracking-wider2 transition-colors duration-300 ${
-                  on ? "text-plum-700" : "text-ink/60 hover:text-plum-700"
-                }`}
-                aria-current={on ? "page" : undefined}
+                key={img.src}
+                type="button"
+                onClick={() => setLightbox(i)}
+                aria-label={`Open ${img.title} in high resolution`}
+                className="group relative block overflow-hidden rounded-lg bg-m3-container text-left shadow-md transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-m3-primary motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
-                {c.label}
+                {/* Photograph */}
+                <span className="relative block aspect-[4/5] w-full overflow-hidden">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+
+                </span>
+
+                {/* Default caption */}
+                <span className="flex flex-col justify-between bg-m3-container p-5">
+                  <span className="flex items-center justify-between gap-3">
+                    <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                      {img.category[0]}
+                    </span>
+                    <span className="text-m3-tertiary transition-colors group-hover:text-m3-primary">
+                      <NorthEast />
+                    </span>
+                  </span>
+
+                  <span className="mt-1 block font-serif text-m3-headline-sm !font-normal text-m3-on-surface">
+                    {img.title}
+                  </span>
+
+                  {note && (
+                    <span className="mt-1 line-clamp-1 font-sans text-m3-body-sm font-light text-m3-on-surface-variant/80">
+                      {note.short}
+                    </span>
+                  )}
+                </span>
+
+                {/* Hover dossier */}
+                <span className="pointer-events-none absolute inset-0 flex flex-col justify-between bg-m3-high/90 p-10 opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100">
+                  <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                    Ref. {refOf(img)} · {img.category[0]}
+                  </span>
+
+                  <span className="block">
+                    <span className="mb-2 block font-serif text-m3-headline-md !font-normal text-m3-on-surface">
+                      {img.title}
+                    </span>
+                    {note && (
+                      <span className="block font-sans text-m3-body-md font-light text-m3-on-surface-variant">
+                        {note.long}
+                      </span>
+                    )}
+                  </span>
+
+                  <span className="flex items-center gap-2 font-sans text-m3-label font-medium uppercase text-m3-primary">
+                    <span>Enlarge Masterpiece</span>
+                    <FullscreenIcon />
+                  </span>
+                </span>
               </button>
             );
           })}
         </div>
       )}
 
-      {visible.length === 0 ? (
-        <p className="py-16 text-center font-serif text-xl italic text-mist">{t.work.empty}</p>
-      ) : (
-        <div className={`${colClass} gap-4 transition-opacity duration-300 sm:gap-5 ${fading ? "opacity-0" : "opacity-100"}`}>
-          {visible.map((img, i) => (
-            <figure key={img.src + i} className="mb-4 break-inside-avoid sm:mb-5">
-              <button
-                type="button"
-                onClick={() => setLightbox(i)}
-                className="zoom-frame group block w-full text-left focus-visible:outline-plum-500"
-                aria-label={`Open image: ${isWork(img) ? img.title : img.alt}`}
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={img.width}
-                  height={img.height}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="h-auto w-full"
-                  loading="lazy"
-                />
-                {captions && isWork(img) && (
-                  <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-plum-900/55 to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
-                    <span className="font-serif text-lg italic text-cream">{img.title}</span>
-                    <span className="font-sans text-[0.62rem] uppercase tracking-wider2 text-plum-100">{img.category[0]}</span>
-                  </figcaption>
-                )}
-              </button>
-            </figure>
-          ))}
-        </div>
-      )}
-
-      {lightbox !== null && visible[lightbox] && (
+      {/* ---------- Lightbox ---------- */}
+      {current && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={isWork(visible[lightbox]) ? visible[lightbox].title : visible[lightbox].alt}
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-plum-900/92 p-4 backdrop-blur-sm animate-[bloom_0.4s_ease-out_both]"
+          aria-label={current.title}
           onClick={close}
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-m3-lowest/95 p-5 backdrop-blur-2xl animate-[bloom_0.3s_ease-out_both]"
         >
-          <button
-            type="button"
-            onClick={close}
-            aria-label={t.work.lightbox.close}
-            className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center text-cream/80 transition hover:text-cream"
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex w-full max-w-4xl flex-col gap-10 rounded-lg bg-m3-container p-6 shadow-2xl sm:p-10 md:flex-row"
           >
-            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
-              <path d="M5 5l14 14M19 5L5 19" strokeLinecap="round" />
-            </svg>
-          </button>
-          {visible.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); step(-1); }}
-                aria-label={t.work.lightbox.prev}
-                className="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-cream/70 transition hover:text-cream sm:left-6"
-              >
-                <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true"><path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); step(1); }}
-                aria-label={t.work.lightbox.next}
-                className="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-cream/70 transition hover:text-cream sm:right-6"
-              >
-                <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </button>
-            </>
-          )}
-          <figure className="relative max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <Image
-              key={visible[lightbox].src}
-              src={visible[lightbox].src}
-              alt={visible[lightbox].alt}
-              width={visible[lightbox].width}
-              height={visible[lightbox].height}
-              sizes="100vw"
-              className="max-h-[82vh] w-auto max-w-full object-contain"
-              priority
-            />
-            <figcaption className="mt-4 flex items-center justify-between text-cream/80">
-              <span className="font-serif text-xl italic">{isWork(visible[lightbox]) ? (visible[lightbox] as WorkImage).title : visible[lightbox].alt}</span>
-              <span className="font-sans text-[0.65rem] tracking-wider2">{lightbox + 1} / {visible.length}</span>
-            </figcaption>
-          </figure>
+            <button
+              type="button"
+              onClick={close}
+              aria-label={t.work.lightbox.close}
+              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-m3-high text-m3-secondary transition-colors hover:text-m3-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-m3-primary"
+            >
+              <CloseIcon />
+            </button>
+
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded md:w-1/2">
+              <Image
+                key={current.src}
+                src={current.src}
+                alt={current.alt}
+                fill
+                sizes="(max-width: 768px) 90vw, 400px"
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            <div className="flex w-full flex-col justify-between md:w-1/2">
+              <div>
+                <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                  {current.category[0]}
+                </span>
+
+                <h3 className="mb-3 mt-2 font-serif text-m3-headline-md !font-normal !text-m3-on-surface lg:text-m3-headline-lg">
+                  {current.title}
+                </h3>
+
+                {currentNote && (
+                  <p className="font-sans text-m3-body-md font-light leading-relaxed text-m3-on-surface-variant">
+                    {currentNote.long}
+                  </p>
+                )}
+
+                <div className="mt-5 rounded bg-m3-low p-3">
+                  <span className="mb-1 block font-sans text-m3-eyebrow font-medium uppercase text-m3-tertiary">
+                    Technique Notes
+                  </span>
+                  <p className="font-sans text-m3-body-sm text-m3-on-surface-variant">
+                    Custom multi-tonal application with bond-building shield and diamond shine
+                    sealant at Salon Alain Martinos.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-5">
+                <a
+                  href={`/contact?service=${encodeURIComponent(current.title)}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-m3-primary px-5 py-3 font-sans text-m3-label font-medium uppercase text-m3-on-primary transition-colors hover:bg-m3-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-m3-primary"
+                >
+                  <CalendarIcon />
+                  <span>Inquire About This Look</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 /** Thin lavender rule with a small centered mark — the site's chapter divider. */
 export function Divider({ className = "", light = false }: { className?: string; light?: boolean }) {
-  const line = light ? "bg-plum-300/40" : "bg-plum-200";
-  const mark = light ? "text-plum-300" : "text-plum-500";
+  const line = light ? "bg-night-hover/40" : "bg-night-hover";
+  const mark = light ? "text-lilac" : "text-bright";
   return (
     <div aria-hidden="true" className={`flex items-center gap-4 ${className}`}>
       <span className={`h-px flex-1 ${line}`} />

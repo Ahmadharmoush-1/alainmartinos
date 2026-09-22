@@ -89,37 +89,40 @@ export const heroImages = {
 export const videos = [
   {
     src: "/videos/alain-video-1.mp4",
-    title: "About Alain Martinos",
+    title: "Who is Alain Martinos",
   },
   {
     src: "/videos/alain-video-2.mp4",
-    title: "Creative Styling",
-  },
-  {
-    src: "/videos/alain-video-3.mp4",
-    title: "Behind the Chair",
+    title: "Alain  Martinos the Visagist",
   },
   {
     src: "/videos/alain-video-4.mp4",
-    title: "The Art of Hair",
-  }, {
-    src: "/videos/alain-video-5.mp4",
-    title: "The Art of Hair",
-  }, {
-    src: "/videos/alain-video-6.mp4",
-    title: "The Art of Hair",
+    title: "Alain Martinos with the Highlights Techniques ",
+  },
+  {
+    src: "/videos/alain-video-8.mp4",
+    title: "Alain Martinos Cut‘n Style & haircuts Techniques",
   }, {
     src: "/videos/alain-video-7.mp4",
-    title: "The Art of Hair",
-  }, {
-    src: "/videos/alain-video-8.mp4",
-    title: "The Art of Hair",
-  }, {
-    src: "/videos/alain-video-9.mp4",
-    title: "The Art of Hair",
+    title: "Alain Martinos Funny Video",
   }, {
     src: "/videos/alain-video-10.mp4",
-    title: "The Art of Hair",
+    title: "Salon Alain Hair & Beauty - by Alain Martinos",
+  }, {
+    src: "/videos/alain-video-3.mp4",
+    title: "Alain Martinos Working Day",
+  }, {
+    src: "/videos/alain-video-9.mp4",
+    title: "Alain Martinos beauty shots",
+  }, {
+    src: "/videos/alain-video-11.mp4",
+    title: "Salon Alain Hair & Beauty - by Alain Martinos",
+  }, {
+    src: "/videos/alain-video-13.mp4",
+    title: "Alain Martinos balayage technique with paintings without foils",
   },
-  
+   {
+    src: "/videos/alain-video-14.mp4",
+    title: "Alain Martinos & Men’s haircut in Germany ",
+  },
 ];

@@ -15,6 +15,8 @@
   }
 
   html {
+    /* Canvas colour behind the page — keeps overscroll purple, never white. */
+    background-color: #1a0b2e;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
@@ -152,4 +154,344 @@
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
   .text-balance { text-wrap: balance; }
+}
+.tagline-text {
+  animation: tagline-reveal 1s ease-out 200ms both;
+}
+
+.tagline-glow {
+  animation: tagline-glow 4s ease-in-out infinite;
+}
+
+.tagline-underline {
+  transform-origin: center;
+  animation: tagline-underline 900ms ease-out 700ms both;
+}
+
+@keyframes tagline-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes tagline-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes tagline-underline {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* Respect visitors who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .tagline-text,
+  .tagline-glow,
+  .tagline-underline {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   ALL-PURPLE THEME
+   Layered aubergine surfaces. No white, no black — section
+   separation comes from tone + hairlines, never a light band.
+   Scoped to .theme-purple so light pages stay untouched.
+========================================================= */
+
+.theme-purple {
+  --pp-deep: #150823;
+  --pp-base: #1a0b2e;
+  --pp-raised: #241040;
+  --pp-card: #2e1550;
+  --pp-hover: #3b1c64;
+  --pp-line: #4a2a72;
+  --pp-primary: #9b62b3;
+  --pp-bright: #c08be0;
+  --pp-lilac: #dcc8e6;
+  --pp-body: #ebdff5;
+  --pp-heading: #f6effa;
+  --pp-muted: #b79acf;
+
+  background-color: var(--pp-base);
+  color: var(--pp-body);
+}
+
+.theme-purple h1,
+.theme-purple h2,
+.theme-purple h3,
+.theme-purple h4 {
+  color: var(--pp-heading);
+  font-weight: 300;
+  letter-spacing: 0.005em;
+}
+
+.theme-purple p,
+.theme-purple li {
+  color: var(--pp-body);
+}
+
+.theme-purple .kicker {
+  color: var(--pp-lilac);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+}
+
+.theme-purple .dropcap::first-letter {
+  color: var(--pp-bright);
+}
+
+.theme-purple .zoom-frame {
+  background-color: var(--pp-card);
+}
+
+.theme-purple ::selection {
+  background: var(--pp-primary);
+  color: var(--pp-heading);
+}
+
+.theme-purple :focus-visible {
+  outline: 2px solid var(--pp-bright);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* --- Photography: multiply scrim so even photos read purple --- */
+  .duotone {
+    position: relative;
+    overflow: hidden;
+  }
+  .duotone > img,
+  .duotone > span > img {
+    filter: saturate(0.82);
+  }
+  .duotone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #4a2a72;
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* --- Soft radial purple glow used behind hero / CTA / panels --- */
+  .glow-purple {
+    background-image: radial-gradient(
+      closest-side,
+      rgba(155, 98, 179, 0.28),
+      rgba(155, 98, 179, 0)
+    );
+    filter: blur(40px);
+  }
+
+  /* --- Pill buttons --- */
+  .pill {
+    @apply inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full
+      px-8 font-sans text-[0.7rem] font-semibold uppercase leading-none
+      tracking-[0.22em] transition-all duration-500 ease-luxe;
+  }
+  .pill-solid {
+    background-color: #9b62b3;
+    color: #1a0b2e;
+    box-shadow: 0 18px 40px -22px rgba(155, 98, 179, 0.9);
+  }
+  .pill-solid:hover {
+    background-color: #c08be0;
+    transform: translateY(-1px);
+  }
+  .pill-outline {
+    border: 1px solid #c08be0;
+    color: #dcc8e6;
+  }
+  .pill-outline:hover {
+    border-color: #dcc8e6;
+    background-color: rgba(192, 139, 224, 0.12);
+    color: #f6effa;
+    transform: translateY(-1px);
+  }
+
+  /* --- Text link with a drawing underline, lilac on purple --- */
+  .link-lilac {
+    @apply link-line inline-flex items-center gap-2 font-sans text-[0.7rem]
+      font-semibold uppercase tracking-[0.22em] transition-colors duration-300;
+    color: #c08be0;
+  }
+  .link-lilac:hover {
+    color: #f6effa;
+  }
+}
+
+/* =========================================================
+   ONE PURPLE ARTWORK BEHIND A WHOLE PAGE
+   Add .page-purple-background to a page's root element and the
+   image below replaces that page's flat section fills. Nothing
+   else on the page changes — cards, text and photographs stay.
+========================================================= */
+
+.page-purple-background {
+  position: relative;
+  isolation: isolate;
+  background-color: #744394 !important;
+  background-image: none !important;
+}
+
+.page-purple-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("/images/salon-purple-background.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* Sections stop painting their own fill so the artwork shows through. */
+.page-purple-background > section,
+.page-purple-background > div > section {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+/* =========================================================
+   HERO TAGLINE — slab settle, word cascade, shimmer sweep
+========================================================= */
+
+.tagline-h1 {
+  text-shadow: 0 0 30px rgba(234, 178, 255, 0.25);
+  animation: tagline-glow-breathe 5s ease-in-out 1.8s infinite;
+}
+
+/* The italic slab: over-skews, then settles to its resting angle. */
+.tagline-slab {
+  position: relative;
+  overflow: hidden;
+  padding: 0.14em 0.34em;
+  margin: -0.14em -0.34em;
+  animation: tagline-slab-settle 1100ms cubic-bezier(0.22, 1, 0.36, 1) 200ms both;
+}
+
+@keyframes tagline-slab-settle {
+  from {
+    transform: skewX(-34deg) scale(0.94);
+  }
+  to {
+    transform: skewX(-20deg) scale(1);
+  }
+}
+
+/* Each word rises out of a blur, one after the next. */
+.tagline-word {
+  display: inline-block;
+  opacity: 0;
+  animation: tagline-word-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tagline-word + .tagline-word {
+  margin-left: 0.28em;
+}
+
+@keyframes tagline-word-in {
+  0% {
+    opacity: 0;
+    transform: translateY(0.45em) scaleY(1.18);
+    filter: blur(12px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    filter: blur(0);
+  }
+}
+
+/* A light sweeps across once the words have landed, then rests. */
+.tagline-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 62%
+  );
+  mix-blend-mode: overlay;
+  transform: translateX(-130%);
+  animation: tagline-shine 6s ease-in-out 1.6s infinite;
+}
+
+@keyframes tagline-shine {
+  0% {
+    transform: translateX(-130%);
+  }
+  28%,
+  100% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes tagline-glow-breathe {
+  0%,
+  100% {
+    text-shadow: 0 0 26px rgba(234, 178, 255, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(234, 178, 255, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tagline-h1 {
+    animation: none;
+  }
+  .tagline-slab {
+    animation: none;
+    transform: skewX(-20deg);
+  }
+  .tagline-word {
+    animation: none;
+    opacity: 1;
+  }
+  .tagline-shine {
+    display: none;
+  }
+}
+.alain-editorial .am-chapter-description .am-prose {
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.9;
+  color: #eadced;
+}
+
+@media (max-width: 639px) {
+  .alain-editorial .am-chapter-description .am-prose {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
 }

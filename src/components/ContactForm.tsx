@@ -9,10 +9,10 @@ const t = getContent();
 const f = t.contact.form;
 
 const field =
-  "peer w-full border-0 border-b border-plum-200 bg-transparent px-0 py-3 font-sans text-[0.95rem] text-ink placeholder:text-mist/60 transition-colors duration-300 focus:border-plum-700 focus:outline-none focus:ring-0";
+  "peer w-full rounded-xl border border-night-line bg-night-hover/55 px-4 py-3.5 font-sans text-[0.95rem] font-light text-lavender placeholder:text-dusk/70 transition-colors duration-300 focus:border-bright focus:outline-none focus:ring-0 [&>option]:bg-night-card [&>option]:text-lavender";
 
 const label =
-  "block font-sans text-[0.65rem] font-medium uppercase tracking-wider2 text-plum-500";
+  "mb-2 block font-sans text-[0.62rem] font-medium uppercase tracking-[0.22em] text-lilac";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -183,33 +183,18 @@ export function ContactForm() {
       </div>
 
   <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-  <Button
-    type="submit"
-    size="lg"
-    disabled={status === "sending"}
-    className="
-      !bg-plum-700 !text-white
-      hover:!bg-plum-800 hover:!text-white
-      disabled:!text-white
-      [&_*]:!text-white
-    "
-  >
-    <span
-      className="!text-white"
-      style={{ WebkitTextFillColor: "#ffffff" }}
-    >
-      {status === "sending" ? f.sending : f.submit}
-    </span>
+  <Button type="submit" size="lg" disabled={status === "sending"} className="w-full sm:w-auto">
+    {status === "sending" ? f.sending : f.submit}
   </Button>
 
-  <p className="text-sm text-mist">{f.fallbackNote}</p>
+  <p className="text-sm text-dusk">{f.fallbackNote}</p>
 </div>
 
       <p
         role="status"
         aria-live="polite"
         className={`text-sm ${
-          status === "error" ? "text-red-700" : "text-plum-700"
+          status === "error" ? "text-red-700" : "text-lavender"
         }`}
       >
         {status === "success" && f.success}

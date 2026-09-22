@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 40,
+            "activePatchIndex": 41,
             "patches": [
                 {
                     "date": 1789320436381,
@@ -168,6 +168,10 @@
                 {
                     "date": 1789590135501,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,9 @@\n     cta: {\n       heading: \"Your next look starts here\",\n       copy: \"Whether you're looking for a subtle refresh or a complete transformation, every appointment begins with understanding you.\",\n       lebanon: \"Book in Lebanon\",\n-      germany: \"Book in Germany\"\n+      \n     },\n   },\n \n   services: {\n"
+                },
+                {
+                    "date": 1789989719613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n     hero: {\n       // name: \"Salon Alain\",\n       // line1: \"Hair & Beauty\",\n       // line2: \"by Alain Martinos\",\n-      tagline: \"Wherebeauty becomes art.\",\n+      tagline: \"Where beauty becomes art.\",\n       copy: \"More than 25 years of artistry, experience and passion in hair, beauty and personal transformation — from Lebanon to Germany.\",\n       ctaPrimary: \"Book Appointment\",\n       ctaSecondary: \"Explore Our Work\",\n       scroll: \"Scroll\",\n"
                 }
             ],
             "date": 1789320436381,

@@ -22,7 +22,7 @@ const sectionImages = [salonImages[0], alainImages[1], salonImages[3], alainImag
 export default function AboutPage() {
   const a = t.about;
   return (
-    <>
+    <div className="page-purple-background theme-purple">
       <PageHero kicker="Salon Alain" title={a.heading} subtitle={a.subtitle} image={heroImages.about} variant="band" />
 
       <div className="container-page">
@@ -30,10 +30,10 @@ export default function AboutPage() {
           const img = sectionImages[i % sectionImages.length];
           const flip = i % 2 === 1;
           return (
-            <section key={s.id} id={s.id} className="scroll-mt-24 border-b border-plum-200/60 py-20 last:border-0 sm:py-28">
+            <section key={s.id} id={s.id} className="scroll-mt-24 border-b border-night-line/60 py-20 last:border-0 sm:py-28">
               <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                 <div className={`lg:col-span-5 ${flip ? "lg:order-2 lg:col-start-8" : ""}`}>
-                  <Reveal variant="image" className="zoom-frame aspect-[4/5]">
+                  <Reveal className="zoom-frame aspect-[4/5]">
                     <Image src={img.src} alt={img.alt} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" loading="lazy" />
                   </Reveal>
                 </div>
@@ -42,12 +42,12 @@ export default function AboutPage() {
                     <h2 className="text-display-md font-medium">{s.title}</h2>
                     <span aria-hidden="true" className="mt-6 block h-px w-14 bg-plum-500" />
                   </Reveal>
-                  <Reveal delay={120} className="mt-8 space-y-5 text-[1.02rem] leading-[1.8] text-ink/80">
+                  <Reveal delay={120} className="mt-8 space-y-5 text-[1.02rem] leading-[1.8] text-lavender/80">
                     {s.body.map((p, j) => <p key={j}>{p}</p>)}
                   </Reveal>
                   {"quote" in s && s.quote && (
                     <Reveal delay={200} className="mt-8 border-l border-plum-500 pl-6">
-                      <p className="font-serif text-2xl italic leading-snug text-plum-700">“{s.quote}”</p>
+                      <p className="font-serif text-2xl italic leading-snug text-lavender">“{s.quote}”</p>
                     </Reveal>
                   )}
                 </div>
@@ -68,7 +68,7 @@ export default function AboutPage() {
             {a.why.points.map((p, i) => (
               <Reveal as="li" key={p.title} delay={i * 80} className="border-t border-plum-700 pt-5">
                 <h3 className="font-serif text-2xl font-medium">{p.title}</h3>
-                <p className="mt-3 leading-relaxed text-ink/75">{p.desc}</p>
+                <p className="mt-3 leading-relaxed text-lavender/75">{p.desc}</p>
               </Reveal>
             ))}
           </ul>
@@ -79,6 +79,6 @@ export default function AboutPage() {
       </section>
 
       <CtaBand />
-    </>
+    </div>
   );
 }

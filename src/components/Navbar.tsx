@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Logo } from "./Logo";
-import { Button } from "./Button";
 import { getContent } from "@/lib/i18n";
 
 const t = getContent();
@@ -68,7 +67,7 @@ export function Navbar() {
   return (
     <>
       {/* =====================================================
-          HEADER
+          HEADER — deep aubergine, hairline bottom border
       ===================================================== */}
 
       <header
@@ -77,14 +76,15 @@ export function Navbar() {
           inset-x-0
           top-0
           z-50
+          border-b
           transition-all
           duration-500
           ease-luxe
 
           ${
             solid
-              ? "bg-cream/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(220,200,230,0.65)]"
-              : "bg-transparent"
+              ? "border-night-line bg-night-base/95 backdrop-blur-md"
+              : "border-transparent bg-night-base/55 backdrop-blur-sm"
           }
         `}
       >
@@ -94,43 +94,38 @@ export function Navbar() {
             flex
             items-center
             justify-between
+            gap-4
             transition-all
             duration-500
 
-            ${
-              solid
-                ? "h-[4.5rem] lg:h-[5rem]"
-                : "h-24 lg:h-[6.5rem]"
-            }
+            ${solid ? "h-[4.5rem] lg:h-[5rem]" : "h-20 lg:h-[5.75rem]"}
           `}
         >
           {/* =================================================
               LOGO + BRAND
           ================================================= */}
 
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-3.5">
             <Logo
-              size={solid ? 52 : 64}
+              size={solid ? 48 : 58}
               priority
-              className="
-                transition-all
-                duration-500
-              "
+              className="transition-all duration-500"
             />
 
             <span
               className="
                 hidden
+                truncate
                 font-serif
-                text-xl
-                font-bold
-                tracking-[0.03em]
-                text-plum-700
+                text-lg
+                font-light
+                tracking-[0.06em]
+                text-chalk
                 sm:block
-                lg:text-2xl
+                lg:text-xl
               "
             >
-              Salon Alain
+              Salon Alain Martinos
             </span>
           </div>
 
@@ -162,19 +157,15 @@ export function Navbar() {
                     link-line
 
                     font-sans
-                    text-[0.82rem]
-                    font-extrabold
+                    text-[0.7rem]
+                    font-medium
                     uppercase
-                    tracking-[0.14em]
+                    tracking-[0.22em]
 
                     transition-colors
                     duration-300
 
-                    ${
-                      active
-                        ? "text-plum-700"
-                        : "text-ink/85 hover:text-plum-700"
-                    }
+                    ${active ? "text-bright" : "text-lilac hover:text-chalk"}
                   `}
                 >
                   {item.label}
@@ -187,20 +178,15 @@ export function Navbar() {
               RIGHT SIDE
           ================================================= */}
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* BOOK BUTTON */}
 
-            <Button
+            <Link
               href="/contact"
-              className="
-                hidden
-                font-bold
-                md:inline-flex
-              "
-              size="md"
+              className="pill pill-solid hidden !min-h-[44px] !px-6 !text-[0.62rem] md:inline-flex"
             >
               {t.nav.book}
-            </Button>
+            </Link>
 
             {/* =================================================
                 MOBILE MENU BUTTON
@@ -219,7 +205,7 @@ export function Navbar() {
                 w-12
                 items-center
                 justify-center
-                text-plum-700
+                text-bright
                 xl:hidden
               "
             >
@@ -243,7 +229,7 @@ export function Navbar() {
                     absolute
                     left-0
                     top-0
-                    h-[2px]
+                    h-px
                     w-7
                     rounded-full
                     bg-current
@@ -251,11 +237,7 @@ export function Navbar() {
                     duration-500
                     ease-luxe
 
-                    ${
-                      open
-                        ? "top-[9px] rotate-45"
-                        : ""
-                    }
+                    ${open ? "top-[9px] rotate-45" : ""}
                   `}
                 />
 
@@ -266,18 +248,14 @@ export function Navbar() {
                     absolute
                     left-0
                     top-[9px]
-                    h-[2px]
+                    h-px
                     w-7
                     rounded-full
                     bg-current
                     transition-all
                     duration-300
 
-                    ${
-                      open
-                        ? "opacity-0"
-                        : ""
-                    }
+                    ${open ? "opacity-0" : ""}
                   `}
                 />
 
@@ -288,7 +266,7 @@ export function Navbar() {
                     absolute
                     left-0
                     top-[18px]
-                    h-[2px]
+                    h-px
                     w-7
                     rounded-full
                     bg-current
@@ -296,11 +274,7 @@ export function Navbar() {
                     duration-500
                     ease-luxe
 
-                    ${
-                      open
-                        ? "top-[9px] -rotate-45"
-                        : ""
-                    }
+                    ${open ? "top-[9px] -rotate-45" : ""}
                   `}
                 />
               </span>
@@ -310,7 +284,7 @@ export function Navbar() {
       </header>
 
       {/* =====================================================
-          MOBILE MENU
+          MOBILE MENU — full-screen purple overlay
       ===================================================== */}
 
       <div
@@ -326,7 +300,7 @@ export function Navbar() {
           flex
           flex-col
 
-          bg-cream/97
+          bg-night-base/98
           backdrop-blur-xl
 
           transition-all
@@ -368,18 +342,16 @@ export function Navbar() {
                 aria-current={active ? "page" : undefined}
                 tabIndex={open ? 0 : -1}
                 style={{
-                  transitionDelay: open
-                    ? `${80 + i * 45}ms`
-                    : "0ms",
+                  transitionDelay: open ? `${80 + i * 45}ms` : "0ms",
                 }}
                 className={`
                   border-b
-                  border-plum-200/70
+                  border-night-line
                   py-5
 
                   font-serif
                   text-[2rem]
-                  font-bold
+                  font-light
                   leading-tight
 
                   transition-all
@@ -388,17 +360,9 @@ export function Navbar() {
 
                   sm:text-[2.3rem]
 
-                  ${
-                    open
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-3 opacity-0"
-                  }
+                  ${open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}
 
-                  ${
-                    active
-                      ? "text-plum-700"
-                      : "text-ink hover:text-plum-700"
-                  }
+                  ${active ? "text-bright" : "text-chalk hover:text-bright"}
                 `}
               >
                 {item.label}
@@ -409,17 +373,13 @@ export function Navbar() {
           {/* MOBILE BOOK BUTTON */}
 
           <div className="pt-10">
-            <Button
+            <Link
               href="/contact"
-              size="lg"
-              className="
-                w-full
-                font-bold
-              "
               tabIndex={open ? 0 : -1}
+              className="pill pill-solid w-full"
             >
               {t.nav.book}
-            </Button>
+            </Link>
           </div>
         </nav>
       </div>

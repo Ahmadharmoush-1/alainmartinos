@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
+import { VideoShortsRow } from "@/components/VideoShortsRow";
 import { getContent } from "@/lib/i18n";
-import { alainImages } from "@/lib/images";
+import { videos } from "@/lib/images";
 import { SITE_URL } from "@/lib/site";
 
 const a = getContent().alain;
+const v = getContent().home.video;
 
 export const metadata: Metadata = {
   title: `${a.title} – Hairdresser, Visagist, Singer & Collector`,
@@ -22,7 +24,15 @@ export const metadata: Metadata = {
   },
 };
 
-const portrait = alainImages[0];
+/**
+ * The large founder portrait in the sidebar.
+ * Declared here (not pulled from lib/images.ts) so every image this page
+ * renders lives in one place — see `chapterImages` below for the rest.
+ */
+const portrait: Portrait = {
+  src: "/images/alain-intro.jpg",
+  alt: "Alain Martinos in the salon",
+};
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -31,7 +41,7 @@ const personSchema = {
   name: "Alain Martinos",
   jobTitle: "Hairdresser & Visagist",
   description: a.description,
-  nationality: ["Lebanese", "German"],
+  nationality: ["Lebanese" ],
   url: `${SITE_URL}/alain-martinos`,
   ...(portrait
     ? { image: new URL(portrait.src, SITE_URL).href }
@@ -48,16 +58,6 @@ const personSchema = {
     "Barbie collecting",
     "Intellectual property law",
   ],
-};
-
-const styles = {
-  container: "mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12",
-  section: "py-16 sm:py-20 lg:py-24",
-  heading:
-    "font-serif text-[2rem] font-semibold leading-tight tracking-tight sm:text-[2.5rem] lg:text-[3.25rem]",
-  prose: "space-y-5 text-lg leading-8 sm:text-xl",
-  button:
-    "inline-flex min-h-[48px] items-center justify-center gap-3 rounded-full border border-[#7028B5] bg-[#7028B5] px-7 py-3.5 text-center text-base font-bold leading-6 text-white shadow-sm transition-colors hover:border-[#571D90] hover:bg-[#571D90] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7028B5] motion-reduce:transition-none sm:text-lg",
 };
 
 type Chapter = {
@@ -79,687 +79,384 @@ type Portrait = {
   alt: string;
 };
 
-function Arrow({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      className={`h-5 w-5 shrink-0 ${className}`}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M4 12h16m-6-6 6 6-6 6"
-      />
-    </svg>
-  );
+
+// Drop-in replacement for app/alain-martinos/page.tsx.
+// Keep your existing shared layout, image registry, and translated content.
+const chapterImages: Partial<Record<number, Portrait>> = {
+  0: { src: "/images/alainmartinos.jpg", alt: "Alain Martinos" },
+  2: { src: "/images/alain-044.jpg", alt: "Alain Martinos’s Barbie collection" },
+  4: { src: "/images/about-alain1.jpg", alt: "Alain Martinos between Lebanon and Germany" },
+};
+
+/**
+ * The Alain Martinos gallery. These are the portraits not already used by
+ * `chapterImages` or the sidebar `portrait` — add or reorder freely.
+ */
+const galleryImages: readonly Portrait[] = [
+  { src: "/images/alain-gallery/01.jpg", alt: "Alain Martinos, portrait" },
+  { src: "/images/alain-gallery/02.jpg", alt: "Alain Martinos at work in the salon" },
+  { src: "/images/alain-gallery/03.jpg", alt: "Alain Martinos performing" },
+  { src: "/images/alain-gallery/04.jpg", alt: "Alain Martinos between Lebanon and Germany" },
+];
+
+/**
+ * The Barbie collector chapter is lifted out of the chronicle and rendered
+ * near the end of the page instead, under the gallery. Its original index is
+ * preserved so `chapterImages` and the "10,000+" archive layout still match.
+ */
+const collectorIndex = a.chapters.findIndex((chapter) => chapter.id === "collector");
+const collectorChapter = collectorIndex >= 0 ? a.chapters[collectorIndex] : undefined;
+
+function Arrow() {
+  return <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16m-6-6 6 6-6 6" /></svg>;
 }
 
 function ContactButton({ label }: { label: string }) {
+  return <Link href="/contact" className="am-button">{label}<Arrow /></Link>;
+}
+
+function Photo({ image, priority = false, className = "" }: { image: Portrait; priority?: boolean; className?: string }) {
   return (
-    <Link href="/contact" className={styles.button}>
-      {label}
-      <Arrow />
-    </Link>
+    <div className={`am-photo ${className}`}>
+      <Image src={image.src} alt={image.alt} fill priority={priority}
+        sizes="(max-width: 639px) 90vw, (max-width: 1023px) 80vw, 55vw"
+        className="am-photo-image" />
+    </div>
   );
 }
 
-function Prose({
-  paragraphs,
-  dark = false,
-}: {
-  paragraphs: readonly string[];
-  dark?: boolean;
-}) {
+function Prose({ paragraphs }: { paragraphs: readonly string[] }) {
+  return <div className="am-prose">{paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>;
+}
+
+function PullQuote({ text }: { text: string }) {
+  return <blockquote className="am-quote"><p>“{text}”</p></blockquote>;
+}
+
+function ChapterLinks() {
   return (
-    <div
-      className={`${styles.prose} ${
-        dark ? "text-white/90" : "text-[#6527A7]"
-      }`}
-    >
-      {paragraphs.map((paragraph, index) => (
-        <p key={index}>{paragraph}</p>
+    <ol className="am-chapter-links">
+      {a.chapters.map((chapter, index) => (
+        <li key={chapter.id}>
+          <a href={`#${chapter.id}`}>
+            <span>{chapter.number}. {chapter.title}</span>
+            <span className="am-nav-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
 
-function Photo({
-  image,
-  priority = false,
-  square = false,
-}: {
-  image: Portrait;
-  priority?: boolean;
-  square?: boolean;
-}) {
+function ChapterSection({ chapter, index }: { chapter: Chapter; index: number }) {
+  const image = chapterImages[index];
   return (
-    <div
-      className={`
-        relative mx-auto w-full max-w-lg overflow-hidden
-        rounded-[2rem] bg-[#D5B7F1]
-        ${square ? "aspect-square" : "aspect-[4/5]"}
-      `}
-    >
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        priority={priority}
-        sizes="(max-width: 1024px) 90vw, 42vw"
-        className="object-cover object-center"
-      />
-    </div>
-  );
-}
-
-function PullQuote({
-  text,
-  dark = false,
-}: {
-  text: string;
-  dark?: boolean;
-}) {
-  return (
-    <blockquote
-      className={`
-        border-l-2 pl-5 font-serif text-[1.625rem]
-        italic leading-snug sm:pl-6 sm:text-[2rem]
-        ${
-          dark
-            ? "border-white/50 !text-white"
-            : "border-[#A774D1] !text-[#6527A7]"
-        }
-      `}
-    >
-      “{text}”
-    </blockquote>
-  );
-}
-
-function ChapterSection({
-  chapter,
-  index,
-}: {
-  chapter: Chapter;
-  index: number;
-}) {
-  const dark = index % 2 === 1;
-
-  // Chapter II: singer — no image.
-  // Chapter III: Barbie collector — dedicated collection photograph.
-  const image: Portrait | undefined =
-    index === 0
-      ? {
-          src: "/images/alain-intro.jpg",
-          alt: "Alain Martinos",
-        }
-      : index === 2
-        ? {
-            src: "/images/alain-04.jpg",
-            alt: "Alain Martinos’s Barbie collection",
-          }
-        : index === 4
-          ? {
-              src: "/images/about-alain.jpg",
-              alt: "Alain Martinos between Lebanon and Germany",
-            }
-          : undefined;
-
-  const hasLenses = Boolean(chapter.lenses?.length);
-  const hasAside = Boolean(image || hasLenses);
-
-  return (
-    <section
-      id={chapter.id}
-      aria-labelledby={`${chapter.id}-heading`}
-      className={`
-        scroll-mt-28 border-t ${styles.section}
-        ${
-          dark
-            ? "border-[#7040AD] bg-gradient-to-br from-[#51218A] via-[#662BA5] to-[#7436B5] text-white"
-            : "border-[#C7A6EB] bg-gradient-to-br from-[#E6D5FA] to-[#D5B7F1] text-[#6527A7]"
-        }
-      `}
-    >
-      <div className={styles.container}>
-        <div
-          className={`
-            grid gap-9 lg:gap-14
-            ${
-              hasAside
-                ? "lg:grid-cols-12 lg:items-start"
-                : "mx-auto max-w-3xl"
-            }
-          `}
-        >
-          {/* Chapter text */}
-          <div
-            className={`
-              min-w-0
-              ${hasAside ? "lg:col-span-7" : ""}
-              ${image && index % 2 === 1 ? "lg:order-2" : ""}
-            `}
-          >
-            <header>
-              <p
-                className={`
-                  mb-4 text-sm font-bold uppercase tracking-[0.18em]
-                  ${dark ? "text-white/80" : "text-[#6527A7]"}
-                `}
-              >
-                <span className="sr-only">Chapter </span>
-                {chapter.number}
-              </p>
-
-              <h2
-                id={`${chapter.id}-heading`}
-                className={`
-                  ${styles.heading}
-                  ${dark ? "!text-white" : "!text-[#6527A7]"}
-                `}
-              >
-                {chapter.title}
-              </h2>
-
-              <span
-                aria-hidden="true"
-                className={`
-                  mt-6 block h-px w-14
-                  ${dark ? "bg-white/50" : "bg-[#A774D1]"}
-                `}
-              />
-            </header>
-
-            <div className="mt-7">
-              <Prose paragraphs={chapter.paragraphs} dark={dark} />
-            </div>
-
-            {Boolean(chapter.identities?.length) && (
-              <div className="mt-8 rounded-3xl bg-gradient-to-br from-[#6527A7] to-[#7C3ABD] p-6 text-white sm:p-8">
-                <p className="text-sm font-bold uppercase tracking-[0.18em] text-white/80">
-                  He is
-                </p>
-
-                <ul className="mt-5 space-y-3 font-serif text-[1.625rem] font-semibold leading-tight text-white sm:text-[2rem]">
-                  {chapter.identities?.map((identity) => (
-                    <li key={identity}>{identity}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {Boolean(chapter.closing?.length) && (
-              <div className="mt-7">
-                <Prose
-                  paragraphs={chapter.closing ?? []}
-                  dark={dark}
-                />
-              </div>
-            )}
-
-            {/* Singer quote stays below the text */}
-            {chapter.quote && !image && (
-              <div className="mt-8">
-                <PullQuote text={chapter.quote} dark={dark} />
-              </div>
-            )}
-          </div>
-
-          {/* Chapter image / supporting content */}
-          {hasAside && (
-            <div
-              className={`
-                min-w-0 lg:col-span-5
-                ${image && index % 2 === 1 ? "lg:order-1" : ""}
-              `}
-            >
-              {image && <Photo image={image} />}
-
-              {image && chapter.quote && (
-                <div className="mt-7">
-                  <PullQuote text={chapter.quote} dark={dark} />
-                </div>
-              )}
-
-              {hasLenses && (
-                <dl
-                  className={`
-                    divide-y rounded-3xl border px-6 sm:px-8
-                    ${
-                      dark
-                        ? "divide-white/20 border-white/20 bg-white/10"
-                        : "divide-[#C7A6EB] border-[#C7A6EB] bg-[#E4CFF8]"
-                    }
-                  `}
-                >
-                  {chapter.lenses?.map((lens) => (
-                    <div key={lens.role} className="py-6">
-                      <dt
-                        className={`
-                          font-serif text-[1.625rem]
-                          font-semibold leading-tight
-                          ${dark ? "!text-white" : "!text-[#6527A7]"}
-                        `}
-                      >
-                        {lens.role}
-                      </dt>
-
-                      <dd
-                        className={`
-                          mt-3 text-lg leading-7
-                          ${dark ? "text-white/90" : "text-[#6527A7]"}
-                        `}
-                      >
-                        {lens.what}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
-            </div>
-          )}
+    <article id={chapter.id} aria-labelledby={`${chapter.id}-heading`}
+      className={`am-chapter ${index % 2 === 1 ? "am-chapter-card" : ""}`}>
+      <header className="am-chapter-header">
+        <div className="am-chapter-top">
+          <p className="am-eyebrow">Chapter {chapter.number}</p>
+          <span className="am-chapter-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         </div>
+        <h2 id={`${chapter.id}-heading`}>{chapter.title}</h2>
+      </header>
+      <div
+  className={`${index === 0 ? "am-intro-columns " : ""}am-chapter-description`}
+>
+        <Prose paragraphs={chapter.paragraphs} />
       </div>
-    </section>
+      {image && (
+        <div className={index === 2 ? "am-archive" : "am-chapter-visual"}>
+          <Photo image={image} />
+          {index === 2 && <aside className="am-archive-note" aria-label="The collection">
+            <span className="am-eyebrow">The Living Archive</span>
+            <strong>10,000+</strong>
+            <p>Barbie dolls. A lifetime of beauty, fashion, and memories.</p>
+          </aside>}
+        </div>
+      )}
+      {!!chapter.lenses?.length && (
+        <dl className="am-lenses">{chapter.lenses.map((lens, lensIndex) => (
+          <div key={lens.role}>
+            <span className="am-eyebrow" aria-hidden="true">0{lensIndex + 1}</span>
+            <dt>{lens.role}</dt><dd>{lens.what}</dd>
+          </div>
+        ))}</dl>
+      )}
+      {!!chapter.identities?.length && (
+        <div className="am-identities">
+          <p className="am-eyebrow">Identity Manifesto</p><p className="am-small">He is</p>
+          <ul>{chapter.identities.map(identity => <li key={identity}>{identity}</li>)}</ul>
+        </div>
+      )}
+      {!!chapter.closing?.length && <Prose paragraphs={chapter.closing} />}
+      {chapter.quote && <PullQuote text={chapter.quote} />}
+    </article>
   );
 }
 
 export default function AlainPage() {
   return (
-    <div className="min-w-0 break-words bg-[#F1E7FC] !text-[#6527A7]">
-      {/* Masthead */}
-      <section
-        aria-labelledby="alain-heading"
-        className="
-          relative isolate overflow-hidden bg-[#D7B7F3]
-          pb-14 pt-28 sm:pb-20 sm:pt-32 lg:pt-36
-        "
-      >
-        <div
-          aria-hidden="true"
-          className="
-            absolute inset-0 -z-20
-            bg-[url('/images/footer-bg.jpg')] bg-cover bg-center
-          "
-        />
-
-        <div
-          aria-hidden="true"
-          className="
-            absolute inset-0 -z-10 bg-gradient-to-r
-            from-[#E6D5FA]/95 via-[#D7B7F3]/90 to-[#BB8BE4]/90
-          "
-        />
-
-        <div
-          className={`
-            ${styles.container}
-            grid items-center gap-10 lg:grid-cols-12 lg:gap-16
-          `}
-        >
-          <div className="min-w-0 lg:col-span-7">
-            <h1
-              id="alain-heading"
-              className="
-                mt-5 break-words font-serif text-[3.25rem]
-                font-semibold leading-[1.08] tracking-tight
-                !text-[#6527A7] sm:text-[4rem] lg:text-[4.75rem]
-              "
-            >
-              {a.heading}
-            </h1>
-
-            <ul
-              aria-label="Roles"
-              className="mt-7 flex flex-wrap gap-2.5"
-            >
-              {a.roles.map((role) => (
-                <li
-                  key={role}
-                  className="
-                    rounded-full border border-[#B58ADC]
-                    bg-[#EBDDFA] px-4 py-2
-                    text-base font-medium text-[#6527A7]
-                  "
-                >
-                  {role}
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8">
-              <ContactButton label={a.cta} />
-            </div>
+    <div className="alain-editorial page-purple-background">
+      <style>{pageCss}</style>
+      <section className="am-hero" aria-labelledby="alain-heading">
+        <div className="am-hero-background" aria-hidden="true" />
+        <div className="am-container am-hero-content">
+          <p className="am-eyebrow">Haute Coiffure · Visagisme · Collection</p>
+          <h1 id="alain-heading">{a.heading}</h1>
+          <ul className="am-roles" aria-label="Roles">{a.roles.map(role => <li key={role}>{role}</li>)}</ul>
+          <p className="am-hero-description">A life dedicated to transforming imagination into tangible beauty across Lebanon and Germany.</p>
+          <div className="am-actions">
+            <ContactButton label={a.cta} />
+            <a href="#editorial-chronicle" className="am-button am-button-secondary">Explore Monograph</a>
           </div>
-
-          {portrait && (
-            <div className="lg:col-span-5">
-              <Photo image={portrait} priority />
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Chapter navigation */}
-      <nav
-        aria-label="Biography chapters"
-        className="border-y border-[#B58ADC] bg-[#DCC2F5]"
-      >
-        <ol
-          className={`
-            ${styles.container}
-            grid gap-2 py-5 sm:grid-cols-2 lg:grid-cols-3
-          `}
-        >
-          {a.chapters.map((chapter) => (
-            <li key={chapter.id} className="min-w-0">
-              <a
-                href={`#${chapter.id}`}
-                className="
-                  flex min-h-[48px] items-center gap-3
-                  rounded-xl px-3 py-3 text-base font-medium
-                  leading-6 text-[#6527A7] transition-colors
-                  hover:bg-[#C9A2EB]
-                  focus-visible:outline focus-visible:outline-2
-                  focus-visible:outline-offset-2
-                  focus-visible:outline-[#7028B5]
-                  motion-reduce:transition-none
-                "
-              >
-                <span className="w-9 shrink-0 text-sm font-bold text-[#6527A7]">
-                  {chapter.number}
-                </span>
+      <section className="am-chronicle am-container" id="editorial-chronicle" aria-label="The Alain Martinos biography">
+        <div className="am-editorial-grid">
+          <aside className="am-sidebar">
+            <nav className="am-desktop-nav" aria-label="Biography chapters">
+              <p className="am-eyebrow">Chronicle Chapters</p>
+              <ChapterLinks />
+              <div className="am-sidebar-note"><p className="am-eyebrow">Archive Note</p><p>Twenty-five years of hair, beauty, music, and collecting.</p></div>
+            </nav>
+            <details className="am-mobile-nav">
+              <summary>Explore the chapters <span aria-hidden="true">＋</span></summary>
+              <nav aria-label="Biography chapters"><ChapterLinks /></nav>
+            </details>
+            {portrait && <figure className="am-founder">
+              <Photo image={portrait} priority />
+              <figcaption><span className="am-eyebrow">Salon Alain · Founder</span><span>Alain Martinos</span></figcaption>
+            </figure>}
+          </aside>
+          <div className="am-editorial-flow">
+            <div className="am-opening"><Prose paragraphs={[a.intro]} /><PullQuote text={a.thesis} /><Prose paragraphs={[a.introAfter]} /></div>
+            {a.chapters.map((chapter, index) =>
+              index === collectorIndex
+                ? null
+                : <ChapterSection key={chapter.id} chapter={chapter} index={index} />
+            )}
+          </div>
+        </div>
+      </section>
 
-                {chapter.title}
-              </a>
+      <section className="am-inspiration am-container" aria-labelledby="inspiration-heading">
+        <header className="am-section-header"><div><p className="am-eyebrow">Pillars of Influence</p><h2 id="inspiration-heading">{a.inspiration.title}</h2></div></header>
+        <ul className="am-inspiration-grid">{a.inspiration.items.map((item, index) => (
+          <li key={item.title}><span className="am-card-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{item.title}</h3><p className="am-eyebrow am-card-sub">{item.sub}</p><p className="am-card-description">{item.desc}</p>
+          </li>
+        ))}</ul>
+      </section>
+
+      <section className="am-meaning" aria-labelledby="meaning-heading">
+        <div className="am-container">
+          <div className="am-resilience">
+            <p className="am-eyebrow">The Continuous Thread</p>
+            <p className="am-resilience-lead">{a.inspiration.resilience.lead}</p>
+            <div className="am-resilience-lines">{a.inspiration.resilience.lines.map(line => <p key={line}>{line}</p>)}</div>
+            <h2 id="meaning-heading">{a.meaning.title}</h2><p className="am-meaning-lead">{a.meaning.lead}</p>
+            <ul className="am-passions">{a.meaning.passions.map(passion => <li key={passion}>{passion}</li>)}</ul>
+          </div>
+          <ul className="am-arcs">{a.meaning.arcs.map(arc => (
+            <li key={arc.from}><p className="am-arc-from">{arc.from}</p><Arrow /><p className="am-arc-to">{arc.to}</p></li>
+          ))}</ul>
+          <div className="am-meaning-closing">{a.meaning.closing.map(line => <p key={line}>{line}</p>)}</div>
+        </div>
+      </section>
+
+      {/* FILMS */}
+      <section className="am-media am-container" aria-labelledby="films-heading">
+        <header className="am-section-header">
+          <div>
+            <p className="am-eyebrow">In Motion</p>
+            <h2 id="films-heading">Alain Martinos on film</h2>
+            <p className="am-media-lead">{v.subtitle}</p>
+          </div>
+        </header>
+        <div className="am-video-rail">
+          <VideoShortsRow shorts={videos} playLabel={v.play} badge="Salon Alain" />
+        </div>
+      </section>
+
+      {/* GALLERY */}
+      <section className="am-media am-container" aria-labelledby="am-gallery-heading">
+        <header className="am-section-header">
+          <div>
+            <p className="am-eyebrow">The Gallery</p>
+            <h2 id="am-gallery-heading">Alain Martinos gallery</h2>
+            <p className="am-media-lead">Moments from the atelier, the stage and the collection.</p>
+          </div>
+        </header>
+        <ul className="am-gallery-grid">
+          {galleryImages.map((image, index) => (
+            <li key={image.src}>
+              <figure>
+                <div className="am-gallery-photo">
+                  <Image src={image.src} alt={image.alt} fill loading="lazy"
+                    sizes="(max-width: 639px) 46vw, (max-width: 1023px) 45vw, 30vw"
+                    className="am-photo-image" />
+                </div>
+               
+              </figure>
             </li>
           ))}
-        </ol>
-      </nav>
-
-      {/* Introduction */}
-      <section
-        aria-label="Introduction"
-        className={`
-          ${styles.section}
-          [&_p]:!text-[#6527A7]
-          [&_strong]:!text-[#6527A7]
-          [&_em]:!text-[#6527A7]
-        `}
-      >
-        <div className={`${styles.container} max-w-4xl`}>
-          <Prose paragraphs={[a.intro]} />
-
-          <blockquote
-            className="
-              my-9 rounded-3xl border border-[#7439B3]
-              bg-gradient-to-br from-[#6527A7] to-[#7938BB]
-              px-6 py-8 text-center font-serif text-[2rem]
-              italic leading-snug !text-white
-              sm:px-10 sm:py-10 sm:text-[2.5rem]
-            "
-          >
-            “{a.thesis}”
-          </blockquote>
-
-          <Prose paragraphs={[a.introAfter]} />
+        </ul>
+        <div className="am-gallery-action">
+          <Link href="/alain-gallery" className="am-button">
+            View full gallery
+            <Arrow />
+          </Link>
         </div>
       </section>
 
-      {/* Biography chapters */}
-      {a.chapters.map((chapter, index) => (
-        <ChapterSection
-          key={chapter.id}
-          chapter={chapter}
-          index={index}
-        />
-      ))}
+      {/* BARBIE COLLECTOR — moved here from the chronicle */}
+      {collectorChapter && (
+        <section className="am-collector am-container" aria-label={collectorChapter.title}>
+          <ChapterSection chapter={collectorChapter} index={collectorIndex} />
+        </section>
+      )}
 
-      {/* Inspiration */}
-      <section
-        aria-labelledby="inspiration-heading"
-        className={`
-          border-t border-[#C7A6EB] bg-[#DDC3F5]
-          ${styles.section}
-          !text-[#6527A7]
-          [&_h2]:!text-[#6527A7]
-          [&_h3]:!text-[#6527A7]
-          [&_p]:!text-[#6527A7]
-          [&_li]:!text-[#6527A7]
-          [&_span]:!text-[#6527A7]
-          [&_strong]:!text-[#6527A7]
-        `}
-      >
-        <div className={styles.container}>
-          <h2
-            id="inspiration-heading"
-            className={`
-              ${styles.heading}
-              mx-auto max-w-3xl text-center !text-[#6527A7]
-            `}
-          >
-            {a.inspiration.title}
-          </h2>
-
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {a.inspiration.items.map((item, index) => (
-              <li
-                key={item.title}
-                className="
-                  group min-w-0 rounded-3xl
-                  border border-[#BE94E5]
-                  bg-gradient-to-br from-[#F1E4FB]
-                  via-[#E7D2F7] to-[#DDC3F5]
-                  p-6 !text-[#6527A7]
-                  shadow-[0_12px_35px_rgba(101,39,167,0.08)]
-                  transition-all duration-500
-                  hover:-translate-y-1 hover:border-[#A977D5]
-                  hover:shadow-[0_20px_45px_rgba(101,39,167,0.14)]
-                  sm:p-7 [&_*]:!text-[#6527A7]
-                "
-              >
-                <span
-                  aria-hidden="true"
-                  className="!text-sm !font-bold tracking-widest !text-[#6527A7]/70"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <h3 className="mt-6 font-serif !text-[1.625rem] !font-semibold !leading-tight !text-[#6527A7]">
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 font-serif !text-2xl italic !leading-snug !text-[#6527A7]">
-                  {item.sub}
-                </p>
-
-                <p className="mt-5 !text-lg !font-medium !leading-7 !text-[#6527A7]">
-                  {item.desc}
-                </p>
-              </li>
-            ))}
-          </ul>
-
-          {/* Resilience */}
-          <div className="mx-auto mt-12 max-w-3xl text-center lg:mt-16 [&_p]:!text-[#6527A7]">
-            <p className="!text-lg !font-medium !leading-8 !text-[#6527A7] sm:!text-xl">
-              {a.inspiration.resilience.lead}
-            </p>
-
-            <div
-              className="
-                mt-7 space-y-3 font-serif !text-[1.625rem]
-                !font-semibold !leading-snug !text-[#6527A7]
-                sm:!text-[2rem] [&_p]:!text-[#6527A7]
-              "
-            >
-              {a.inspiration.resilience.lines.map((line, index) => (
-                <p
-                  key={line}
-                  className={`
-                    !text-[#6527A7]
-                    ${
-                      index === a.inspiration.resilience.lines.length - 1
-                        ? "italic"
-                        : ""
-                    }
-                  `}
-                >
-                  {line}
-                </p>
-              ))}
-            </div>
-          </div>
+      <section className="am-signature am-container" id="booking" aria-label="A personal reflection">
+        <div className="am-signature-card">
+          <figure><blockquote>{a.finalQuote.lines.map(line => <p key={line}>{line}</p>)}</blockquote><figcaption>— {a.finalQuote.attribution}</figcaption></figure>
+          <ContactButton label={a.cta} />
         </div>
       </section>
-
-      {/* Meaning */}
-      <section
-        aria-labelledby="meaning-heading"
-        className={`
-          ${styles.section}
-          !text-[#6527A7]
-          [&_h2]:!text-[#6527A7]
-          [&_p]:!text-[#6527A7]
-          [&_li]:!text-[#6527A7]
-          [&_span]:!text-[#6527A7]
-          [&_strong]:!text-[#6527A7]
-          [&_svg]:!text-[#6527A7]
-        `}
-      >
-        <div className={styles.container}>
-          <div className="mx-auto max-w-3xl">
-            <h2
-              id="meaning-heading"
-              className={`${styles.heading} text-center !text-[#6527A7]`}
-            >
-              {a.meaning.title}
-            </h2>
-
-            <p className="mt-7 !text-lg !font-medium !leading-8 !text-[#6527A7] sm:!text-xl">
-              {a.meaning.lead}
-            </p>
-
-            <ul
-              className="
-                mt-7 space-y-3 border-l-2 border-[#C7A6EB]
-                pl-6 font-serif !text-[1.625rem]
-                !text-[#6527A7] italic leading-snug
-                sm:!text-[2rem] [&_li]:!text-[#6527A7]
-              "
-            >
-              {a.meaning.passions.map((passion) => (
-                <li key={passion} className="!text-[#6527A7]">
-                  {passion}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Meaning cards */}
-          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-2">
-            {a.meaning.arcs.map((arc) => (
-              <li
-                key={arc.from}
-                className="
-                  rounded-3xl border border-[#BE94E5]
-                  bg-[#DDC3F5] p-6 !text-[#6527A7]
-                  sm:p-8 [&_*]:!text-[#6527A7]
-                "
-              >
-                <p className="!text-sm !font-bold uppercase !leading-6 tracking-[0.14em] !text-[#6527A7]">
-                  {arc.from}
-                </p>
-
-                <Arrow className="my-4 !text-[#6527A7]" />
-
-                <p className="font-serif !text-[1.625rem] !font-semibold !leading-snug !text-[#6527A7] sm:!text-[2rem]">
-                  {arc.to}
-                </p>
-              </li>
-            ))}
-          </ul>
-
-          <div
-            className="
-              mx-auto mt-10 max-w-3xl space-y-4
-              text-center font-serif !text-[1.625rem]
-              !text-[#6527A7] leading-snug
-              sm:!text-[2rem] [&_p]:!text-[#6527A7]
-            "
-          >
-            {a.meaning.closing.map((line) => (
-              <p key={line} className="!text-[#6527A7]">
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Closing statement */}
-      <section
-        aria-label="A personal reflection"
-        className={`
-          border-t border-[#B58ADC] bg-gradient-to-br
-          from-[#D5B5F2] via-[#DFC4F8] to-[#C59AE9]
-          ${styles.section}
-        `}
-      >
-        <div className={`${styles.container} text-center`}>
-          <figure className="mx-auto max-w-4xl">
-            <blockquote
-              className="
-                space-y-3 font-serif text-[2rem]
-                font-semibold leading-tight tracking-tight
-                !text-[#6527A7] [&_p]:!text-[#6527A7]
-                sm:text-[2.5rem] lg:text-[3.25rem]
-              "
-            >
-              {a.finalQuote.lines.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </blockquote>
-
-            <figcaption className="mt-7 text-sm font-bold uppercase leading-6 tracking-[0.18em] text-[#6527A7]">
-              — {a.finalQuote.attribution}
-            </figcaption>
-          </figure>
-
-          <div className="mt-9">
-            <ContactButton label={a.cta} />
-          </div>
-        </div>
-      </section>
-
-      {/* Shared CTA */}
-      <div
-        className="
-          [&_a]:!border-[#7028B5]
-          [&_a]:!bg-[#7028B5]
-          [&_a]:!text-white
-          [&_a:hover]:!bg-[#571D90]
-          [&_a_span]:!text-white
-          [&_button]:!border-[#7028B5]
-          [&_button]:!bg-[#7028B5]
-          [&_button]:!text-white
-          [&_button:hover]:!bg-[#571D90]
-          [&_button_span]:!text-white
-        "
-      >
-        <CtaBand />
-      </div>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
-        }}
-      />
+      <CtaBand />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }} />
     </div>
   );
 }
+
+// Scoped styles keep the design independent of the Stitch Tailwind CDN/config.
+// This remains a server component so the existing metadata export keeps working.
+const pageCss = `
+.alain-editorial{--am-bg:#1a0b2e;--am-panel:#231437;--am-raised:#27183b;--am-text:#eddcff;--am-muted:#d0c2d0;--am-accent:#e4b5ff;--am-line:#4d444f;min-width:0;background:var(--am-bg);color:var(--am-text);font-family:"Manrope",Arial,sans-serif;font-size:16px;line-height:1.7;overflow-wrap:anywhere}
+.alain-editorial *{box-sizing:border-box}
+.alain-editorial :is(h1,h2,h3,p,figure,blockquote,ul,ol,dl,dd){margin:0}
+.alain-editorial :is(ul,ol){padding:0;list-style:none}
+.alain-editorial :is(h1,h2,h3){font-family:"EB Garamond",Georgia,serif;color:var(--am-text);font-weight:400;text-wrap:balance}
+.alain-editorial h2{font-size:clamp(2rem,3.4vw,3.25rem);line-height:1.12;letter-spacing:.01em}
+.alain-editorial h3{font-size:1.65rem;line-height:1.3}
+.alain-editorial a{text-decoration:none;color:inherit}
+.alain-editorial a:focus-visible,.alain-editorial summary:focus-visible{outline:2px solid var(--am-accent);outline-offset:5px}
+.alain-editorial ::selection{background:#633382;color:#fff}
+.alain-editorial .am-container{width:min(100%,1440px);margin-inline:auto;padding-inline:clamp(20px,5.5vw,80px)}
+.alain-editorial .am-eyebrow{font-size:.7rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;line-height:1.7;color:var(--am-accent)}
+.alain-editorial :is(.am-prose,.am-hero-description,.am-sidebar-note,.am-archive-note p,.am-lenses dd,.am-card-description,.am-resilience-lead,.am-meaning-lead,.am-media-lead,.am-gallery-grid figcaption){font-weight:600}
+.alain-editorial .am-hero{position:relative;isolation:isolate;padding:clamp(88px,10vw,144px) 0 clamp(52px,7vw,96px);overflow:hidden}
+.alain-editorial .am-hero-background{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 35%,rgba(99,51,130,.27),transparent 68%),linear-gradient(rgba(26,11,46,.91),#1a0b2e),url('/images/footer-bg.jpg') center/cover no-repeat}
+.alain-editorial .am-hero-content{text-align:center}
+.alain-editorial .am-hero h1{font-size:clamp(3.1rem,8.4vw,7rem);line-height:1;letter-spacing:-.035em;margin:20px auto 24px;max-width:1100px}
+.alain-editorial .am-roles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:0 auto}
+.alain-editorial .am-roles li{background:var(--am-raised);border:1px solid rgba(228,181,255,.08);border-radius:99px;padding:7px 17px;color:var(--am-accent);font-size:.73rem;letter-spacing:.08em;text-transform:uppercase}
+.alain-editorial .am-hero-description{max-width:640px;margin:26px auto 0;color:#d3c0dd;font-size:1.125rem;line-height:1.8}
+.alain-editorial .am-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
+.alain-editorial .am-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:14px 27px;border:1px solid transparent;border-radius:999px;background:#b57acd;color:#320047;font-size:.75rem;line-height:1.5;font-weight:600;letter-spacing:.1em;text-align:center;text-transform:uppercase;transition:background .2s,box-shadow .2s;max-width:100%}
+.alain-editorial .am-button svg{flex:none}
+.alain-editorial .am-button:hover{background:#eab2ff;box-shadow:0 0 28px #b57acd33}
+.alain-editorial .am-button-secondary{background:var(--am-raised);color:var(--am-accent)}
+.alain-editorial .am-button-secondary:hover{background:#3d2e52}
+.alain-editorial .am-chronicle{padding-block:24px 72px;scroll-margin-top:110px}
+.alain-editorial .am-editorial-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(28px,4vw,60px);align-items:start}
+.alain-editorial .am-sidebar{position:sticky;top:110px;min-width:0}
+.alain-editorial .am-desktop-nav{padding:28px;border-radius:24px;background:var(--am-panel);box-shadow:0 16px 40px #10051f44}
+.alain-editorial .am-chapter-links{margin-top:14px}
+.alain-editorial .am-chapter-links a{display:flex;justify-content:space-between;align-items:center;gap:14px;min-height:48px;padding-block:10px;font-size:.84rem;line-height:1.55;color:var(--am-muted)}
+.alain-editorial .am-chapter-links a:hover{color:var(--am-accent)}
+.alain-editorial .am-nav-number{font-size:.65rem;letter-spacing:.08em;color:#c4adc9;flex:none}
+.alain-editorial .am-sidebar-note{background:#15062966;padding:16px;border-radius:14px;margin-top:24px;font-size:.78rem;color:var(--am-muted)}
+.alain-editorial .am-sidebar-note .am-eyebrow{font-size:.6rem;margin-bottom:6px}
+.alain-editorial .am-mobile-nav{display:none}
+.alain-editorial .am-founder{margin-top:24px}
+.alain-editorial .am-founder .am-photo{aspect-ratio:4/5;max-height:330px}
+.alain-editorial .am-founder figcaption{display:flex;flex-direction:column;gap:4px;padding:16px 4px;font-family:Georgia,serif;font-size:1.3rem}
+.alain-editorial .am-founder figcaption .am-eyebrow{font-family:Arial,sans-serif;font-size:.6rem}
+.alain-editorial .am-editorial-flow{display:flex;flex-direction:column;gap:64px;min-width:0}
+.alain-editorial .am-opening{display:grid;gap:24px}
+.alain-editorial .am-prose{color:var(--am-muted);line-height:1.85}
+.alain-editorial .am-prose p+p{margin-top:20px}
+.alain-editorial .am-opening>.am-prose:first-child{font-size:1.125rem;color:#d3c0dd}
+.alain-editorial .am-quote{position:relative;overflow:hidden;border:0;border-radius:22px;background:var(--am-panel);padding:clamp(24px,3vw,40px);color:var(--am-text);font-family:"EB Garamond",Georgia,serif;font-size:clamp(1.55rem,2.7vw,2.25rem);font-style:italic;line-height:1.4}
+.alain-editorial .am-quote:after{content:'”';position:absolute;right:10px;bottom:-50px;font-size:160px;line-height:1;color:#b57acd16;pointer-events:none}
+.alain-editorial .am-chapter{scroll-margin-top:110px;display:grid;gap:24px;min-width:0}
+.alain-editorial .am-chapter:target{outline:1px solid #b57acd66;outline-offset:12px;border-radius:20px}
+.alain-editorial .am-chapter-card{background:var(--am-panel);padding:clamp(24px,3.4vw,48px);border-radius:24px;box-shadow:0 14px 40px #10051f33}
+.alain-editorial .am-chapter-top{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:80px}
+.alain-editorial .am-chapter-number{font-family:Georgia,serif;font-size:clamp(4rem,6vw,5.5rem);line-height:1;color:#b57acd55;letter-spacing:-.04em}
+.alain-editorial .am-chapter-header h2{margin-top:8px}
+.alain-editorial .am-intro-columns .am-prose{columns:2;column-gap:24px}
+.alain-editorial .am-intro-columns p{break-inside:avoid}
+.alain-editorial .am-photo{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:22px;background:#27183b}
+.alain-editorial .am-photo-image{object-fit:cover;object-position:center}
+.alain-editorial .am-chapter-visual{max-width:580px;width:100%;margin-inline:auto}
+.alain-editorial .am-chapter-visual .am-photo{aspect-ratio:4/5}
+.alain-editorial .am-archive{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:center}
+.alain-editorial .am-archive .am-photo{aspect-ratio:4/5}
+.alain-editorial .am-archive-note{background:var(--am-panel);border-radius:22px;padding:24px}
+.alain-editorial .am-archive-note strong{display:block;font-family:Georgia,serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:400;line-height:1.2;margin:14px 0}
+.alain-editorial .am-archive-note p{font-size:.8rem;color:#d3c0dd}
+.alain-editorial .am-chapter-card .am-quote{background:#322346}
+.alain-editorial .am-lenses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.alain-editorial .am-lenses>div{background:var(--am-raised);border-radius:18px;padding:24px}
+.alain-editorial .am-lenses dt{font-family:Georgia,serif;font-size:1.55rem;margin:12px 0 8px;line-height:1.3}
+.alain-editorial .am-lenses dd{font-size:.9rem;color:var(--am-muted);line-height:1.8}
+.alain-editorial .am-identities{padding:32px;background:var(--am-panel);border-radius:22px}
+.alain-editorial .am-small{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#c4adc9;margin:14px 0 10px}
+.alain-editorial .am-identities li{font-family:Georgia,serif;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.35}
+.alain-editorial .am-identities li:nth-child(even){color:var(--am-accent)}
+.alain-editorial .am-inspiration{padding-block:20px 80px}
+.alain-editorial .am-section-header{margin-bottom:28px}
+.alain-editorial .am-section-header h2{margin-top:8px}
+.alain-editorial .am-inspiration-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.alain-editorial .am-inspiration-grid>li{padding:30px 26px;border-radius:24px;background:var(--am-panel);transition:background .2s}
+.alain-editorial .am-inspiration-grid>li:hover{background:var(--am-raised)}
+.alain-editorial .am-card-number{display:block;font-family:Georgia,serif;font-size:2.75rem;color:#b57acd;line-height:1;margin-bottom:18px}
+.alain-editorial .am-card-sub{margin-top:8px;font-size:.63rem;letter-spacing:.12em}
+.alain-editorial .am-card-description{margin-top:24px;font-size:.875rem;line-height:1.85;color:var(--am-muted)}
+.alain-editorial .am-meaning{padding:72px 0;background:var(--am-panel)}
+.alain-editorial .am-resilience{max-width:880px;margin-inline:auto;text-align:center}
+.alain-editorial .am-resilience-lead{margin:20px auto 24px;max-width:720px;color:var(--am-muted)}
+.alain-editorial .am-resilience-lines{font-family:Georgia,serif;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.4;color:#d3c0dd}
+.alain-editorial .am-resilience-lines p:nth-child(even){color:var(--am-accent)}
+.alain-editorial .am-resilience-lines p:last-child{font-size:clamp(2rem,3.6vw,3.25rem);color:var(--am-text);margin-top:16px}
+.alain-editorial .am-resilience h2{margin-top:48px}
+.alain-editorial .am-meaning-lead{margin-top:20px;color:var(--am-muted)}
+.alain-editorial .am-passions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 24px;margin-top:28px;color:var(--am-accent);font-size:.73rem;letter-spacing:.08em;text-transform:uppercase}
+.alain-editorial .am-arcs{display:grid;gap:16px;max-width:1080px;margin:52px auto 0}
+.alain-editorial .am-arcs li{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:24px;background:var(--am-raised);padding:28px 32px;border-radius:22px}
+.alain-editorial .am-arc-from{font-family:Georgia,serif;font-size:1.65rem;line-height:1.35}
+.alain-editorial .am-arc-to{color:var(--am-accent);font-size:1.05rem}
+.alain-editorial .am-arcs svg{color:var(--am-accent)}
+.alain-editorial .am-meaning-closing{max-width:760px;margin:40px auto 0;text-align:center;font-family:Georgia,serif;font-size:1.5rem}
+.alain-editorial .am-meaning-closing p+p{margin-top:12px}
+.alain-editorial .am-signature{padding-block:80px}
+.alain-editorial .am-signature-card{max-width:800px;margin:auto;padding:clamp(28px,5vw,64px);border-radius:32px;text-align:center;background:radial-gradient(ellipse at top,#63338244,transparent 65%),var(--am-raised);box-shadow:0 24px 64px #10051f66,0 0 36px #b57acd15}
+.alain-editorial .am-signature blockquote{font-family:Georgia,serif;font-size:clamp(1.65rem,3.3vw,2.6rem);line-height:1.4}
+.alain-editorial .am-signature blockquote p+p{margin-top:8px}
+.alain-editorial .am-signature blockquote p:last-child{color:#eab2ff}
+.alain-editorial .am-signature figcaption{margin-top:26px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--am-accent)}
+.alain-editorial .am-signature .am-button{margin-top:32px}
+@media(min-width:1024px) and (max-height:850px){.alain-editorial .am-sidebar{position:static}.alain-editorial .am-desktop-nav{position:sticky;top:100px}}
+@media(max-width:1100px){.alain-editorial .am-inspiration-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.alain-editorial .am-desktop-nav{padding:22px}}
+@media(max-width:1023px){.alain-editorial .am-editorial-grid{grid-template-columns:minmax(0,1fr)}.alain-editorial .am-sidebar{position:static}.alain-editorial .am-desktop-nav{display:none}.alain-editorial .am-mobile-nav{display:block;background:var(--am-panel);border:1px solid #b57acd33;border-radius:18px;padding:0 20px}.alain-editorial .am-mobile-nav summary{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;min-height:56px;color:var(--am-accent);font-size:.85rem;list-style:none}.alain-editorial .am-mobile-nav summary::-webkit-details-marker{display:none}.alain-editorial .am-mobile-nav[open] summary span{transform:rotate(45deg)}.alain-editorial .am-mobile-nav .am-chapter-links{padding-bottom:14px;margin-top:0}.alain-editorial .am-founder{max-width:380px;margin:28px auto 0}.alain-editorial .am-founder .am-photo{max-height:none}.alain-editorial .am-founder figcaption{text-align:center}.alain-editorial .am-editorial-flow{gap:48px}.alain-editorial .am-chronicle{padding-bottom:56px}}
+@media(max-width:639px){.alain-editorial .am-hero{padding-top:88px;padding-bottom:44px}.alain-editorial .am-hero .am-eyebrow{font-size:.62rem;letter-spacing:.16em}.alain-editorial .am-roles{gap:7px}.alain-editorial .am-roles li{font-size:.62rem;padding:7px 12px}.alain-editorial .am-hero-description{font-size:1rem}.alain-editorial .am-actions{flex-direction:column;gap:12px}.alain-editorial .am-actions .am-button{width:100%}.alain-editorial .am-intro-columns .am-prose{columns:1}.alain-editorial .am-chapter-top{min-height:64px}.alain-editorial .am-chapter-card{padding:24px 20px}.alain-editorial .am-chapter{gap:22px}.alain-editorial .am-archive{grid-template-columns:minmax(0,1fr)}.alain-editorial .am-archive-note{padding:24px}.alain-editorial .am-archive-note strong{margin:8px 0}.alain-editorial .am-lenses{grid-template-columns:minmax(0,1fr)}.alain-editorial .am-identities{padding:24px}.alain-editorial .am-inspiration-grid{grid-template-columns:minmax(0,1fr);gap:14px}.alain-editorial .am-inspiration-grid>li{padding:26px}.alain-editorial .am-inspiration{padding-bottom:48px}.alain-editorial .am-meaning{padding:48px 0}.alain-editorial .am-arcs{margin-top:36px}.alain-editorial .am-arcs li{grid-template-columns:minmax(0,1fr);gap:12px;padding:24px}.alain-editorial .am-arcs svg{transform:rotate(90deg)}.alain-editorial .am-signature{padding-block:48px}.alain-editorial .am-signature-card{border-radius:24px;padding:32px 22px}.alain-editorial .am-signature .am-button{width:100%;padding-inline:18px}.alain-editorial .am-passions{gap:12px;font-size:.68rem}.alain-editorial .am-passions li{width:100%}}
+.alain-editorial .am-media{padding-block:12px 72px}
+.alain-editorial .am-collector{padding-block:12px 72px}
+.alain-editorial .am-media-lead{margin-top:14px;max-width:560px;color:var(--am-muted);font-size:1rem;line-height:1.8}
+.alain-editorial .am-video-rail{margin-top:4px}
+.alain-editorial .am-video-rail p{color:var(--am-accent)}
+.alain-editorial .am-gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.alain-editorial .am-gallery-grid>li{min-width:0}
+.alain-editorial .am-gallery-photo{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:22px;background:var(--am-raised)}
+.alain-editorial .am-gallery-grid img{object-fit:cover;object-position:center;transition:transform .7s ease}
+.alain-editorial .am-gallery-grid li:hover img{transform:scale(1.04)}
+.alain-editorial .am-gallery-grid figcaption{display:flex;align-items:baseline;gap:12px;padding:14px 4px 0;font-size:.85rem;line-height:1.6;color:var(--am-muted)}
+.alain-editorial .am-gallery-index{flex:none;font-family:Georgia,serif;font-size:.95rem;color:#b57acd}
+.alain-editorial .am-gallery-action{display:flex;justify-content:center;margin-top:32px}
+@media(max-width:1023px){.alain-editorial .am-media{padding-bottom:56px}}
+@media(max-width:639px){.alain-editorial .am-media,.alain-editorial .am-collector{padding-bottom:44px}.alain-editorial .am-media-lead{font-size:.95rem}.alain-editorial .am-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alain-editorial .am-gallery-photo{border-radius:16px}.alain-editorial .am-gallery-grid figcaption{gap:8px;padding-top:10px;font-size:.74rem}.alain-editorial .am-gallery-index{font-size:.8rem}.alain-editorial .am-gallery-action .am-button{width:100%}}
+@media(prefers-reduced-motion:reduce){.alain-editorial *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+`;

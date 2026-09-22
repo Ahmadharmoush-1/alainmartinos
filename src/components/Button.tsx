@@ -10,30 +10,30 @@ type Variant = "primary" | "outline" | "ghost" | "light";
 type Size = "md" | "lg";
 
 const base =
-  "group inline-flex items-center justify-center gap-3 font-sans text-[0.72rem] font-bold uppercase tracking-wider2 transition-all duration-500 ease-luxe focus-visible:outline-plum-500 disabled:opacity-60 disabled:cursor-not-allowed select-none";
+  "group inline-flex items-center justify-center gap-3 rounded-full font-sans text-[0.7rem] font-medium uppercase leading-none tracking-[0.22em] transition-all duration-500 ease-luxe focus-visible:outline-bright disabled:opacity-60 disabled:cursor-not-allowed select-none";
 
 const sizes: Record<Size, string> = {
-  md: "px-7 py-3.5 min-h-[48px]",
-  lg: "px-9 py-4 min-h-[54px]",
+  md: "px-7 min-h-[48px]",
+  lg: "px-9 min-h-[54px]",
 };
 
 /* =========================================================
-   ALL BUTTON VARIANTS
-   Purple background + white text
+   BUTTON VARIANTS — all-purple system
+   primary/light = filled lilac pill with deep-purple ink
+   outline/ghost = hairline lilac pill on the purple surface
 ========================================================= */
 
+const SOLID =
+  "bg-[#9B62B3] !text-[#1A0B2E] border border-[#9B62B3] hover:bg-[#C08BE0] hover:border-[#C08BE0] hover:-translate-y-px shadow-[0_18px_40px_-22px_rgba(155,98,179,0.9)]";
+
+const HAIRLINE =
+  "bg-transparent !text-[#DCC8E6] border border-[#C08BE0] hover:border-[#DCC8E6] hover:bg-[#C08BE0]/12 hover:!text-[#F6EFFA] hover:-translate-y-px";
+
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-plum-700 !text-white border border-plum-700 hover:bg-plum-500 hover:border-plum-500 hover:!text-white hover:-translate-y-px shadow-[0_10px_30px_-18px_rgba(109,43,135,0.7)]",
-
-  outline:
-    "bg-plum-700 !text-white border border-plum-700 hover:bg-plum-500 hover:border-plum-500 hover:!text-white hover:-translate-y-px shadow-[0_10px_30px_-18px_rgba(109,43,135,0.5)]",
-
-  ghost:
-    "bg-plum-700 !text-white border border-plum-700 hover:bg-plum-500 hover:border-plum-500 hover:!text-white hover:-translate-y-px shadow-[0_10px_30px_-18px_rgba(109,43,135,0.4)]",
-
-  light:
-    "bg-plum-700 !text-white border border-plum-700 hover:bg-plum-500 hover:border-plum-500 hover:!text-white hover:-translate-y-px shadow-[0_10px_30px_-18px_rgba(109,43,135,0.5)]",
+  primary: SOLID,
+  light: SOLID,
+  outline: HAIRLINE,
+  ghost: HAIRLINE,
 };
 
 const Arrow = () => (
@@ -44,7 +44,6 @@ const Arrow = () => (
       h-3.5
       w-3.5
       shrink-0
-      !text-white
       transition-transform
       duration-500
       ease-luxe
@@ -98,8 +97,6 @@ export function Button(props: LinkProps | NativeProps) {
     ${sizes[size]}
     ${variants[variant]}
     ${className}
-
-    [&_*]:!text-white
   `;
 
   /* =========================================================
@@ -128,9 +125,7 @@ export function Button(props: LinkProps | NativeProps) {
           rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
           {...rest}
         >
-          <span className="!text-white">
-            {children}
-          </span>
+          <span>{children}</span>
 
           {arrow && <Arrow />}
         </a>
@@ -143,9 +138,7 @@ export function Button(props: LinkProps | NativeProps) {
         className={cls}
         {...rest}
       >
-        <span className="!text-white">
-          {children}
-        </span>
+        <span>{children}</span>
 
         {arrow && <Arrow />}
       </Link>
@@ -170,9 +163,7 @@ export function Button(props: LinkProps | NativeProps) {
       className={cls}
       {...rest}
     >
-      <span className="!text-white">
-        {children}
-      </span>
+      <span>{children}</span>
 
       {arrow && <Arrow />}
     </button>

@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
-import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
-import { Button } from "@/components/Button";
 
 import { getContent } from "@/lib/i18n";
-import { heroImages } from "@/lib/images";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, site } from "@/lib/site";
 
 const t = getContent();
 const s = t.services.page;
@@ -55,36 +53,103 @@ const schema = {
 };
 
 /* =========================================================
-   VANISH BODY AREAS
+   ICONS — inline so the page keeps its self-hosted fonts
+========================================================= */
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 shrink-0 text-m3-secondary" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8.5 12.2l2.4 2.4 4.6-4.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function SparkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 shrink-0 text-m3-primary" fill="currentColor">
+      <path d="M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9L12 2.5z" />
+    </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 shrink-0 text-m3-secondary" fill="currentColor">
+      <path d="M12 3l2.6 6.2 6.7.5-5.1 4.4 1.6 6.5L12 17.1 6.2 20.6l1.6-6.5-5.1-4.4 6.7-.5L12 3z" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <path d="M4 12h15M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* =========================================================
+   LASER PLATFORM DATA
+========================================================= */
+
+const wavelengths = [
+  "Diode Laser ",
+  "Alexandrite ",
+  "Nd:YAG ",
+];
+
+const laserPoints = [
+  "Calibrated for all Fitzpatrick skin prototypes (I through VI) and sensitive facial zones.",
+  "Sub-zero sapphire contact cooling creates a virtually pain-free experience.",
+  "Accessible rates structured transparently with private consultations.",
+];
+
+const laserSpecs = [
+  { label: "Engineering", value: "United Kingdom" },
+  { label: "Cooling Method", value: "Dual Dynamic Air & ICE" },
+  { label: "Targeting", value: "Follicular Melanin Bulb" },
+  { label: "Pulse Width", value: "Sub-millisecond Smart" },
+];
+
+/* =========================================================
+   VANISH BODY AREAS — the salon's own photography
 ========================================================= */
 
 const vanishAreas = [
   {
     name: "Face",
+    note: "Lip, Chin, Beard",
     image: "/images/vanish-face.jpg",
   },
   {
     name: "Underarms",
+    note: "Quick 10-Min",
     image: "/images/vanish-arms.jpg",
   },
   {
     name: "Arms",
+    note: "Half & Full",
     image: "/images/vanish-arms-1.jpg",
   },
   {
     name: "Chest",
+    note: "Sternum & Pectorals",
     image: "/images/vanish-chest.jpg",
   },
   {
     name: "Back",
+    note: "Upper & Lumbar",
     image: "/images/vanish-back.jpg",
   },
   {
     name: "Legs",
+    note: "Thighs & Calves",
     image: "/images/vanish-legs.jpg",
   },
   // {
   //   name: "Bikini",
+  //   note: "Classic & Full",
   //   image: "/images/vanish-bikini.jpg",
   // },
 ];
@@ -95,423 +160,554 @@ const vanishAreas = [
 
 export default function ServicesPage() {
   return (
-    <main
-      className="overflow-hidden bg-white text-plum-700 [&_h1]:text-plum-700 [&_h2]:text-plum-700 [&_h3]:text-plum-700 [&_h4]:text-plum-700 [&_p]:text-plum-700"
-    >
+    <main className="services-purple-background theme-purple relative isolate w-full overflow-hidden bg-[#744394] text-m3-on-surface">
       {/* =====================================================
-          MAIN HERO
+          ONE BACKGROUND FOR THE WHOLE PAGE
+          The same purple artwork the home page uses. Every section
+          below is transparent, so this single image shows through.
       ===================================================== */}
-
       <div
-        className="[&_h1]:!text-5xl [&_h1]:!font-black [&_h1]:!leading-[1.02] sm:[&_h1]:!text-6xl lg:[&_h1]:!text-7xl [&_p]:!text-[1.15rem] [&_p]:!font-semibold sm:[&_p]:!text-[1.3rem]"
-      >
-        <PageHero
-          kicker=""
-          title={s.heading}
-          
-          image={heroImages.beautyLove}
-          variant="band"
-        />
-      </div>
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          backgroundImage: "url('/images/salon-purple-background.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+
+      <style>{`
+        /* No section paints its own fill any more. */
+        .services-purple-background > section {
+          background-color: transparent !important;
+          background-image: none !important;
+        }
+
+        /* Cards, chips and accordions stay — as translucent glass, so the
+           artwork keeps reading through them. */
+        .services-purple-background :is(.bg-m3-container, .bg-m3-low, .bg-m3-high, .bg-m3-highest) {
+          background-color: rgba(38, 18, 60, 0.42) !important;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+        .services-purple-background [class~="bg-m3-highest/80"] {
+          background-color: rgba(38, 18, 60, 0.55) !important;
+        }
+        .services-purple-background :is([class~="hover:bg-m3-high"], [class~="hover:bg-m3-highest"]):hover {
+          background-color: rgba(70, 38, 104, 0.62) !important;
+        }
+
+        /* Lift the quiet greys so they stay legible on the lighter artwork. */
+        .services-purple-background :is(.text-m3-tertiary, .text-m3-outline) {
+          color: #EFE2F8 !important;
+        }
+        .services-purple-background :is(h1, h2) {
+          text-shadow: 0 2px 10px rgba(35, 12, 55, 0.45);
+        }
+      `}</style>
 
       {/* =====================================================
-          VANISH
+          SECTION 1 — HERO
       ===================================================== */}
 
-    <section
-  id="vanish"
-  className="relative scroll-mt-24 overflow-hidden bg-gradient-to-br from-[#fffafd] via-[#faeef8] to-[#eed9eb]"
->
-  {/* Background decorations */}
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute -right-32 -top-32 h-[620px] w-[620px] rounded-full bg-white/35"
-  />
+     <section className="relative flex w-full flex-col items-center justify-center overflow-hidden py-[4.5rem] pt-32 sm:pt-40">
+  {/* No photograph and no tint here — the page-wide artwork is the background. */}
 
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute -bottom-52 left-[35%] h-[600px] w-[600px] rounded-full bg-plum-300/15 blur-3xl"
-  />
+<div className="container-page relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+ 
 
-  <div
-    className="container-page relative grid items-center gap-14 py-20 lg:min-h-[700px] lg:grid-cols-12 lg:py-24"
-  >
-    {/* LEFT CONTENT */}
-    <Reveal className="min-w-0 lg:col-span-5">
-      <h2
-        className="font-serif !text-4xl !font-black leading-[1.08] !text-plum-800 sm:!text-5xl lg:!text-5xl"
-      >
-        GOODBYE UNWANTED HAIR.
-        <span className="mt-2 block">
-          HELLO SMOOTH SKIN. 💜✨
-        </span>
-      </h2>
+  <h1 className="select-none font-serif text-m3-display-mobile uppercase !font-extrabold tracking-[0.18em] !text-white sm:text-m3-display">
+    {s.heading}
+  </h1>
 
-      <p
-        className="mt-6 max-w-xl !text-[1.05rem] !font-medium leading-8 !text-plum-700/80"
-      >
-        Advanced laser hair removal at Salon Alain Martinos Hair &amp; Beauty
-        with our UK-made machine.
-      </p>
+</div>
+</section>
 
-      <p className="mt-5 !text-base !font-bold leading-7 !text-plum-800">
-        3 technologies • One professional hair removal treatment
-        experience designed with your comfort in mind:
-      </p>
+      {/* =====================================================
+          SECTION 2 — LASER FEATURE (BENTO SHOWCASE)
+      ===================================================== */}
 
-      <ul className="mt-4 space-y-3 !text-base !font-bold !text-plum-800">
-        <li>💜 Diode Laser</li>
-        <li>💜 Alexandrite</li>
-        <li>💜 Nd:YAG</li>
-      </ul>
+     <section id="vanish" className="w-full scroll-mt-24 py-10">
+  <div className="container-page">
+    <div className="relative mx-auto max-w-[1240px] rounded-xl bg-m3-container p-5 shadow-[0_24px_64px_-16px_rgba(26,11,46,0.8)] sm:p-8 lg:p-10">
+      <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-6">
+        {/* LEFT: offerings */}
+        <Reveal className="flex min-w-0 flex-col items-start gap-5 lg:col-span-6">
+          <div className="inline-flex items-center gap-2 rounded-full bg-m3-high px-3 py-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-m3-secondary"
+            />
+            UK Medical-Grade Tri-Wave Platform
+          </div>
 
-      <p
-        className="mt-6 max-w-xl !text-[1.05rem] !font-medium leading-8 !text-plum-700/80"
-      >
-        Suitable for a wide range of skin tones, facial areas and
-        body hair, for women &amp; men.
-      </p>
+          <h2 className="font-serif text-m3-headline-md !font-normal leading-[1.15] !text-m3-on-surface lg:text-m3-headline-lg">
+            Goodbye Unwanted Hair.
+            <br />
+            <span className="italic text-m3-secondary">
+              Hello Smooth Skin.
+            </span>
+          </h2>
 
-      <p className="mt-4 !text-base !font-bold leading-7 !text-plum-800">
-        And all this at very reasonable prices. ✨
-      </p>
+          <p className="max-w-xl font-sans text-m3-body-lg font-semibold text-m3-tertiary">
+            Advanced laser hair removal at Salon Alain Martinos Hair &amp;
+            Beauty with our UK-manufactured laser system. Three distinct
+            optical wavelengths orchestrated into one seamless, comfortable
+            clinical session.
+          </p>
 
-      <div className="mt-6 border-l-2 border-plum-400 pl-5">
-        <p className="!text-base leading-8 !text-plum-700/80">
-          At Alain Martinos Salon, experienced care and attention
-          to detail make every treatment personal.
-        </p>
+          {/* Wavelengths */}
+          <div className="w-full pt-1.5">
+            <p className="mb-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-outline">
+              3 Integrated Wavelengths
+            </p>
 
-        <p className="mt-2 !text-base leading-8 !text-plum-700/80">
-          From targeted areas to full-body care, our treatments
-          help reduce unwanted hair and simplify your beauty routine.
-        </p>
-      </div>
+            <div className="flex flex-wrap gap-2">
+              {wavelengths.map((wave) => (
+                <div
+                  key={wave}
+                  className="flex items-center gap-1.5 rounded-full bg-m3-high px-5 py-2 font-sans text-m3-label font-medium text-m3-secondary shadow-sm"
+                >
+                  <SparkIcon />
+                  {wave}
+                </div>
+              ))}
+            </div>
+          </div>
 
-      {/* BUTTON */}
-      <div className="mt-8">
-        <Button
-          href="/contact?service=Laser%20Hair%20Removal"
-          size="lg"
-          className="group !inline-flex !w-full !items-center !justify-center !rounded-full !bg-plum-700 !px-6 !py-4 !text-base !font-black !text-white [&_*]:!text-white hover:!bg-plum-800 sm:!w-auto sm:!px-8"
+          {/* Benefits */}
+          <div className="flex flex-col gap-3 pt-1.5 font-sans text-m3-body-md font-semibold text-m3-on-surface-variant">
+            {laserPoints.map((point) => (
+              <div key={point} className="flex items-start gap-3">
+                <span className="shrink-0">
+                  <CheckIcon />
+                </span>
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex w-full flex-col items-start gap-4 pt-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link
+              href="/contact?service=Laser%20Hair%20Removal"
+              className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-m3-primary px-6 py-3 text-center font-sans text-m3-label font-medium uppercase text-m3-on-primary transition-colors duration-300 hover:bg-m3-secondary sm:w-auto"
+            >
+              Book Your Consultation
+              <span className="shrink-0">
+                <ArrowIcon />
+              </span>
+            </Link>
+
+            <span className="font-sans text-m3-body-sm font-semibold text-m3-tertiary">
+              Women &amp; Men Welcome
+            </span>
+          </div>
+        </Reveal>
+
+        {/* RIGHT: larger image, no purple card or glow */}
+        <Reveal
+          delay={150}
+          className="w-full min-w-0 lg:col-span-6"
         >
-          Book Your Consultation
-          <span
-            aria-hidden="true"
-            className="ml-3 inline-block !text-white transition-transform duration-300 group-hover:translate-x-1"
-          >
-            →
-          </span>
-        </Button>
+          <div className="flex w-full flex-col items-center bg-transparent text-center">
+            {/* Real layout space prevents clipping and overlapping */}
+            <div className="relative w-full h-[440px] sm:h-[580px] lg:h-[720px]">
+              <Image
+                src="/images/vanish-machine.png"
+                alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
+                fill
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 85vw, 560px"
+                className="object-contain object-center"
+              />
+            </div>
+
+            <p className="mx-auto mt-5 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
+              &ldquo;Gentle on delicate skin, decisive on unwanted
+              growth.&rdquo;
+            </p>
+          </div>
+        </Reveal>
       </div>
-    </Reveal>
-
-    {/* RIGHT VISUAL */}
-    <Reveal delay={150} className="relative min-w-0 lg:col-span-7">
-  <div
-    className="relative mx-auto w-full max-w-[760px] sm:min-h-[570px] lg:min-h-[650px]"
-  >
-    {/* Larger image on mobile */}
-    <div
-      className="relative z-10 h-[480px] w-full overflow-hidden rounded-3xl sm:absolute sm:bottom-0 sm:left-0 sm:h-[92%] sm:w-[65%]"
-    >
-      <Image
-        src="/images/vanish-machine.png"
-        alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
-        fill
-        priority
-        sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 40vw"
-        className="rounded-3xl object-contain object-bottom"
-      />
     </div>
-
-    {/* Decorative text */}
-    <div
-      className="absolute right-5 top-0 z-30 hidden -rotate-6 text-center sm:block"
-    >
-      <p
-        className="font-serif !text-3xl !font-medium italic leading-tight !text-plum-800 lg:!text-4xl"
-      >
-        Smooth
-        <br />
-        Confidence
-        <br />
-        For Everyone
-      </p>
-    </div>
-
-    {/* Treatment badge */}
-    <div
-      className="absolute right-0 top-[32%] z-30 hidden h-28 w-28 items-center justify-center rounded-full bg-white/70 p-5 text-center shadow-sm backdrop-blur-md md:flex"
-    >
-      <p
-        className="!text-[0.68rem] !font-black uppercase leading-5 tracking-[0.14em] !text-plum-600"
-      >
-        Face
-        <br />
-        &amp; Body
-        <br />
-        Treatments
-      </p>
-    </div>
-  </div>
-</Reveal>
   </div>
 </section>
 
       {/* =====================================================
-          VANISH BODY AREAS
+          SECTION 3 — LASER TYPOGRAPHIC BANNER
       ===================================================== */}
 
-      <section
-        className="border-y border-plum-200/60 bg-[#fffafd] py-16 sm:py-20"
-      >
+      <section className="relative w-full overflow-hidden py-[4.5rem]">
         <div className="container-page">
-          <Reveal className="text-center">
-            <p
-              className="!text-xs !font-black uppercase tracking-[0.28em] !text-plum-500"
-            >
-              Treatable Areas
-            </p>
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
+            {/* Left typographic stack */}
+            <Reveal className="flex min-w-0 flex-col justify-center lg:col-span-6">
+              <span className="mb-1.5 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                Clinical Philosophy
+              </span>
 
-            <h2
-              className="mt-3 font-serif !text-4xl !font-black !text-plum-800 sm:!text-5xl"
-            >
-              Smooth Skin, Everywhere
-            </h2>
+              <p className="font-serif text-m3-headline-md font-light leading-[1.12] text-m3-on-surface lg:text-m3-headline-lg">
+                Smooth.
+                <br />
+                Confidence.
+                <br />
+                <span className="italic text-m3-primary-container">For Everyone.</span>
+              </p>
 
-            <p
-              className="mx-auto mt-4 max-w-3xl !text-base !font-medium !text-plum-700/70 sm:!text-lg"
-            >
-              Professional laser hair removal for the face and body, tailored
-              for both women and men.
-            </p>
-          </Reveal>
+              <p className="mt-5 max-w-md font-sans text-m3-body-md font-semibold text-m3-tertiary">
+                Gender-inclusive aesthetic laser care administered with utmost discretion,
+                rigorous European hygienic standards, and tailored dermal energy dosing.
+              </p>
+            </Reveal>
 
-          {/* BODY AREAS */}
-
-          <div
-            className="mt-10 grid grid-cols-4 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-8"
-          >
-            {vanishAreas.map((area, i) => (
-              <Reveal
-                key={area.name}
-                delay={i * 40}
-              >
-                <div className="text-center">
-                  <div
-                    className="relative mx-auto aspect-square w-full max-w-[120px] overflow-hidden rounded-full bg-plum-50"
-                  >
-                    <Image
-                      src={area.image}
-                      alt={`${area.name} laser hair removal`}
-                      fill
-                      sizes="120px"
-                      className="object-cover transition-transform duration-700 hover:scale-105"
-                    />
-                  </div>
-
-                  <p
-                    className="mt-3 !text-sm !font-black"
-                  >
-                    {area.name}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-
-            {/* AND MORE */}
-
-            <Reveal delay={300}>
-              <div className="text-center">
-                <div
-                  className="mx-auto flex aspect-square w-full max-w-[120px] items-center justify-center rounded-full bg-plum-100"
-                >
-                  <span
-                    className="!text-3xl !font-black tracking-[0.15em] !text-plum-700"
-                  >
-                    •••
-                  </span>
-                </div>
-
-                <p
-                  className="mt-3 !text-sm !font-black"
-                >
-                  And More
-                </p>
+            {/* Right typographic accent */}
+            <Reveal delay={150} className="flex min-w-0 select-none flex-col justify-center lg:col-span-6 lg:items-end">
+              <div className="flex flex-col text-right uppercase tracking-tight">
+                <span className="font-serif text-m3-headline-lg font-light leading-none text-m3-variant/90 lg:text-m3-display">
+                  Face
+                </span>
+                <span className="my-1 font-serif text-m3-headline-lg font-light leading-none text-plum-400 lg:text-m3-display">
+                  &amp; Body
+                </span>
+                <span className="font-serif text-m3-headline-lg font-light leading-none text-m3-variant/90 lg:text-m3-display">
+                  Treatments
+                </span>
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Compact text-only service menu. Native accordions also work without JavaScript. */}
-      <section id="services-menu" aria-labelledby="services-title"
-        className="salon-menu scroll-mt-28 bg-[#fffafd] py-10 sm:py-14">
-        <div className="container-page">
-          <div className="max-w-2xl">
-            <p className="!text-xs !font-bold uppercase tracking-[0.18em] !text-plum-600">
-              Salon Alain Hair &amp; Beauty
-            </p>
-            <h2 id="services-title" className="mt-3 font-serif !text-3xl !font-bold leading-tight !text-plum-800 sm:!text-4xl">
-              {s.subtitle}
-            </h2>
-            <p className="mt-3 !text-sm leading-6 !text-plum-700 sm:!text-base">
-              Explore a category to discover its services and book your appointment.
-            </p>
-          </div>
-
-          <div className="salon-category-grid mt-6">
-            {s.groups.map((group, index) => (
-              <details key={group.id} id={`service-${group.id}`}
-                {...{ name: "salon-service-categories" }}
-                className={`salon-category min-w-0 scroll-mt-28 rounded-2xl border border-plum-200/80 ${
-                  group.id === "signature" ? "bg-[#f6eaf4]" : "bg-white"
-                }`}>
-                <summary className="salon-category-trigger rounded-2xl text-plum-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-plum-700">
-                  <span aria-hidden="true" className="text-[11px] font-semibold tracking-widest text-plum-500">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block break-words text-[15px] font-semibold leading-6 sm:text-base">
-                      {group.title}
-                    </span>
-                    {group.id === "signature" && (
-                      <span className="mt-0.5 block text-xs leading-5 text-plum-700">Personally by Alain Martinos</span>
-                    )}
-                  </span>
-                  <span className="salon-service-count text-xs tabular-nums text-plum-600">
-                    <span aria-hidden="true">{group.items.length}</span>
-                    <span className="sr-only">{group.items.length} services</span>
-                  </span>
-                  <span aria-hidden="true" className="salon-category-icon text-xl text-plum-700">+</span>
-                </summary>
-
-                <div className="salon-category-content px-4 pb-4 sm:px-5 sm:pb-5">
-                  <p className="border-t border-plum-200/70 pb-3 pt-4 !text-sm leading-6 !text-plum-700">{group.lead}</p>
-                  <ul className="divide-y divide-plum-100">
-                    {group.items.map((item) => (
-                      <li key={item.name}>
-                        <a href={`/contact?service=${encodeURIComponent(`${group.title}: ${item.name}`)}`}
-                          aria-label={`${s.bookThis}: ${group.title} — ${item.name}`}
-                          className="group flex min-h-[44px] items-center justify-between gap-3 rounded-lg px-2 py-2.5 text-sm leading-6 text-plum-800 transition-colors hover:bg-plum-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-plum-700">
-                          <span className="min-w-0">
-                            <span className="block break-words font-medium">{item.name}</span>
-                            {item.desc && <span className="mt-1 block text-xs leading-5 text-plum-700">{item.desc}</span>}
-                          </span>
-                          <span aria-hidden="true" className="shrink-0 text-plum-500 motion-safe:transition-transform motion-safe:group-hover:translate-x-1">↗</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </details>
-            ))}
-          </div>
-          <p className="mt-5 !text-xs leading-5 !text-plum-700">{s.priceNote}</p>
-        </div>
-      </section>
-
-      <style>{`
-        .salon-menu .salon-category-grid {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr);
-          align-items: start;
-          gap: 10px;
-        }
-        .salon-menu .salon-category-trigger {
-          display: grid;
-          grid-template-columns: 20px minmax(0, 1fr) auto 20px;
-          align-items: center;
-          gap: 10px;
-          min-height: 66px;
-          padding: 14px 16px;
-          cursor: pointer;
-          list-style: none;
-        }
-        .salon-menu summary::-webkit-details-marker { display: none; }
-        .salon-menu summary::marker { content: ""; }
-        .salon-menu .salon-category-icon { text-align: center; transition: transform 180ms ease; }
-        .salon-menu details[open] .salon-category-icon { transform: rotate(45deg); }
-        .salon-menu details[open] { border-color: #b68aad; }
-        @media (min-width: 768px) {
-          .salon-menu .salon-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-          .salon-menu .salon-category-trigger { padding: 16px 20px; }
-        }
-        @keyframes salon-category-enter {
-          from { opacity: 0; transform: translateY(-5px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: no-preference) {
-          .salon-menu details[open] .salon-category-content { animation: salon-category-enter 220ms ease-out; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .salon-menu *, .salon-menu *::before, .salon-menu *::after {
-            animation: none !important;
-            transition: none !important;
-          }
-        }
-      `}</style>
-
       {/* =====================================================
-          BOOKING CTA
+          SECTION 4 — TREATABLE AREAS
+      ===================================================== */}
+
+     <section className="w-full py-[4.5rem]">
+  <div className="container-page flex flex-col items-center text-center">
+    <Reveal className="flex flex-col items-center">
+      <span className="mb-1.5 font-sans text-m3-eyebrow font-medium uppercase text-m3-tertiary">
+        Treatable Areas
+      </span>
+
+      <h2 className="font-serif text-m3-headline-md !font-normal !text-m3-on-surface lg:text-m3-headline-lg">
+        Smooth Skin, Everywhere
+      </h2>
+
+      <p className="mt-1.5 max-w-2xl font-sans text-m3-body-lg font-semibold text-m3-tertiary">
+        Professional laser hair removal for the face and body, tailored for
+        both women and men with customizable spot sizes.
+      </p>
+    </Reveal>
+
+    {/* Larger images and roomier cards */}
+    <div className="mt-10 grid w-full max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+      {vanishAreas.map((area, i) => (
+        <Reveal
+          key={area.name}
+          delay={i * 40}
+          className="h-full min-w-0"
+        >
+          <div className="group flex h-full cursor-default flex-col items-center gap-3 rounded-2xl bg-m3-container px-3 py-6 transition-colors hover:bg-m3-high sm:p-6">
+            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full bg-m3-highest shadow-inner sm:h-28 sm:w-28 lg:h-32 lg:w-32">
+              <Image
+                src={area.image}
+                alt={`${area.name} laser hair removal`}
+                fill
+                sizes="(max-width: 639px) 96px, (max-width: 1023px) 112px, 128px"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+
+            <span className="mt-1 break-words font-sans text-m3-label font-medium uppercase text-m3-on-surface">
+              {area.name}
+            </span>
+
+            <span className="font-sans text-xs font-semibold leading-relaxed text-m3-tertiary">
+              {area.note}
+            </span>
+          </div>
+        </Reveal>
+      ))}
+
+      {/* And more */}
+      <Reveal
+        delay={vanishAreas.length * 40}
+        className="h-full min-w-0"
+      >
+        <div className="group flex h-full cursor-default flex-col items-center gap-3 rounded-2xl bg-m3-container px-3 py-6 transition-colors hover:bg-m3-high sm:p-6">
+          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-m3-highest text-m3-secondary shadow-inner transition-colors group-hover:text-m3-primary sm:h-28 sm:w-28 lg:h-32 lg:w-32">
+            <span
+              aria-hidden="true"
+              className="text-3xl tracking-[0.15em]"
+            >
+              •••
+            </span>
+          </div>
+
+          <span className="mt-1 font-sans text-m3-label font-medium uppercase text-m3-on-surface">
+            And More
+          </span>
+
+          <span className="font-sans text-xs font-semibold leading-relaxed text-m3-tertiary">
+            Bespoke Areas
+          </span>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+</section>
+      {/* =====================================================
+          SECTION 5 — FULL SERVICE MENU
+          Native <details> accordion: exclusive open, no JavaScript.
       ===================================================== */}
 
       <section
-        className="relative overflow-hidden bg-gradient-to-r from-[#3b093b] via-plum-800 to-[#6c1d68] py-16"
+        id="services-menu"
+        aria-labelledby="services-title"
+        className="services-menu w-full scroll-mt-28 py-[4.5rem]"
       >
-        {/* background effect */}
-
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_20%_100%,white,transparent_38%)]"
-        />
-
-        <div
-          className="container-page relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between"
-        >
-          <div>
-            <p
-              className="!text-xs !font-black uppercase tracking-[0.25em] !text-white/70"
-            >
-              Salon Alain Martinos
-            </p>
+        <div className="container-page mx-auto max-w-[1140px]">
+          <Reveal className="mx-auto mb-[4.5rem] max-w-2xl text-center">
+            <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+              Salon Alain Hair &amp; Beauty
+            </span>
 
             <h2
-              className="mt-3 max-w-2xl font-serif !text-4xl !font-black leading-tight !text-white sm:!text-5xl"
+              id="services-title"
+              className="mt-1.5 font-serif text-m3-headline-md !font-normal !text-m3-on-surface lg:text-m3-headline-lg"
             >
-              Ready for Your Next
-              <span
-                className="block !text-white"
-              >
-                Transformation?
-              </span>
+              {s.subtitle}
             </h2>
 
-            <p
-              className="mt-4 max-w-xl !text-base !font-medium !text-white/80"
-            >
-              Choose your treatment and book your consultation with Salon
-              Alain.
+            <p className="mt-1.5 font-sans text-m3-body-md font-semibold text-m3-tertiary">
+              Explore a category to discover its services, artistry techniques, and book your
+              appointment.
             </p>
+          </Reveal>
+
+          {/* Accordion stack */}
+          <div className="flex flex-col gap-3">
+            {s.groups.map((group, index) => {
+              const signature = group.id === "signature";
+
+              return (
+                <details
+                  key={group.id}
+                  id={`service-${group.id}`}
+                  {...{ name: "salon-service-categories" }}
+                  className={`service-accordion-item min-w-0 scroll-mt-28 overflow-hidden rounded-lg transition-all duration-300 ${
+                    signature
+                      ? "bg-m3-high shadow-[0_0_32px_rgba(155,98,179,0.15)]"
+                      : "bg-m3-container"
+                  }`}
+                >
+                  <summary className="accordion-trigger group flex w-full cursor-pointer items-center justify-between gap-4 p-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-m3-primary md:p-10">
+                    <span className="flex min-w-0 items-baseline gap-5">
+                      <span
+                        aria-hidden="true"
+                        className={`font-serif text-m3-headline-sm transition-colors ${
+                          signature
+                            ? "font-medium text-m3-secondary"
+                            : "text-m3-tertiary-container group-hover:text-m3-primary"
+                        }`}
+                      >
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span className="min-w-0">
+                        {signature && (
+                          <span className="mb-1 flex flex-wrap items-center gap-1.5">
+                            <span className="rounded-full bg-m3-secondary px-1.5 py-0.5 font-sans text-[10px] font-medium uppercase tracking-[0.15em] text-m3-on-secondary">
+                              Master Atelier
+                            </span>
+                            <span className="font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+                              Private Haute Coiffure
+                            </span>
+                          </span>
+                        )}
+
+                        <span className="block break-words font-serif text-m3-headline-sm !font-normal text-m3-on-surface transition-colors group-hover:text-m3-primary md:text-m3-headline-md">
+                          {group.title}
+                          {signature && (
+                            <span className="hidden sm:inline"> · “Personally by Alain Martinos”</span>
+                          )}
+                        </span>
+
+                        <span
+                          className={`mt-1 block font-sans text-m3-body-sm ${
+                            signature ? "text-m3-secondary" : "text-m3-tertiary"
+                          }`}
+                        >
+                          {signature
+                            ? `${group.items.length} Exclusive Creations`
+                            : `${group.items.length} Services available`}
+                          <span className="sr-only"> in {group.title}</span>
+                        </span>
+                      </span>
+                    </span>
+
+                    <span
+                      aria-hidden="true"
+                      className={`accordion-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[24px] font-light text-m3-secondary ${
+                        signature ? "bg-m3-highest" : "bg-m3-high"
+                      }`}
+                    >
+                      +
+                    </span>
+                  </summary>
+
+                  <div
+                    className={`accordion-content px-5 pb-10 pt-1.5 md:px-10 ${
+                      signature ? "bg-m3-highest/80" : "bg-m3-high"
+                    }`}
+                  >
+                    {signature ? (
+                      <>
+                        <div className="mb-5 rounded bg-m3-container p-3">
+                          <p className="font-sans text-m3-body-md font-semibold italic text-m3-on-surface">
+                            “{group.lead} Every signature service is executed exclusively and
+                            personally by founder Alain Martinos.”
+                          </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                          {group.items.map((item) => (
+                            <a
+                              key={item.name}
+                              href={`/contact?service=${encodeURIComponent(`${group.title}: ${item.name}`)}`}
+                              aria-label={`${s.bookThis}: ${group.title} — ${item.name}`}
+                              className="flex flex-col gap-1.5 rounded bg-m3-container p-5 transition-colors hover:bg-m3-high focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-m3-primary"
+                            >
+                              <span className="flex items-center justify-between gap-3">
+                                <span className="font-serif text-m3-headline-sm font-normal text-m3-on-surface">
+                                  {item.name}
+                                </span>
+                                <StarIcon />
+                              </span>
+
+                              {item.desc && (
+                                <span className="font-sans text-m3-body-md font-semibold text-m3-tertiary">
+                                  {item.desc}
+                                </span>
+                              )}
+                            </a>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p className="mb-5 max-w-xl font-sans text-m3-body-md font-semibold italic text-m3-secondary">
+                          “{group.lead}”
+                        </p>
+
+                        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+                          {group.items.map((item) => (
+                            <a
+                              key={item.name}
+                              href={`/contact?service=${encodeURIComponent(`${group.title}: ${item.name}`)}`}
+                              aria-label={`${s.bookThis}: ${group.title} — ${item.name}`}
+                              className="group/item flex min-h-[44px] items-start justify-between gap-3 rounded bg-m3-container p-3 transition-colors hover:bg-m3-highest focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-m3-primary"
+                            >
+                              <span className="min-w-0">
+                                <span className="block break-words font-sans text-m3-body-md font-medium text-m3-on-surface">
+                                  {item.name}
+                                </span>
+                                {item.desc && (
+                                  <span className="mt-0.5 block font-sans text-m3-body-sm font-semibold text-m3-tertiary">
+                                    {item.desc}
+                                  </span>
+                                )}
+                              </span>
+
+                              <span
+                                aria-hidden="true"
+                                className="shrink-0 text-m3-primary motion-safe:transition-transform motion-safe:group-hover/item:translate-x-1"
+                              >
+                                ↗
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </details>
+              );
+            })}
           </div>
 
-         <Button
-  href="/contact"
-  size="lg"
-  className="shrink-0 !rounded-full !border-white !bg-white !px-9 !py-4 !text-base !font-black !text-plum-800 [&_*]:!text-plum-800 hover:!bg-white hover:!text-plum-800"
->
-  <span style={{ color: "#3b093b", WebkitTextFillColor: "#3b093b" }}>
-    Book Your Appointment
-  </span>
+          {/* Footer note */}
+          <div className="mt-10 text-center">
+            <p className="font-sans text-m3-body-sm font-semibold italic text-m3-tertiary">* {s.priceNote}</p>
+          </div>
+        </div>
 
-  <span
-    aria-hidden="true"
-    className="ml-3"
-    style={{ color: "#3b093b", WebkitTextFillColor: "#3b093b" }}
-  >
-    →
-  </span>
-</Button>
+        <style>{`
+          .services-menu .accordion-trigger { list-style: none; }
+          .services-menu summary::-webkit-details-marker { display: none; }
+          .services-menu summary::marker { content: ""; }
+          .services-menu .accordion-icon { transition: transform 300ms ease; }
+          .services-menu details[open] .accordion-icon { transform: rotate(45deg); }
+          @keyframes services-accordion-enter {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            .services-menu details[open] .accordion-content {
+              animation: services-accordion-enter 240ms ease-out;
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .services-menu *, .services-menu *::before, .services-menu *::after {
+              animation: none !important;
+              transition: none !important;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* =====================================================
+          SECTION 6 — CALL TO ACTION
+      ===================================================== */}
+
+      <section className="relative w-full overflow-hidden py-[4.5rem]">
+        {/* Ambient radial bloom */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-[300px] w-[500px] max-w-full rounded-full bg-m3-primary-container/20 blur-[120px]" />
+        </div>
+
+        <div className="container-page relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+          <Reveal className="flex flex-col items-center">
+            <span className="mb-1.5 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+              Salon Alain Martinos
+            </span>
+
+            <h2 className="font-serif text-m3-headline-md !font-normal leading-[1.15] !text-m3-on-surface lg:text-m3-headline-lg">
+              Ready For Your Next Transformation?
+            </h2>
+
+            <p className="mt-3 max-w-xl font-sans text-m3-body-lg font-semibold text-m3-tertiary">
+              Choose your treatment and book your private consultation with Alain Martinos and
+              our team of master stylists in {site.locations[0].addressLines[0]}.
+            </p>
+
+            <div className="mt-10 flex flex-col items-center gap-5 sm:flex-row">
+              <Link
+                href="/contact"
+                className="flex items-center gap-1.5 rounded-full bg-m3-primary px-10 py-3 font-sans text-m3-label font-medium uppercase text-m3-on-primary shadow-[0_0_32px_rgba(234,178,255,0.35)] transition-all duration-300 hover:bg-m3-secondary"
+              >
+                Book Your Appointment
+                <ArrowIcon />
+              </Link>
+
+              <a
+                href={site.phoneHref}
+                className="rounded-full bg-m3-high px-10 py-3 font-sans text-m3-label font-medium uppercase text-m3-on-surface transition-colors hover:bg-m3-highest"
+              >
+                Call: {site.phone}
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
