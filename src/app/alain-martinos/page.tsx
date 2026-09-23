@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { VideoShortsRow } from "@/components/VideoShortsRow";
+import { ChapterCarousel } from "@/components/ChapterCarousel";
 import { getContent } from "@/lib/i18n";
 import { videos } from "@/lib/images";
 import { SITE_URL } from "@/lib/site";
@@ -89,6 +90,17 @@ const chapterImages: Partial<Record<number, Portrait>> = {
 };
 
 /**
+ * The Barbie collector visual is a swipeable carousel. The first slide is the
+ * photograph `chapterImages[2]` used to show on its own.
+ */
+const collectorSlides: readonly Portrait[] = [
+  { src: "/images/alain-044.jpg", alt: "Part of Alain Martinos’s Barbie collection" },
+  { src: "/images/barbie-collection-icon4.jpg", alt: "Alain Martinos’s Barbie collection" },
+  
+  { src: "/images/barbie-collection-icon3.jpg", alt: "Barbie dolls from Alain Martinos’s collection" },
+];
+
+/**
  * The Alain Martinos gallery. These are the portraits not already used by
  * `chapterImages` or the sidebar `portrait` — add or reorder freely.
  */
@@ -167,7 +179,9 @@ function ChapterSection({ chapter, index }: { chapter: Chapter; index: number })
       </div>
       {image && (
         <div className={index === 2 ? "am-archive" : "am-chapter-visual"}>
-          <Photo image={image} />
+          {index === 2
+            ? <ChapterCarousel slides={collectorSlides} label="Barbie collection" />
+            : <Photo image={image} />}
           {index === 2 && <aside className="am-archive-note" aria-label="The collection">
             <span className="am-eyebrow">The Living Archive</span>
             <strong>10,000+</strong>
@@ -489,5 +503,21 @@ const pageCss = `
 .alain-editorial .am-gallery-action{display:flex;justify-content:center;margin-top:32px}
 @media(max-width:1023px){.alain-editorial .am-media{padding-bottom:56px}}
 @media(max-width:639px){.alain-editorial .am-media,.alain-editorial .am-collector{padding-bottom:44px}.alain-editorial .am-media-lead{font-size:.95rem}.alain-editorial .am-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.alain-editorial .am-gallery-photo{border-radius:16px}.alain-editorial .am-gallery-grid figcaption{gap:8px;padding-top:10px;font-size:.74rem}.alain-editorial .am-gallery-index{font-size:.8rem}.alain-editorial .am-gallery-action .am-button{width:100%}.alain-editorial .am-instagram-collection{align-items:flex-start;padding:16px}.alain-editorial .am-instagram-copy strong{font-size:1.1rem}.alain-editorial .am-instagram-copy span{font-size:.7rem}.alain-editorial .am-instagram-arrow{display:none}}
+.alain-editorial .am-carousel{position:relative;min-width:0}
+.alain-editorial .am-carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;border-radius:22px}
+.alain-editorial .am-carousel-track::-webkit-scrollbar{display:none}
+.alain-editorial .am-carousel-track:focus-visible{outline:2px solid var(--am-accent);outline-offset:4px}
+.alain-editorial .am-carousel-slide{flex:0 0 100%;min-width:0;scroll-snap-align:center}
+.alain-editorial .am-carousel-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid #b57acd55;border-radius:50%;background:#1a0b2ecc;color:var(--am-accent);backdrop-filter:blur(8px);cursor:pointer;transition:background .2s,opacity .2s}
+.alain-editorial .am-carousel-nav:hover:not(:disabled){background:#633382;color:#f7d8ff}
+.alain-editorial .am-carousel-nav:disabled{opacity:.25;cursor:default}
+.alain-editorial .am-carousel-prev{left:12px}
+.alain-editorial .am-carousel-next{right:12px}
+.alain-editorial .am-carousel-dots{display:flex;justify-content:center;align-items:center;gap:4px;margin-top:10px}
+.alain-editorial .am-carousel-dot{position:relative;width:28px;height:32px;padding:0;border:0;background:none;cursor:pointer}
+.alain-editorial .am-carousel-dot:before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:#4d444f;transition:background .2s,width .2s}
+.alain-editorial .am-carousel-dot.is-active:before{width:22px;border-radius:99px;background:var(--am-accent)}
+.alain-editorial .am-carousel-dot:focus-visible{outline:2px solid var(--am-accent);outline-offset:2px;border-radius:8px}
+@media(max-width:639px){.alain-editorial .am-carousel-nav{width:38px;height:38px}.alain-editorial .am-carousel-prev{left:8px}.alain-editorial .am-carousel-next{right:8px}}
 @media(prefers-reduced-motion:reduce){.alain-editorial *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 `;

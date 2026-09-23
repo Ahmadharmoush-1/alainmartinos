@@ -134,6 +134,7 @@ export default function ContactPage() {
       <style>{contactStyles}</style>
       <section className="contact-hero" aria-labelledby="contact-heading">
         <div className="contact-container">
+           
           <p className="contact-eyebrow">{c.title}</p>
           <h1 id="contact-heading">{c.heading}</h1>
           <p className="contact-subtitle">{c.subtitle}</p>
@@ -144,16 +145,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section id="contact-form" className="contact-form-section" aria-label="Appointment enquiry form">
-        <div className="contact-container">
-          <div className="contact-form-card">
-            <div className="contact-form-intro"><p className="contact-eyebrow">Haute Coiffure Reservation</p><span className="contact-icon contact-calendar"><Icon name="calendar" /></span></div>
-            {/* Keep the existing form component and its submission/validation behavior. */}
-            <div className="contact-form-theme"><ContactForm /></div>
-            <p className="contact-form-note">Prefer to talk? Send us a <a href={whatsappHref(c.whatsappMessage)} target="_blank" rel="noopener noreferrer">WhatsApp message</a> and we will reply personally.</p>
-          </div>
-        </div>
-      </section>
+    <figure className="contact-location-feature-image">
+  <img src="/images/contact-alain.jpg" alt="Alain Martinos at the salon" />
+</figure>
 
       <section className="contact-locations contact-container" aria-labelledby="locations-heading">
         <header className="contact-location-heading"><p className="contact-eyebrow">Salon Alain</p><h2 id="locations-heading">Our Location{site.locations.length > 1 ? "s" : ""}</h2><p>Find your salon and plan your visit.</p></header>
@@ -218,7 +212,19 @@ export default function ContactPage() {
             );
           })}
         </div>
-        <div className="contact-social"><p className="contact-eyebrow">Follow the atelier</p><div className="contact-social-icons"><SocialIcons /></div></div>
+        <div className="contact-social"><p className="contact-eyebrow">Follow Us On Social Media</p><div className="contact-social-icons"><SocialIcons /></div></div>
+      </section>  <section id="contact-form" className="contact-form-section" aria-label="Appointment enquiry form">
+        <div className="contact-container">
+          <div className="contact-form-layout contact-form-layout-solo">
+            <div className="contact-form-card">
+              <div className="contact-form-intro"><p className="contact-eyebrow">Haute Coiffure Reservation</p><span className="contact-icon contact-calendar"><Icon name="calendar" /></span></div>
+              {/* Keep the existing form component and its submission/validation behavior. */}
+              <div className="contact-form-theme"><ContactForm /></div>
+              <p className="contact-form-note">Prefer to talk? Send us a <a href={whatsappHref(c.whatsappMessage)} target="_blank" rel="noopener noreferrer">WhatsApp message</a> and we will reply personally.</p>
+            </div>
+
+          </div>
+        </div>
       </section>
     </div>
   );
@@ -245,7 +251,16 @@ const contactStyles = `
 .contact-editorial .contact-button-secondary:hover{background:#3d2e52}
 .contact-editorial .contact-button svg{flex:none}
 .contact-editorial .contact-form-section{padding-block:72px;background:var(--contact-low);scroll-margin-top:100px}
-.contact-editorial .contact-form-card{max-width:768px;margin:auto;padding:clamp(24px,4vw,48px);border-radius:40px;background:var(--contact-panel);box-shadow:0 20px 60px -15px #150629cc,0 0 40px #b57acd15}
+.contact-editorial .contact-form-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);align-items:stretch;gap:clamp(24px,4vw,56px);max-width:1240px;margin-inline:auto}
+.contact-editorial .contact-form-layout-solo{display:block;max-width:768px}
+.contact-editorial .contact-form-card{min-width:0;margin:0;padding:clamp(24px,4vw,48px);border-radius:40px;background:var(--contact-panel);box-shadow:0 20px 60px -15px #150629cc,0 0 40px #b57acd15}
+.contact-editorial .contact-location-feature-image{display:block;margin:0 auto 8px;overflow:hidden;border-radius:32px;background:#150629;box-shadow:0 20px 60px -15px #150629cc}
+.contact-editorial .contact-location-feature-image img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain;object-position:center}
+.contact-editorial .contact-form-image{position:relative;isolation:isolate;min-height:100%;margin:0;overflow:hidden;border-radius:40px;background:#150629;box-shadow:0 20px 60px -15px #150629cc}
+.contact-editorial .contact-form-image:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 38%,#150629e8 100%)}
+.contact-editorial .contact-form-image img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:contain;object-position:center}
+.contact-editorial .contact-form-image figcaption{position:absolute;right:clamp(22px,3vw,36px);bottom:clamp(22px,3vw,36px);left:clamp(22px,3vw,36px)}
+.contact-editorial .contact-form-image figcaption>p:last-child{margin-top:7px;font-family:"EB Garamond",Georgia,serif;font-size:clamp(1.9rem,3vw,2.8rem);line-height:1.05;color:#fff;text-wrap:balance}
 .contact-editorial .contact-form-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
 .contact-editorial .contact-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:none;border-radius:50%;color:var(--contact-primary);background:#322346}
 .contact-editorial .contact-calendar{width:48px;height:48px}
@@ -298,7 +313,7 @@ const contactStyles = `
 .contact-editorial .contact-map-identity{display:flex;align-items:center;gap:14px;min-width:0;flex:1 1 160px}
 .contact-editorial .contact-map-identity>div{min-width:0}
 .contact-editorial .contact-map-identity p{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.5}
-.contact-editorial .contact-map-identity span:not(.contact-map-dot){font-size:.8rem;color:#d3c0dd}a
+.contact-editorial .contact-map-identity span:not(.contact-map-dot){font-size:.8rem;color:#d3c0dd}
 .contact-editorial .contact-map-dot{flex:none;width:9px;height:9px;background:#eab2ff;border-radius:50%;box-shadow:0 0 0 6px #eab2ff16,0 0 20px #eab2ff55}
 .contact-editorial .contact-directions{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:46px;padding:12px 18px;border-radius:99px;background:#633382;color:#f7d8ff;font-size:.66rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-align:center;transition:background .2s}
 .contact-editorial .contact-directions:hover{background:#eab2ff;color:#4c1564}
@@ -322,7 +337,7 @@ const contactStyles = `
 .contact-editorial .contact-social-icons a>span{display:block;width:48px;height:48px;border-radius:50%;overflow:hidden}
 .contact-editorial .contact-social-icons img{width:48px!important;height:48px!important;border-radius:50%;object-fit:contain;clip-path:circle(50%)}
 @media(max-width:1100px){.contact-editorial .contact-location-grid{gap:24px}.contact-editorial .contact-location-card{padding:26px}.contact-editorial .contact-directory{padding:20px}.contact-editorial .contact-map{padding:20px}.contact-editorial .contact-review{padding:26px;gap:24px}}
-@media(max-width:900px){.contact-editorial .contact-location-grid{grid-template-columns:minmax(0,1fr)}.contact-editorial .contact-map{min-height:460px}.contact-editorial .contact-map-art{object-fit:cover}.contact-editorial .contact-location-card{padding:32px}.contact-editorial .contact-directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:639px){.contact-editorial .contact-hero{padding:90px 0 48px}.contact-editorial .contact-subtitle{font-size:1rem}.contact-editorial .contact-actions{flex-direction:column;gap:12px;margin-top:28px}.contact-editorial .contact-button{width:100%;padding-inline:20px;font-size:.7rem}.contact-editorial .contact-form-section{padding-block:40px}.contact-editorial .contact-form-card{padding:26px 20px;border-radius:28px}.contact-editorial .contact-form-intro .contact-eyebrow{font-size:.6rem;letter-spacing:.14em}.contact-editorial .contact-locations{padding-block:48px}.contact-editorial .contact-location-heading{margin-bottom:26px}.contact-editorial .contact-location-heading>p:last-child{font-size:1rem}.contact-editorial .contact-location-card{padding:26px 20px;border-radius:26px}.contact-editorial .contact-directory{grid-template-columns:minmax(0,1fr);padding:20px 16px}.contact-editorial .contact-directory a{min-height:44px}.contact-editorial .contact-hours{padding:22px 18px}.contact-editorial .contact-map{min-height:440px;padding:16px;border-radius:26px}.contact-editorial .contact-map-art{height:300px;top:20px}.contact-editorial .contact-map-caption{top:16px;left:16px;font-size:.55rem}.contact-editorial .contact-map-controller{flex-direction:column;align-items:stretch;gap:16px;padding:18px;border-radius:20px}.contact-editorial .contact-map-identity{flex:auto}.contact-editorial .contact-directions{width:100%;min-height:48px}.contact-editorial .contact-review{padding:26px 20px;border-radius:26px;gap:20px}.contact-editorial .contact-review-glow{width:280px;height:280px}.contact-editorial .contact-review-button{width:100%;min-height:52px}.contact-editorial .contact-social{flex-direction:column}.contact-editorial .contact-location-list{gap:32px}}
+@media(max-width:900px){.contact-editorial .contact-form-layout{grid-template-columns:minmax(0,1fr)}.contact-editorial .contact-form-image{order:-1;min-height:520px}.contact-editorial .contact-location-grid{grid-template-columns:minmax(0,1fr)}.contact-editorial .contact-map{min-height:460px}.contact-editorial .contact-map-art{object-fit:cover}.contact-editorial .contact-location-card{padding:32px}.contact-editorial .contact-directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){.contact-editorial .contact-hero{padding:90px 0 48px}.contact-editorial .contact-subtitle{font-size:1rem}.contact-editorial .contact-actions{flex-direction:column;gap:12px;margin-top:28px}.contact-editorial .contact-button{width:100%;padding-inline:20px;font-size:.7rem}.contact-editorial .contact-form-section{padding-block:40px}.contact-editorial .contact-form-layout{gap:20px}.contact-editorial .contact-form-card{padding:26px 20px;border-radius:28px}.contact-editorial .contact-form-image{min-height:380px;border-radius:28px}.contact-editorial .contact-form-intro .contact-eyebrow{font-size:.6rem;letter-spacing:.14em}.contact-editorial .contact-locations{padding-block:48px}.contact-editorial .contact-location-heading{margin-bottom:26px}.contact-editorial .contact-location-heading>p:last-child{font-size:1rem}.contact-editorial .contact-location-card{padding:26px 20px;border-radius:26px}.contact-editorial .contact-directory{grid-template-columns:minmax(0,1fr);padding:20px 16px}.contact-editorial .contact-directory a{min-height:44px}.contact-editorial .contact-hours{padding:22px 18px}.contact-editorial .contact-map{min-height:440px;padding:16px;border-radius:26px}.contact-editorial .contact-map-art{height:300px;top:20px}.contact-editorial .contact-map-caption{top:16px;left:16px;font-size:.55rem}.contact-editorial .contact-map-controller{flex-direction:column;align-items:stretch;gap:16px;padding:18px;border-radius:20px}.contact-editorial .contact-map-identity{flex:auto}.contact-editorial .contact-directions{width:100%;min-height:48px}.contact-editorial .contact-review{padding:26px 20px;border-radius:26px;gap:20px}.contact-editorial .contact-review-glow{width:280px;height:280px}.contact-editorial .contact-review-button{width:100%;min-height:52px}.contact-editorial .contact-social{flex-direction:column}.contact-editorial .contact-location-list{gap:32px}}
 @media(prefers-reduced-motion:reduce){.contact-editorial *{transition:none!important;animation:none!important}}
 `;

@@ -506,3 +506,20 @@
   background: transparent !important;
   box-shadow: none !important;
 }
+.contact-editorial .contact-location-feature-image {
+  width: fit-content;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 8px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 32px;
+}
+
+.contact-editorial .contact-location-feature-image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}

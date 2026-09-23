@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1789553731320,
@@ -52,6 +52,14 @@
                 {
                     "date": 1790088759758,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -497,12 +497,12 @@\n }\r\n .alain-editorial .am-instagram-icon {\r\n   position: relative;\r\n   display: block;\r\n-  flex: none;\r\n-  width: 88px;\r\n-  height: 88px;\r\n+  flex: 0 0 110px !important;\r\n+  width: 110px !important;\r\n+  height: 110px !important;\r\n   overflow: hidden;\r\n-  border-radius: 0;\r\n-  background: transparent;\r\n-  box-shadow: none;\r\n+  border-radius: 0 !important;\r\n+  background: transparent !important;\r\n+  box-shadow: none !important;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790161704450,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -504,5 +504,20 @@\n   overflow: hidden;\r\n   border-radius: 0 !important;\r\n   background: transparent !important;\r\n   box-shadow: none !important;\r\n+}\r\n+.contact-editorial .contact-location-feature-image {\r\n+  width: 100%;\r\n+  height: clamp(320px, 50vw, 680px);\r\n+  margin: 0;\r\n+  padding: 0;\r\n+  overflow: hidden;\r\n+  border-radius: 32px;\r\n+}\r\n+\r\n+.contact-editorial .contact-location-feature-image img {\r\n+  display: block;\r\n+  width: 100%;\r\n+  height: 100%;\r\n+  object-fit: cover;\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1790161767997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -506,18 +506,20 @@\n   background: transparent !important;\r\n   box-shadow: none !important;\r\n }\r\n .contact-editorial .contact-location-feature-image {\r\n-  width: 100%;\r\n-  height: clamp(320px, 50vw, 680px);\r\n-  margin: 0;\r\n+  width: fit-content;\r\n+  max-width: 100%;\r\n+  height: auto;\r\n+  margin: 0 auto 8px;\r\n   padding: 0;\r\n   overflow: hidden;\r\n+  background: transparent;\r\n   border-radius: 32px;\r\n }\r\n \r\n .contact-editorial .contact-location-feature-image img {\r\n   display: block;\r\n-  width: 100%;\r\n-  height: 100%;\r\n-  object-fit: cover;\r\n+  width: auto;\r\n+  max-width: 100%;\r\n+  height: auto;\r\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1789553731320,

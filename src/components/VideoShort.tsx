@@ -32,6 +32,15 @@ function allowsPrefetch() {
   return !connection?.saveData && !/^(slow-)?2g$/.test(connection?.effectiveType ?? "");
 }
 
+/**
+ * A `#t=` media fragment makes the browser seek to that moment and decode a
+ * frame while only `metadata` is preloaded. Without it a poster-less <video>
+ * paints nothing and the card reads as a black box.
+ */
+function withFirstFrame(url: string) {
+  return url.includes("#") ? url : `${url}#t=0.1`;
+}
+
 export function VideoShort({
   src,
   title,
@@ -52,6 +61,7 @@ export function VideoShort({
   const [loading, setLoading] = useState(false);
   const [buffering, setBuffering] = useState(false);
   const [error, setError] = useState(false);
+  const [nearby, setNearby] = useState(false);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -59,6 +69,31 @@ export function VideoShort({
       mountedRef.current = false;
       attemptRef.current += 1;
     };
+  }, []);
+
+  // Each card watches itself, so the page loads without touching any video
+  // until that card is close to the viewport.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setNearby(true);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setNearby(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+
+    io.observe(video);
+    return () => io.disconnect();
   }, []);
 
   const attachSource = useCallback(() => {
@@ -69,22 +104,21 @@ export function VideoShort({
     const candidates = isMobile && mobileSources?.length ? mobileSources : sources ?? [];
     const supported = candidates.find((source) => video.canPlayType(source.type) !== "");
 
-    video.src = supported?.src ?? src;
+    video.src = withFirstFrame(supported?.src ?? src);
     attachedRef.current = true;
     return video;
   }, [mobileSources, sources, src]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || started) return;
+    if (!video || started || !nearby) return;
 
-    const preload =
-      priority === "high" ? (allowsPrefetch() ? "auto" : "metadata") :
-      priority === "medium" && allowsPrefetch() ? "metadata" : "none";
-
-    video.preload = preload;
-    if (preload !== "none") attachSource();
-  }, [attachSource, priority, started]);
+    // "metadata" is the floor for every card: it costs a few KB and guarantees
+    // a painted first frame instead of a black rectangle. The centred card goes
+    // to "auto" so tapping play starts it immediately.
+    video.preload = priority === "high" && allowsPrefetch() ? "auto" : "metadata";
+    attachSource();
+  }, [attachSource, priority, started, nearby]);
 
   useEffect(() => {
     if (active) return;
