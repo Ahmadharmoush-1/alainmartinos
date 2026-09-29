@@ -28,7 +28,7 @@ const v = getContent().home.video;
 
 export const metadata: Metadata = {
 
-  title: `${a.title} – Hairdresser, Visagist, Singer & Collector`,
+  title: `${a.title} – Hairdresser, Visagist, Singer & Collector.`,
 
   description: a.description,
 
