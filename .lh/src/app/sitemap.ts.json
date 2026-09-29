@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1789320375413,
@@ -12,6 +12,10 @@
                 {
                     "date": 1789320380781,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n import { SITE_URL } from \"@/lib/site\";\n \n export default function sitemap(): MetadataRoute.Sitemap {\n   const now = new Date();\n-  const routes = [\"\", \"/\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n+  const routes = [\"\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n   return routes.map((r) => ({\n     url: `${SITE_URL}${r}`,\n     lastModified: now,\n     changeFrequency: r === \"\" || r === \"/our-work\" ? \"weekly\" : \"monthly\",\n"
+                },
+                {
+                    "date": 1790681065533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import type { MetadataRoute } from \"next\";\n import { SITE_URL } from \"@/lib/site\";\n \n+export const dynamic = \"force-static\";\n export default function sitemap(): MetadataRoute.Sitemap {\n   const now = new Date();\n   const routes = [\"\", \"/services\", \"/hair-salon\", \"/our-work\", \"/alain-martinos\", \"/contact\"];\n   return routes.map((r) => ({\n"
                 }
             ],
             "date": 1789320375413,

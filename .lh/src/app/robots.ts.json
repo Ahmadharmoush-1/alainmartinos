@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/robots.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1790681049232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1790681049232,
+            "name": "Commit-0",
+            "content": "import type { MetadataRoute } from \"next\";\nimport { SITE_URL } from \"@/lib/site\";\n\nexport const dynamic = \"force-static\";\n\nexport default function robots(): MetadataRoute.Robots {\n  return {\n    rules: { userAgent: \"*\", allow: \"/\" },\n    sitemap: `${SITE_URL}/sitemap.xml`,\n  };\n}\n"
+        }
+    ]
+}

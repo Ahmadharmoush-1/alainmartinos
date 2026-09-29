@@ -39,13 +39,29 @@ export const en = {
     intro: {
       kicker: "Introduction",
       heading: "The Art of Beauty",
-      p1: "For more than 25 years, Alain Martinos has dedicated his career to creating beauty through hair, styling, color and personal transformation.",
-      p2: "Blending Lebanese glamour with European elegance, Alain Martinos approaches every client individually — creating looks designed around personality, facial features and lifestyle.",
+    p1: [
+  "Beauty has been my passion, my profession, and a part of my identity for more than 25 years.",
+  "I am Alain Martinos, a hairdresser (for Women & Men), hairstylist and visagist with a lifelong passion for beauty, transformation and individuality.",
+  "My journey has taken me between Lebanon and Germany, two cultures that have profoundly shaped the way I see beauty. I lived, studied and received my professional training in Germany, where I developed my appreciation for precision, technique, quality and European elegance. I also had the privilege of working professionally in both Germany and Lebanon, gaining experience with different styles, personalities and beauty traditions.",
+  "My Lebanese heritage has always remained an important part of my creativity — with its love for glamour, sophistication, femininity and individuality. Germany, meanwhile, gave me a strong foundation in professional discipline, precision and contemporary beauty.",
+  "After more than 25 years in the world of hair and beauty, I have learned that true beauty is never about following a single formula.",
+  "Beauty is personal.",
+].join("\n\n"),
+
+p2: [
+  "It is the feeling you have when a haircut finally feels like you.\nThe moment the right color brings your features to life.\nThe confidence that comes when you see yourself in a new way.",
+  "This is why I approach every client individually. I consider their facial features, personality, lifestyle and personal vision to create a look that feels authentic, refined and uniquely theirs.",
+  "My philosophy is simple:",
+  "Beauty should reveal who you are, not hide it.",
+  "Today, I bring together more than 25 years of experience, professional training in Germany, and professional experience in both Germany and Lebanon, combining European precision with Lebanese glamour and creativity.",
+  "Welcome to my world of beauty.\nWelcome to Alain Hair & Beauty. 💜",
+  "Where European precision meets Lebanese glamour — and where every transformation begins with you.",
+].join("\n\n"),
       cta: "Discover Alain Martinos",
       facts: [
-        { value: "25+", label: "years of artistry" },
-        { value: "2", label: "countries, one signature" },
-        { value: "1", label: "look made for you" },
+        { value: "25+", label: "years of artistry & experience" },
+        { value: "2", label: "countries, one signature.Germany and Lebanon" },
+        { value: "1", label: " unique look made for you" },
       ],
     },
     services: {
