@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/SingerVideoCarousel.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1790280431559,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1790280431559,
+            "name": "Commit-0",
+            "content": "\"use client\";\r\n\r\nimport { useState } from \"react\";\r\n\r\ntype SingerVideoCarouselProps = {\r\n  videos: readonly string[];\r\n};\r\n\r\nfunction getYouTubeId(videoUrl: string) {\r\n  return new URL(videoUrl).searchParams.get(\"v\");\r\n}\r\n\r\nexport function SingerVideoCarousel({ videos }: SingerVideoCarouselProps) {\r\n  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);\r\n\r\n  return (\r\n    <section className=\"am-singer-videos\" aria-label=\"Alain Martinos singing videos\">\r\n      <p className=\"am-singer-swipe-hint\" aria-hidden=\"true\">\r\n        ← Swipe left or right for more videos →\r\n      </p>\r\n\r\n      <div className=\"am-singer-video-track\" tabIndex={0}>\r\n        {videos.map((videoUrl, index) => {\r\n          const videoId = getYouTubeId(videoUrl);\r\n\r\n          if (!videoId) return null;\r\n\r\n          const isPlaying = playingVideoId === videoId;\r\n\r\n          return (\r\n            <div key={videoId} className=\"am-singer-video-card\">\r\n              {isPlaying ? (\r\n                <iframe\r\n                  src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}\r\n                  title={`Alain Martinos singing video ${index + 1}`}\r\n                  className=\"am-singer-player\"\r\n                  allow=\"autoplay; encrypted-media; picture-in-picture\"\r\n                  allowFullScreen\r\n                />\r\n              ) : (\r\n                <button\r\n                  type=\"button\"\r\n                  className=\"am-singer-video-button\"\r\n                  onClick={() => setPlayingVideoId(videoId)}\r\n                  aria-label={`Play Alain Martinos singing video ${index + 1}`}\r\n                >\r\n                  <img\r\n                    src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}\r\n                    alt={`Alain Martinos singing — video ${index + 1}`}\r\n                    className=\"am-singer-thumbnail\"\r\n                    loading=\"lazy\"\r\n                  />\r\n                  <span className=\"am-singer-play\" aria-hidden=\"true\">▶</span>\r\n                </button>\r\n              )}\r\n            </div>\r\n          );\r\n        })}\r\n      </div>\r\n    </section>\r\n  );\r\n}\r\n"
+        }
+    ]
+}

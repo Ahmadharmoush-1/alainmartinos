@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Gallery, type Category, type WorkNote } from "@/components/Gallery";
 import { CtaBand } from "@/components/CtaBand";
 import { getContent } from "@/lib/i18n";
-import { workImages } from "@/lib/images";
 import { site } from "@/lib/site";
 
 const w = getContent().work;
@@ -19,76 +17,92 @@ export const metadata: Metadata = {
   },
 };
 
-/* =========================================================
-   FILTER PILLS
-========================================================= */
-
-// const categories: readonly Category[] = [
-//   { id: "all", label: "All Works" },
-//   { id: "balayage", label: "Balayage" },
-//   { id: "blonde", label: "Blonde" },
-//   { id: "highlights", label: "Highlights" },
-//   { id: "haircuts", label: "Haircuts" },
-//   { id: "styling", label: "Styling" },
-//   { id: "brunette", label: "Brunette" },
-//   { id: "color", label: "Color" },
-//   { id: "transformations", label: "Transformations" },
-// ];
 
 /* =========================================================
-   ATELIER NOTES — keyed by the title in lib/images.ts
+   INSTAGRAM POSTS
+
+   Paste Alain's 12 real Instagram post links below. The embed is served by
+   Instagram, so its photo/video and caption always match the original post.
 ========================================================= */
 
-const notes: Record<string, WorkNote> = {
-  "Caramel balayage": {
-    short: "Melted warm toffee gradients tailored for sunlit depth.",
-    long: "Custom freehand sweeping technique infused with cold gloss treatment for maximum mirror sheen and dimension.",
-  },
-  "Luminous blonde": {
-    short: "High-clarity platinum and pearl balance without brassiness.",
-    long: "Multi-zone tone correction using bond-protecting elixir. Preserves silkiness while achieving high Nordic illumination.",
-  },
-  "Face-framing highlights": {
-    short: "Artisanal contour ribbons illuminating facial features.",
-    long: "Babylights micro-placement around cheekbones and jawline, engineered to mimic natural Aegean summer sunlight.",
-  },
-  "Precision bob": {
-    short: "Architectural lines sculpted with classic Paris shears.",
-    long: "Dry-cutting technique following natural cranial geometry to ensure effortless everyday movement and weightlessness.",
-  },
-  "Evening styling": {
-    short: "Regal sculpted texture created for galas and nocturnal events.",
-    long: "Effortless French undone texture fortified with structural thermal foundation for long-lasting red carpet wear.",
-  },
-  "Chocolate brunette": {
-    short: "Deep cocoa depth infused with multidimensional velvet luster.",
-    long: "Formulated with rich Italian pigments to deliver deep cool espresso undertones without flat opacity.",
-  },
-  "Dimensional color": {
-    short: "Layered chromatic formulation yielding subtle tonal shifts.",
-    long: "Layered lowlights and translucent glazes crafted to adapt smoothly under shifting outdoor and indoor light sources.",
-  },
-  "Honey balayage": {
-    short: "Warm golden nectar highlights painted in soft organic waves.",
-    long: "Gentle feathering with clay lightener, keeping the root naturally blended for an effortless six-month grow-out.",
-  },
-  "Long layers": {
-    short: "Fluid kinetic tiers created to enhance natural bounce and body.",
-    long: "Slid-cut internal graduation that eliminates bulk while retaining dense, luxurious density through ends.",
-  },
-  "Ash blonde highlights": {
-    short: "Cool neutral micro-weaves neutralizing all brass undertones.",
-    long: "High precision foil placement combined with an iced-lilac gloss to lock in crystal cool brightness.",
-  },
-  "Bridal styling": {
-    short: "Timeless bridal architecture balancing romantic grace and hold.",
-    long: "Sculpted to harmonize perfectly with gown necklines and veil placements, maintaining effortless elegance until dawn.",
-  },
-  "Complete transformation": {
-    short: "Holistic color correction, deep rejuvenation, and new silhouette.",
-    long: "A comprehensive six-hour master session featuring tone restoration, micro-layering, and deep molecular keratin recovery.",
-  },
-};
+const instagramPosts = [
+  "https://www.instagram.com/p/DKuMBilNmAY/",
+  "https://www.instagram.com/p/DKuJ8_xNvQW/",
+  "https://www.instagram.com/p/DKt6GRzNMGR/",
+  "https://www.instagram.com/p/DDqBLmHNUGm/",
+  "https://www.instagram.com/p/C7-IubHNhdh/", 
+  "https://www.instagram.com/p/DDpiEZoNnCq/",
+  "https://www.instagram.com/p/C7-HxKhN656/",
+  "https://www.instagram.com/p/C7FPGbONKLU/",
+  "https://www.instagram.com/p/C6YaSeht5lO/",
+  "https://www.instagram.com/p/C6WmHuaNnXS/",
+  "https://www.instagram.com/p/C6Mp73eNTyt/",
+  "https://www.instagram.com/p/C6JrpvAtDys/",
+  "https://www.instagram.com/p/C6JLCBBN-84/",
+  "https://www.instagram.com/p/Czb7CnVIRRz/",
+  "https://www.instagram.com/p/Cza0CjcoqLJ/",
+ "https://www.instagram.com/p/CzEjUvJIZfA/",
+  "https://www.instagram.com/p/Cx_Lmv9oX3t/",
+  "https://www.instagram.com/p/Cx_K0Igoxqd/",
+  "https://www.instagram.com/p/CxYrX8qIjwz/",
+  "https://www.instagram.com/p/CxYPtokIBZS/",
+  "https://www.instagram.com/p/CxLxsB8oobQ/",
+  "https://www.instagram.com/p/Cwdql1DI2C2/",
+  "https://www.instagram.com/p/CwYOb4AoNiw/",
+  "https://www.instagram.com/p/Cp4kQM7oIDn/",
+  "https://www.instagram.com/p/CputLjqIFVq/",
+  "https://www.instagram.com/p/Co1vayCoTYt/",
+  "https://www.instagram.com/p/Ck_g_1KjEQN/",
+  "https://www.instagram.com/p/Ck_VlzQjzA0/",
+  "https://www.instagram.com/p/C7FNyMZtGn8/",
+  "https://www.instagram.com/p/Cwsqy1qIK69/",
+  "https://www.instagram.com/p/Ck_coR5Dcqw/",
+  "https://www.instagram.com/p/Ck_U5h6DFjZ/",
+  "https://www.instagram.com/p/Ck_Thc2jdGK/",
+"https://www.instagram.com/p/CkrUta_ICi4/",
+  "https://www.instagram.com/p/CkrWjZNOUG9/",
+  "https://www.instagram.com/p/CjPqAClo0Zs/",
+  "https://www.instagram.com/p/CjNQXWBIUxz/",
+  "https://www.instagram.com/p/Ch63PE7oOUZ/",
+  "https://www.instagram.com/p/CfhdbiII_lB/",
+  "https://www.instagram.com/p/CfhLOOIIB4O/",
+  "https://www.instagram.com/p/CdGt8UHIJIl/",
+  "https://www.instagram.com/p/CYqv01XIxMZ/",
+  "https://www.instagram.com/p/CYqxe7VIxSO/",
+  "https://www.instagram.com/p/CYqt9KGoRoV/",
+  "https://www.instagram.com/p/CYquydfo5qH/",
+  "https://www.instagram.com/p/CYqm76yo4Ru/",
+  "https://www.instagram.com/p/CWbd3paIp1_/",
+  "https://www.instagram.com/p/CWanaw7I9QL/",
+  "https://www.instagram.com/p/CV6ATOjIums/",
+  "https://www.instagram.com/p/CVyZsBWoPS3/",
+    "https://www.instagram.com/p/CVyXs6nowOE/",
+     "https://www.instagram.com/p/CVyVW4ooFzW/",
+      "https://www.instagram.com/p/CVyT2Vqo5hK/",
+       "https://www.instagram.com/p/CVa2ypQogNA/",
+        "https://www.instagram.com/p/CTouL5vIMMv/",
+         "https://www.instagram.com/p/CTnUabRIbbJ/",
+          "https://www.instagram.com/p/CTnPHv1o77P/",
+           "https://www.instagram.com/p/CTnIwAdIhyO/",
+            "https://www.instagram.com/p/CkrTOdIOqso/",
+             "https://www.instagram.com/p/CfhbgnTIucN/",
+              "https://www.instagram.com/p/CWams9-IgIF/",
+               "https://www.instagram.com/p/CTmpce9oWbA/",
+               "https://www.instagram.com/p/CShuTdzon-j/",
+               "https://www.instagram.com/p/CRoMEoDh0IG/",
+               "https://www.instagram.com/p/CRJ6a5sBIrg/",
+               
+
+] as const;
+
+function getInstagramEmbedUrl(postUrl: string) {
+  return `${postUrl.replace(/\/$/, "")}/embed/captioned/`;
+}
+
+// Split every Instagram post across three swipeable rows.
+const instagramRows = Array.from({ length: 3 }, (_, rowIndex) =>
+  instagramPosts.filter((_, postIndex) => postIndex % 3 === rowIndex),
+);
 
 /* =========================================================
    ATELIER STATS
@@ -249,8 +263,45 @@ export default function OurWorkPage() {
             </p>
           </div>
 
-          {/* Filters + 12-card grid + lightbox */}
-          <Gallery images={workImages}  notes={notes} />
+          {/* Three clean, swipeable rows. Every post is included once. */}
+          <div className="mt-10 flex flex-col gap-6 sm:mt-14 sm:gap-8">
+            {instagramRows.map((row, rowIndex) => (
+              <div
+                key={`instagram-row-${rowIndex}`}
+                className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
+              >
+                {row.map((postUrl, postIndex) => {
+                  const postNumber = rowIndex + postIndex * 3 + 1;
+
+                  return (
+                    <article
+                      key={postUrl}
+                      className="relative w-[280px] shrink-0 snap-start overflow-hidden rounded-[1.25rem] bg-white sm:w-[360px] sm:rounded-[1.5rem]"
+                    >
+                      <iframe
+                        title={`Salon Alain Instagram post ${postNumber}`}
+                        src={getInstagramEmbedUrl(postUrl)}
+                        className="block h-[500px] w-full border-0 sm:h-[620px]"
+                        loading="lazy"
+                        scrolling="no"
+                        allow="encrypted-media"
+                      />
+
+                      <a
+                        href={postUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Open Salon Alain Instagram post ${postNumber}`}
+                        className="absolute inset-0 z-10 rounded-[1.25rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-m3-primary/70 sm:rounded-[1.5rem]"
+                      >
+                        <span className="sr-only">Open this Instagram post</span>
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

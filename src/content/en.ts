@@ -16,7 +16,7 @@ export const en = {
       // { label: "About", href: "/about" },
       { label: "Services", href: "/services" },
       { label: "Hair Salon", href: "/hair-salon" },
-      { label: "Our Work", href: "/our-work" },
+      { label: "My Work", href: "/our-work" },
       { label: "Alain Martinos", href: "/alain-martinos" },
       { label: "Contact Us", href: "/contact" },
     ],
@@ -33,7 +33,7 @@ export const en = {
       tagline: "Where Beauty Becomes Art.",
       copy: "More than 25 years of artistry, experience and passion in hair, beauty and personal transformation .",
       ctaPrimary: "Book Appointment",
-      ctaSecondary: "Explore Our Work",
+      ctaSecondary: "Explore My Work",
       scroll: "Scroll",
     },
     intro: {
@@ -62,7 +62,7 @@ export const en = {
     },
     work: {
       kicker: "Portfolio",
-      heading: "Our Work",
+      heading: "My Work",
       subtitle: "Every look is personal. Every transformation tells a story.",
       cta: "See the Full Portfolio",
     },
@@ -727,9 +727,9 @@ export const en = {
   },
 
   work: {
-    title: "Our Work",
+    title: "My Work",
     description: "Portfolio of hair color, balayage, blonde, brunette, highlights, haircuts, styling and complete transformations by Alain Martinos.",
-    heading: "Our Work",
+    heading: "My Work",
     subtitle: "Every look is personal. Every transformation tells a story.",
     all: "All",
     // categories: [

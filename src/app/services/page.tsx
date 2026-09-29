@@ -228,11 +228,11 @@ export default function ServicesPage() {
           SECTION 2 — LASER FEATURE (BENTO SHOWCASE)
       ===================================================== */}
 
-     <section id="vanish" className="w-full scroll-mt-24 py-10">
+<section id="vanish" className="w-full scroll-mt-24 py-10">
   <div className="container-page">
     <div className="relative mx-auto max-w-[1240px] rounded-xl bg-m3-container p-5 shadow-[0_24px_64px_-16px_rgba(26,11,46,0.8)] sm:p-8 lg:p-10">
       <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-6">
-        {/* LEFT: offerings */}
+        {/* LEFT: text, mobile image, wavelengths, benefits */}
         <Reveal className="flex min-w-0 flex-col items-start gap-5 lg:col-span-6">
           <div className="inline-flex items-center gap-2 rounded-full bg-m3-high px-3 py-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
             <span
@@ -256,6 +256,26 @@ export default function ServicesPage() {
             optical wavelengths orchestrated into one seamless, comfortable
             clinical session.
           </p>
+
+          {/* MOBILE IMAGE: displayed in the middle, after text */}
+          <div className="w-full lg:hidden">
+            <div className="flex w-full flex-col items-center bg-transparent text-center">
+              <div className="relative h-[380px] w-full sm:h-[520px]">
+                <Image
+                  src="/images/vanish-machine.png"
+                  alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
+                  fill
+                  sizes="(max-width: 640px) 90vw, 85vw"
+                  className="object-contain object-center"
+                />
+              </div>
+
+              <p className="mx-auto mt-3 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
+                &ldquo;Gentle on delicate skin, decisive on unwanted
+                growth.&rdquo;
+              </p>
+            </div>
+          </div>
 
           {/* Wavelengths */}
           <div className="w-full pt-1.5">
@@ -283,6 +303,7 @@ export default function ServicesPage() {
                 <span className="shrink-0">
                   <CheckIcon />
                 </span>
+
                 <span>{point}</span>
               </div>
             ))}
@@ -294,6 +315,7 @@ export default function ServicesPage() {
               className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-m3-primary px-6 py-3 text-center font-sans text-m3-label font-medium uppercase text-m3-on-primary transition-colors duration-300 hover:bg-m3-secondary sm:w-auto"
             >
               Book Your Consultation
+
               <span className="shrink-0">
                 <ArrowIcon />
               </span>
@@ -305,19 +327,18 @@ export default function ServicesPage() {
           </div>
         </Reveal>
 
-        {/* RIGHT: larger image, no purple card or glow */}
+        {/* DESKTOP IMAGE: stays on the right */}
         <Reveal
           delay={150}
-          className="w-full min-w-0 lg:col-span-6"
+          className="hidden w-full min-w-0 lg:col-span-6 lg:block"
         >
           <div className="flex w-full flex-col items-center bg-transparent text-center">
-            {/* Real layout space prevents clipping and overlapping */}
-            <div className="relative w-full h-[440px] sm:h-[580px] lg:h-[720px]">
+            <div className="relative h-[720px] w-full">
               <Image
                 src="/images/vanish-machine.png"
                 alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
                 fill
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 85vw, 560px"
+                sizes="560px"
                 className="object-contain object-center"
               />
             </div>
@@ -332,6 +353,10 @@ export default function ServicesPage() {
     </div>
   </div>
 </section>
+
+
+
+
 
       {/* =====================================================
           SECTION 3 — LASER TYPOGRAPHIC BANNER

@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { Logo } from "@/components/Logo";
 import { getContent } from "@/lib/i18n";
-import { workImages, videos } from "@/lib/images";
+// import { workImages, videos } from "@/lib/images";
 import { site } from "@/lib/site";
 
 const t = getContent();
@@ -27,6 +27,63 @@ const heroMarks = [
   { value: "Zouk Mikael", label: "Jounieh, Lebanon" },
   { value: "Haute Coiffure", label: "" },
 ];
+const instagramPosts = [
+  "https://www.instagram.com/p/DKuMBilNmAY/",
+  "https://www.instagram.com/p/DKuJ8_xNvQW/",
+  "https://www.instagram.com/p/DKt6GRzNMGR/",
+  "https://www.instagram.com/p/DDqBLmHNUGm/",
+  "https://www.instagram.com/p/C7-IubHNhdh/",
+];
+
+const getInstagramEmbedUrl = (postUrl: string) =>
+  `${postUrl.replace(/\/$/, "")}/embed/captioned/`;
+
+const wavelengths = ["Diode Laser", "Alexandrite", "Nd:YAG"] as const;
+
+const laserPoints = [
+  "Suitable for many skin tones and treatment areas",
+  "Personalized care, from targeted areas to full-body treatments",
+  "For women and men at accessible prices",
+] as const;
+
+function SparkIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0" fill="currentColor">
+      <path d="m10 1.5 1.75 6.75L18.5 10l-6.75 1.75L10 18.5l-1.75-6.75L1.5 10l6.75-1.75L10 1.5Z" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-5 w-5 text-m3-secondary"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m8 12 2.5 2.5L16 9" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-4 w-4"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16m-6-6 6 6-6 6" />
+    </svg>
+  );
+}
 
 export default function HomePage() {
   const h = t.home;
@@ -57,7 +114,7 @@ export default function HomePage() {
         .home-purple-background .home-background-cta > section::after {
           background: none !important;
         }
-        .home-purple-background :is(h1, h2, .text-white, .text-white, .text-white) {
+        .home-purple-background :is(h1, h2, .text-white):not(#vanish *) {
           text-shadow: 0 1px 4px rgba(35, 12, 55, 0.45);
         }
 
@@ -66,12 +123,12 @@ export default function HomePage() {
           color: #ffffff;
           font-weight: 700;
         }
-        .home-bold-white :is(h1, h2, h3, h4, h5, h6, p, span, a, li, dt, dd, summary, button, label, small, strong, em, blockquote, figcaption) {
+        .home-bold-white :is(h1, h2, h3, h4, h5, h6, p, span, a, li, dt, dd, summary, button, label, small, strong, em, blockquote, figcaption):not(#vanish *) {
           color: #ffffff !important;
           font-weight: 700 !important;
         }
-        .home-bold-white :is(h1, h2, h3, h4, h5, h6),
-        .home-bold-white :is(h1, h2, h3, h4, h5, h6) :is(span, strong, em) {
+        .home-bold-white :is(h1, h2, h3, h4, h5, h6):not(#vanish *),
+        .home-bold-white :is(h1, h2, h3, h4, h5, h6) :is(span, strong, em):not(#vanish *) {
           font-weight: 800 !important;
         }
         .home-bold-white .dropcap::first-letter {
@@ -227,23 +284,19 @@ export default function HomePage() {
       ===================================================== */}
       <section id="intro" className="scroll-mt-24 border-t border-night-line/60 py-24 sm:py-32">
         <div className="container-page grid items-center gap-14 lg:grid-cols-12 lg:gap-14">
-          {/* Portrait — same photograph, purple duotone frame */}
-          <Reveal className="lg:col-span-5">
-            <div className="duotone relative h-[480px] w-full rounded-[28px] border border-night-line/70 bg-night-card sm:h-[580px] lg:h-[640px]">
-              <Image
-                src="/images/alain-intro.jpg"
-                alt="Alain Martinos"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 42vw"
-                className="rounded-[28px] object-cover object-top"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 rounded-b-[28px] bg-gradient-to-t from-night-base to-transparent"
-              />
-            </div>
-          </Reveal>
+          {/* Portrait — original image colours, no visual effects */}
+         <Reveal className="lg:col-span-5">
+  <div className="relative h-[480px] w-full overflow-hidden rounded-[28px] border border-night-line/70 bg-night-card sm:h-[580px] lg:h-[640px]">
+    <Image
+      src="/images/alain-intro.jpg"
+      alt="Alain Martinos"
+      fill
+      priority
+      sizes="(max-width: 1024px) 100vw, 42vw"
+      className="object-cover object-top"
+    />
+  </div>
+</Reveal>
 
           {/* Copy + stat cards */}
           <div className="lg:col-span-7">
@@ -261,24 +314,38 @@ export default function HomePage() {
               </Link>
             </Reveal>
 
-            <Reveal delay={280} className="mt-12 space-y-3">
-              {h.intro.facts.map((f, i) => (
-                <div
-                  key={f.label}
-                  className="flex flex-wrap items-center gap-4 rounded-2xl sm:flex-nowrap sm:gap-6 border border-night-line/70 bg-night-card/40 px-6 py-5 transition-colors duration-500 hover:border-bright/45 hover:bg-night-hover/60 sm:px-8"
-                >
-                  <span aria-hidden="true" className="font-sans text-[0.8rem] tracking-[0.25em] text-white">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="min-w-[4.5rem] font-serif text-4xl font-bold leading-none text-white sm:text-5xl">
-                    {f.value}
-                  </p>
-                  <p className="font-sans text-[0.85rem] font-bold uppercase leading-relaxed tracking-[0.22em] text-white">
-                    {f.label}
-                  </p>
-                </div>
-              ))}
-            </Reveal>
+      <Reveal delay={280} className="mt-10">
+  <ol className="grid gap-3 xl:grid-cols-3 xl:gap-4">
+    {h.intro.facts.map((f, i) => (
+      <li
+        key={f.label}
+        className="relative flex min-h-[100px] items-center gap-3 overflow-hidden rounded-[22px] border border-night-line/70 bg-night-card/70 px-4 py-5 sm:px-6"
+      >
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[2px] bg-bright/70"
+        />
+
+        <span
+          aria-hidden="true"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bright/35 font-sans text-[0.7rem] font-semibold text-white"
+        >
+          {String(i + 1).padStart(2, "0")}
+        </span>
+
+        <div className="flex min-w-0 items-baseline gap-2.5">
+          <span className="shrink-0 font-sans text-[1.8rem] font-semibold leading-none text-white sm:text-[2.1rem]">
+            {f.value}
+          </span>
+
+          <span className="whitespace-nowrap font-sans text-[0.6rem] font-bold uppercase tracking-[0.06em] text-white sm:text-[0.75rem] xl:text-[0.65rem]">
+            {f.label}
+          </span>
+        </div>
+      </li>
+    ))}
+  </ol>
+</Reveal>
           </div>
         </div>
       </section>
@@ -398,82 +465,131 @@ export default function HomePage() {
       {/* =====================================================
           4 — LASER HAIR REMOVAL FEATURE
       ===================================================== */}
-      <section className="relative overflow-hidden border-t border-night-line/60 bg-transparent">
+      <section id="vanish" className="w-full scroll-mt-24 py-10">
+  <div className="container-page">
+    <div className="relative mx-auto max-w-[1240px] rounded-xl bg-m3-container p-5 shadow-[0_24px_64px_-16px_rgba(26,11,46,0.8)] sm:p-8 lg:p-10">
+      <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-6">
+        {/* LEFT: text, mobile image, wavelengths, benefits */}
+        <Reveal className="flex min-w-0 flex-col items-start gap-5 lg:col-span-6">
+          <div className="inline-flex items-center gap-2 rounded-full bg-m3-high px-3 py-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-m3-secondary"
+            />
+            UK Medical-Grade Tri-Wave Platform
+          </div>
 
-        <div className="container-page relative grid items-center gap-14 py-20 lg:grid-cols-12 lg:gap-12 lg:py-28">
-          <Reveal className="min-w-0 lg:col-span-7">
-            <p className="kicker">Featured technology</p>
+          <h2 className="font-serif text-m3-headline-md !font-normal leading-[1.15] !text-m3-on-surface lg:text-m3-headline-lg">
+            Goodbye Unwanted Hair.
+            <br />
+            <span className="italic text-m3-secondary">
+              Hello Smooth Skin.
+            </span>
+          </h2>
 
-            <h2 className="mt-5 font-serif text-[2.1rem] font-bold uppercase leading-[1.08] text-white sm:text-[3rem] lg:text-[3.4rem]">
-              Goodbye unwanted hair.
-              <span className="mt-2 block text-white">Hello smooth skin.</span>
-            </h2>
+          <p className="max-w-xl font-sans text-m3-body-lg font-semibold text-m3-tertiary">
+            Advanced laser hair removal at Salon Alain Martinos Hair &amp;
+            Beauty with our UK-manufactured laser system. Three distinct
+            optical wavelengths orchestrated into one seamless, comfortable
+            clinical session.
+          </p>
 
-            <p className="mt-7 max-w-xl font-sans text-[1.125rem] font-bold leading-[1.85] text-white">
-              Advanced laser hair removal at Salon Alain Martinos Hair &amp; Beauty
-              with our UK-made machine.
-            </p>
+          {/* MOBILE IMAGE: displayed in the middle, after text */}
+          <div className="w-full lg:hidden">
+            <div className="flex w-full flex-col items-center bg-transparent text-center">
+              <div className="relative h-[380px] w-full sm:h-[520px]">
+                <Image
+                  src="/images/vanish-machine.png"
+                  alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
+                  fill
+                  sizes="(max-width: 640px) 90vw, 85vw"
+                  className="object-contain object-center"
+                />
+              </div>
 
-            <p className="mt-6 font-sans text-[0.85rem] font-bold uppercase tracking-[0.22em] text-white">
-              3 technologies · one treatment experience
-            </p>
-
-            <ul className="mt-5 flex flex-wrap gap-3">
-              {["Diode Laser", "Alexandrite", "Nd:YAG"].map((tech) => (
-                <li
-                  key={tech}
-                  className="rounded-full border border-bright/45 px-5 py-2.5 font-sans text-[0.9rem] font-bold tracking-[0.12em] text-white"
-                >
-                  {tech}
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-7 max-w-xl font-sans text-[1.125rem] font-bold leading-[1.85] text-white">
-              Suitable for a wide range of skin tones, facial areas and body hair,
-              for women &amp; men — and all this at very reasonable prices.
-            </p>
-
-            <div className="mt-8 border-l border-night-line pl-6">
-              <p className="max-w-xl font-sans text-[1.1rem] font-bold leading-[1.85] text-white">
-                At Salon Alain Martinos, experienced care and attention to detail
-                make every treatment personal. From targeted areas to full-body
-                care, our treatments help reduce unwanted hair and simplify your
-                beauty routine.
+              <p className="mx-auto mt-3 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
+                &ldquo;Gentle on delicate skin, decisive on unwanted
+                growth.&rdquo;
               </p>
             </div>
+          </div>
 
-            <div className="mt-10">
-              <Link href="/contact" className="pill pill-solid w-full sm:w-auto">
-                Book your consultation
-                <span aria-hidden="true">→</span>
-              </Link>
+          {/* Wavelengths */}
+          <div className="w-full pt-1.5">
+            <p className="mb-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-outline">
+              3 Integrated Wavelengths
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {wavelengths.map((wave) => (
+                <div
+                  key={wave}
+                  className="flex items-center gap-1.5 rounded-full bg-m3-high px-5 py-2 font-sans text-m3-label font-medium text-m3-secondary shadow-sm"
+                >
+                  <SparkIcon />
+                  {wave}
+                </div>
+              ))}
             </div>
-          </Reveal>
+          </div>
 
-          <Reveal delay={180} className="relative flex items-end justify-center lg:col-span-5">
-            <div
-              aria-hidden="true"
-              className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-night-line/80 bg-night-raised/60 sm:h-[400px] sm:w-[400px] lg:h-[460px] lg:w-[460px]"
-            />
-            <div className="duotone relative z-10 mx-auto flex w-full max-w-[460px] items-end justify-center rounded-[24px]">
-              <img
+          {/* Benefits */}
+          <div className="flex flex-col gap-3 pt-1.5 font-sans text-m3-body-md font-semibold text-m3-on-surface-variant">
+            {laserPoints.map((point) => (
+              <div key={point} className="flex items-start gap-3">
+                <span className="shrink-0">
+                  <CheckIcon />
+                </span>
+
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex w-full flex-col items-start gap-4 pt-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link
+              href="/contact?service=Laser%20Hair%20Removal"
+              className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-m3-primary px-6 py-3 text-center font-sans text-m3-label font-medium uppercase text-m3-on-primary transition-colors duration-300 hover:bg-m3-secondary sm:w-auto"
+            >
+              Book Your Consultation
+
+              <span className="shrink-0">
+                <ArrowIcon />
+              </span>
+            </Link>
+
+            <span className="font-sans text-m3-body-sm font-semibold text-m3-tertiary">
+              Women &amp; Men Welcome
+            </span>
+          </div>
+        </Reveal>
+
+        {/* DESKTOP IMAGE: stays on the right */}
+        <Reveal
+          delay={150}
+          className="hidden w-full min-w-0 lg:col-span-6 lg:block"
+        >
+          <div className="flex w-full flex-col items-center bg-transparent text-center">
+            <div className="relative h-[720px] w-full">
+              <Image
                 src="/images/vanish-machine.png"
                 alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
-                loading="lazy"
-                className="max-h-[460px] w-auto max-w-full object-contain drop-shadow-[0_30px_45px_rgba(21,8,35,0.65)] sm:max-h-[520px]"
+                fill
+                sizes="560px"
+                className="object-contain object-center"
               />
             </div>
-            <p className="absolute right-0 top-6 z-20 hidden h-36 w-36 items-center justify-center rounded-full border border-night-line bg-night-base/70 text-center font-serif text-lg font-bold italic leading-snug text-white backdrop-blur-sm lg:flex">
-              Smooth
-              <br />
-              confidence
-              <br />
-              awaits
+
+            <p className="mx-auto mt-5 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
+              &ldquo;Gentle on delicate skin, decisive on unwanted
+              growth.&rdquo;
             </p>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* =====================================================
           5 — THE SALON
@@ -507,66 +623,57 @@ export default function HomePage() {
       {/* =====================================================
           6 — PORTFOLIO PREVIEW
       ===================================================== */}
-      <section className="border-t border-night-line/60 bg-transparent py-24 sm:py-32">
-        <div className="container-page">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-            <SectionTitle
-              light
-              kicker={h.work.kicker}
-              title={h.work.heading}
-             
-              className="home-section-heading !max-w-2xl"
+     <section className="border-t border-night-line/60 bg-transparent py-24 sm:py-32">
+  <div className="container-page">
+    <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+      <SectionTitle
+        light
+        kicker={h.work.kicker}
+        title={h.work.heading}
+        className="home-section-heading !max-w-2xl"
+      />
+
+      <Reveal delay={120} className="shrink-0">
+        <Link href="/our-work" className="link-lilac">
+          {h.work.cta}
+          <span aria-hidden="true">→</span>
+        </Link>
+      </Reveal>
+    </div>
+
+    {/* Swipe carousel: the next post is intentionally partially visible. */}
+    <div className="mt-14 -mr-4 sm:-mr-6 lg:-mr-10">
+      <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-5 pr-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6 sm:pr-24">
+        {instagramPosts.map((postUrl, index) => (
+          <article
+            key={postUrl}
+            className="relative w-[300px] shrink-0 snap-start overflow-hidden rounded-[1.5rem] bg-white shadow-sm ring-1 ring-black/5 sm:w-[360px]"
+          >
+            <iframe
+              title={`Salon Alain Instagram post ${index + 1}`}
+              src={getInstagramEmbedUrl(postUrl)}
+              className="block h-[540px] w-full border-0 sm:h-[620px]"
+              loading="lazy"
+              scrolling="no"
+              allow="encrypted-media"
             />
-            <Reveal delay={120} className="shrink-0">
-              <Link href="/our-work" className="link-lilac">
-                {h.work.cta}
-                <span aria-hidden="true">→</span>
-              </Link>
-            </Reveal>
-          </div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {workImages.slice(0, 6).map((img, i) => (
-              <Reveal key={img.src} delay={i * 80}>
-                <Link
-                  href="/our-work"
-                  className="group block overflow-hidden rounded-[20px] border border-night-line/80 bg-night-card/40 transition-colors duration-500 hover:border-bright/45"
-                >
-                  <span className="duotone relative block aspect-[4/5] w-full overflow-hidden">
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-[1400ms] ease-luxe group-hover:scale-[1.05]"
-                      loading="lazy"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0 bg-plum-500/0 transition-colors duration-500 group-hover:bg-plum-500/25"
-                    />
-                    <span className="absolute left-4 top-4 rounded-full border border-night-line bg-night-base/75 px-3.5 py-1.5 font-sans text-[0.8rem] font-bold uppercase tracking-[0.22em] text-white backdrop-blur-sm">
-                      {img.category[0]}
-                    </span>
-                  </span>
+            <a
+              href={postUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open Salon Alain Instagram post ${index + 1}`}
+              className="absolute inset-0 z-10 rounded-[1.5rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-m3-primary/70"
+            >
+              <span className="sr-only">Open this Instagram post</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
-                  <span className="flex items-center justify-between gap-3 px-5 py-5">
-                    <span className="font-serif text-[1.15rem] font-bold text-white sm:text-[1.3rem]">
-                      {img.title}
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className="text-white transition-transform duration-500 group-hover:translate-x-1"
-                    >
-                      →
-                    </span>
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* =====================================================
           7 — BEAUTY IN MOTION

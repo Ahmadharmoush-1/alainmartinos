@@ -45,7 +45,7 @@ export const site = {
 
   whatsappNumber: "96170585661",
 
-  email: "hello@salonalain.com",
+  email: "martinosalain@yahoo.com",
 
   /* =======================================================
      SOCIAL MEDIA

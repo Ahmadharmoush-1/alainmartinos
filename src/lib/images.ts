@@ -27,20 +27,7 @@ export type WorkCategory =
 
 export type WorkImage = SiteImage & { category: WorkCategory[]; title: string };
 
-export const workImages: WorkImage[] = [
-  { src: "/images/work-01.jpg", alt: "Soft caramel balayage", title: "Caramel balayage", category: ["balayage", "brunette"], width: 1200, height: 1500 },
-  { src: "/images/work-02.jpg", alt: "Bright blonde transformation", title: "Luminous blonde", category: ["blonde", "transformations", "before-after"], width: 1200, height: 1200 },
-  { src: "/images/work-03.jpg", alt: "Face-framing highlights", title: "Face-framing highlights", category: ["highlights", "blonde"], width: 1200, height: 1600 },
-  { src: "/images/work-04.jpg", alt: "Precision bob haircut", title: "Precision bob", category: ["haircuts"], width: 1200, height: 1400 },
-  { src: "/images/work-05.jpg", alt: "Glamorous evening styling", title: "Evening styling", category: ["styling"], width: 1200, height: 1200 },
-  { src: "/images/work-06.jpg", alt: "Rich chocolate brunette color", title: "Chocolate brunette", category: ["brunette", "color"], width: 1200, height: 1500 },
-  { src: "/images/work-07.jpg", alt: "Dimensional color transformation", title: "Dimensional color", category: ["color", "transformations", "before-after"], width: 1200, height: 1300 },
-  { src: "/images/work-08.jpg", alt: "Honey balayage with glossing", title: "Honey balayage", category: ["balayage", "blonde"], width: 1200, height: 1600 },
-  { src: "/images/work-09.jpg", alt: "Long layered haircut", title: "Long layers", category: ["haircuts", "styling"], width: 1200, height: 1200 },
-  { src: "/images/work-10.jpg", alt: "Cool ash blonde highlights", title: "Ash blonde highlights", category: ["highlights", "blonde", "color"], width: 1200, height: 1500 },
-  { src: "/images/work-11.jpg", alt: "Bridal styling", title: "Bridal styling", category: ["styling", "transformations"], width: 1200, height: 1400 },
-  { src: "/images/work-12.jpg", alt: "Complete beauty transformation", title: "Complete transformation", category: ["transformations", "before-after", "color"], width: 1200, height: 1300 },
-];
+
 
 export const alainImages: SiteImage[] = [
   { src: "/images/alain-intro.jpg", alt: "Alain Martinos in the salon", width: 1200, height: 1500 },
