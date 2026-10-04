@@ -813,7 +813,7 @@ p2: [
           items: ["Eras", "Editions", "Manufacturing countries", "Packaging variations", "Fashion designs", "Collectible versions", "Photography", "Cultural history"],
         },
         closing: [
-          "For Alain Martinos, these dolls are not simply toys. They are pieces of fashion history, pop culture, design, childhood, and memory.",
+          "",
         ],
         triptych: ["Each doll represents a moment in time.", "Each box preserves an aesthetic.", "Each face carries a story."],
       },
