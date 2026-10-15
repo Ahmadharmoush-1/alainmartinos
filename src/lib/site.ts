@@ -104,14 +104,19 @@ export const site = {
 
       hours: [
         {
-          days: "Tuesday – Saturday",
-          time: "10:00 – 19:00",
+          days: "Monday – Friday",
+          time: "11:00 AM – 7:00 PM",
         },
 
         {
-          days: "Sunday – Monday",
-          time: "Closed",
+          days: "Saturday",
+          time: "By Appointment  Only",
         },
+        {
+          days: "Sunday",
+          time: "Closed",
+        }
+     
       ],
 
       bookHref:

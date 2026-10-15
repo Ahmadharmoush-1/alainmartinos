@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { coverSizes, videoPoster } from "@/lib/media";
 import { VideoShort, type Priority, type ShortSource } from "./VideoShort";
+
+/** Mirrors --video-card-width below, so each poster downloads at card size. */
+const POSTER_SIZES =
+  "(min-width: 1024px) 330px, (min-width: 640px) 310px, (min-width: 417px) 300px, 72vw";
 
 export type Short = {
   src: string;
@@ -28,6 +33,7 @@ export function VideoShortsRow({
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [nearViewport, setNearViewport] = useState(false);
+  const [postersWanted, setPostersWanted] = useState(false);
 
   /*
    * Measure the untransformed card wrappers.
@@ -94,6 +100,31 @@ export function VideoShortsRow({
 
     observer.observe(section);
 
+    return () => observer.disconnect();
+  }, []);
+
+  // Posters are light, so they start well ahead of the section: by the time
+  // it scrolls in, every card — including the ones swiped to later — already
+  // shows its picture.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setPostersWanted(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setPostersWanted(true);
+        observer.disconnect();
+      },
+      { rootMargin: "1500px 0px" }
+    );
+
+    observer.observe(section);
     return () => observer.disconnect();
   }, []);
 
@@ -185,6 +216,10 @@ export function VideoShortsRow({
                 ? "medium"
                 : "low";
 
+          const poster = video.poster
+            ? { src: video.poster, srcSet: undefined }
+            : videoPoster(video.src);
+
           return (
             <div
               key={video.src}
@@ -208,14 +243,20 @@ export function VideoShortsRow({
                 <VideoShort
                   src={video.src}
                   title={video.title}
-                  poster={video.poster}
+                  poster={poster?.src}
+                  posterSrcSet={poster?.srcSet}
+                  posterSizes={poster && "key" in poster && poster.key ? coverSizes(poster.key, 9 / 16, POSTER_SIZES) : POSTER_SIZES}
                   sources={video.sources}
                   mobileSources={video.mobileSources}
                   playLabel={playLabel}
                   badge={badge}
                   priority={priority}
+                  prepare={nearViewport && distance <= 1}
                   active={isActive && nearViewport}
-                  eagerPoster={nearViewport && distance <= 1}
+                  eagerPoster={postersWanted}
+                  posterFetchPriority={
+                    !postersWanted ? "auto" : distance === 0 ? "high" : distance === 1 ? "auto" : "low"
+                  }
                 />
 
                 {/* Tap a side card to center it before playing. */}

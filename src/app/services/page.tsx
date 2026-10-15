@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 
 import { getContent } from "@/lib/i18n";
+import { fullSizeImageUrl } from "@/lib/media";
 import { SITE_URL, site } from "@/lib/site";
 
 const t = getContent();
@@ -170,7 +171,7 @@ export default function ServicesPage() {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10"
         style={{
-          backgroundImage: "url('/images/salon-purple-background.webp')",
+          backgroundImage: `url('${fullSizeImageUrl("/images/salon-purple-background.webp")}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { SocialIcons } from "@/components/SocialIcons";
 import { getContent } from "@/lib/i18n";
+import { responsiveImage } from "@/lib/media";
 import { site, whatsappHref } from "@/lib/site";
 
 const c = getContent().contact;
@@ -146,7 +147,14 @@ export default function ContactPage() {
       </section>
 
     <figure className="contact-location-feature-image">
-  <img src="/images/contact-alain.jpg" alt="Alain Martinos at the salon" />
+  <img
+    {...responsiveImage("/images/contact-alain.jpg")}
+    sizes="100vw"
+    width={1440}
+    height={1080}
+    decoding="async"
+    alt="Alain Martinos at the salon"
+  />
 </figure>
 
       <section className="contact-locations contact-container" aria-labelledby="locations-heading">
@@ -170,10 +178,64 @@ export default function ContactPage() {
                       </div>)}
                     </dl>
                   </div>
-                  <div className="contact-hours">
-                    <p className="contact-hours-title"><Icon name="clock" /><span>Salon Atelier Hours</span></p>
-                    {isLebanon ? <><p><strong>Tuesday – Saturday:</strong> 10:00 – 19:00</p><p>Sunday &amp; Monday: Closed</p></> : <p>Contact us to confirm availability and arrange your appointment.</p>}
-                  </div>
+                 
+<div className="contact-hours mt-6 overflow-hidden rounded-[20px] border border-[#b57acd]/30 bg-[#150629] p-5 shadow-[0_12px_35px_rgba(16,5,31,0.25)] sm:p-6">
+
+  {/* HEADER */}
+  <div className="contact-hours-title flex items-center gap-3 border-b border-white/10 pb-4">
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e4b5ff]/10 text-[#e4b5ff]">
+      <Icon name="clock" />
+    </span>
+
+    <span className="font-sans text-[13px] font-bold uppercase tracking-[0.12em] text-[#e4b5ff] sm:text-[14px]">
+      Salon Atelier Hours
+    </span>
+  </div>
+
+  {isLebanon ? (
+    <div className="mt-2 divide-y divide-white/10 font-sans">
+
+      {/* MONDAY - FRIDAY */}
+      <div className="flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <span className="text-[14px] font-semibold text-[#d3c0dd] sm:text-[15px]">
+          Monday – Friday
+        </span>
+
+        <span className="text-[14px] font-bold text-white sm:text-[15px]">
+          11:00 AM – 7:00 PM
+        </span>
+      </div>
+
+      {/* SATURDAY */}
+      <div className="flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <span className="text-[14px] font-semibold text-[#d3c0dd] sm:text-[15px]">
+          Saturday
+        </span>
+
+        <span className="text-[14px] font-bold text-[#e4b5ff] sm:text-[15px]">
+          By Appointment
+        </span>
+      </div>
+
+      {/* SUNDAY */}
+      <div className="flex flex-col gap-1 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <span className="text-[14px] font-semibold text-[#d3c0dd] sm:text-[15px]">
+          Sunday
+        </span>
+
+        <span className="text-[14px] font-semibold text-[#b7a4c4] sm:text-[15px]">
+          Closed
+        </span>
+      </div>
+
+    </div>
+  ) : (
+    <p className="mt-4 font-sans text-[15px] font-semibold leading-relaxed text-[#d3c0dd]">
+      Contact us to confirm availability and arrange your appointment.
+    </p>
+  )}
+</div>
+
                 </div>
                 <div className="contact-map" role="group" aria-label={`Illustrated location card for ${location.title}`}>
                   <IllustratedMap id={`contact-map-${index}`} country={location.country} isLebanon={isLebanon} />
@@ -185,34 +247,74 @@ export default function ContactPage() {
                 </div>
 
                 {reviewHref && (
-                  <aside className="contact-review" aria-labelledby={`review-${location.id}`}>
-                    <span className="contact-review-glow" aria-hidden="true" />
-                    <div className="contact-review-body">
-                      <Stars />
-                      <p className="contact-eyebrow">Your experience</p>
-                      <h3 id={`review-${location.id}`}>Loved your visit? Tell Google.</h3>
-                      <p>
-                        A few words about your appointment helps other clients in {location.addressLines[0]} find
-                        Alain Martinos — and it means a great deal to the whole team. It takes less than a minute.
-                      </p>
-                    </div>
-                    <a
-                      className="contact-review-button"
-                      href={reviewHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Leave a Google review for ${location.title} (opens in a new tab)`}
-                    >
-                      Leave a Google review
-                      <Icon name="arrow" />
-                    </a>
-                  </aside>
+                 
+<aside
+  className="contact-review !p-7 sm:!p-9 lg:!p-10"
+  aria-labelledby={`review-${location.id}`}
+>
+  <span
+    className="contact-review-glow"
+    aria-hidden="true"
+  />
+
+  <div className="contact-review-body">
+
+    {/* STARS — SLIGHTLY BIGGER */}
+    <div className="[&_svg]:!h-6 [&_svg]:!w-6">
+      <Stars />
+    </div>
+
+    <p className="contact-eyebrow !text-[13px] sm:!text-[14px]">
+      Your experience
+    </p>
+
+    {/* HEADING */}
+    <h3
+      id={`review-${location.id}`}
+      className="!text-[27px] !font-semibold !leading-tight sm:!text-[33px]"
+    >
+      Loved your visit? Tell Google.
+    </h3>
+
+    {/* DESCRIPTION */}
+    <p className="!text-[16px] !font-semibold !leading-[1.8] sm:!text-[17px]">
+      A few words about your appointment helps other clients in{" "}
+      {location.addressLines[0]} find Alain Martinos — and it
+      means a great deal to the whole team. It takes less than
+      a minute.
+    </p>
+
+  </div>
+
+  {/* GOOGLE REVIEW BUTTON */}
+  <a
+    className="contact-review-button !min-h-[56px] !px-7 !py-4 !text-[13px] sm:!min-h-[60px] sm:!px-8 sm:!text-[14px]"
+    href={reviewHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Leave a Google review for ${location.title} (opens in a new tab)`}
+  >
+    Leave a Google review
+    <Icon name="arrow" />
+  </a>
+</aside>
+
                 )}
               </article>
             );
           })}
         </div>
-        <div className="contact-social"><p className="contact-eyebrow">Follow Us On Social Media</p><div className="contact-social-icons"><SocialIcons /></div></div>
+        
+<div className="contact-social">
+  <p className="contact-eyebrow">
+    Follow Us On Social Media
+  </p>
+
+  <div className="contact-social-icons [&_svg]:!h-[26px] [&_svg]:!w-[26px] sm:[&_svg]:!h-[30px] sm:[&_svg]:!w-[30px]">
+    <SocialIcons />
+  </div>
+</div>
+
       </section>  <section id="contact-form" className="contact-form-section" aria-label="Appointment enquiry form">
         <div className="contact-container">
           <div className="contact-form-layout contact-form-layout-solo">

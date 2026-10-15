@@ -33,7 +33,7 @@ Deploys with zero configuration on Vercel; also works on Netlify, Cloudflare Pag
 All images in `public/images/` are soft lavender placeholders. Replace them with real photos
 **keeping the same file names**, or edit `src/lib/images.ts` to point at new files.
 Keep `width`/`height` accurate so the layout never shifts while loading.
-Next.js converts them to AVIF/WebP and generates responsive sizes automatically.
+Responsive sizes are generated automatically before every `dev` / `build` (see *Media pipeline*).
 
 - `salon-01…06` — salon interiors (Hair Salon page + home preview)
 - `work-01…12` — portfolio (each has `category` tags used by the filter)
@@ -84,12 +84,34 @@ public/brand/           logo.jpg · am-pattern.jpg (silk texture used as backgro
 
 No component contains hard-coded text, so nothing else needs to change.
 
+## Media pipeline
+
+Original photos, videos and MP3s are never modified. Everything below only adds copies.
+
+- **Images** — `scripts/optimize-images.mjs` runs automatically before `npm run dev` and
+  `npm run build`. It writes responsive WebP copies of `public/images` and `public/brand` to
+  `public/optimized/` (git-ignored, content-hashed, cached forever) and a small
+  `src/lib/media-manifest.json`. `next/image` uses them through `src/lib/image-loader.ts`;
+  plain `<img>` tags use `responsiveImage()` from `src/lib/media.ts`. Every smaller copy is
+  checked against the original and kept lossless if it would not be visually identical
+  (SSIM ≥ 0.98, PSNR ≥ 40 dB); PNG originals get a pixel-identical lossless copy at full size;
+  a copy is never used when it would be heavier than the original. `npm run media:verify`
+  re-checks every copy.
+- **Video posters** — after adding or replacing a video in `public/videos`, run
+  `npm run media:posters -- <path-to-ffmpeg>` (or with `ffmpeg` on your PATH) and commit
+  `media-src/video-posters/`. Pin a better frame for a video in `POSTER_TIME` inside
+  `scripts/generate-video-posters.mjs`.
+- **Caching** — `netlify.toml` sets long-lived caching for hashed files and one day
+  (+ background refresh) for original media.
+
 ## Performance & accessibility notes
 
 - Static export of every page; ~100 kB shared JS; no animation library (CSS transitions +
   a 40-line IntersectionObserver reveal). `prefers-reduced-motion` disables all motion.
 - Fonts are self-hosted and preloaded through `next/font/local` (no Google request, no layout shift).
-- Images: `next/image` with explicit sizes, lazy loading below the fold, AVIF/WebP.
+- Images: `next/image` with explicit sizes and build-time responsive copies, lazy loading below the fold.
+- Reels show a poster immediately, load ahead of the section, and only the centred reel
+  (plus its neighbours' metadata) is fetched; Instagram embeds load as their card comes near.
 - YouTube embeds are facades — no third-party JS until play.
 - Semantic landmarks, skip link, focus-visible styles, keyboard-navigable lightbox and drawer,
   44 px+ tap targets, `aria-current` on active navigation.

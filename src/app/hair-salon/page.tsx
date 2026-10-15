@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { Logo } from "@/components/Logo";
 import { getContent } from "@/lib/i18n";
 import { salonImages } from "@/lib/images";
+import { coverSizes } from "@/lib/media";
 import { site, whatsappHref } from "@/lib/site";
 
 const s = getContent().salon;
@@ -286,7 +287,7 @@ function GalleryTile({
           src={src}
           alt={alt}
           fill
-          sizes={sizes}
+          sizes={coverSizes(src, 0.55, sizes)}
           className="object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04]"
         />
       </div>
@@ -319,7 +320,8 @@ export default function HairSalonPage() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          // Portrait screens crop this wide photo, drawing it wider than the screen.
+          sizes="(orientation: portrait) 300vw, 100vw"
           className="-z-30 object-cover object-center"
         />
         <div aria-hidden="true" className="absolute inset-0 -z-20 bg-[#4A2A72] mix-blend-multiply" />
@@ -351,12 +353,14 @@ export default function HairSalonPage() {
            
           </div>
 
-          <h1
-            id="salon-heading"
-            className="mx-auto mb-6 max-w-4xl font-serif text-m3-display-mobile !font-normal tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
-          >
-            {s.heading}
-          </h1>
+        
+<h1
+  id="salon-heading"
+  className="mx-auto mb-6 max-w-4xl font-serif italic text-m3-display-mobile !font-normal tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
+>
+  {s.heading}
+</h1>
+
 
           <p className="mx-auto mb-10 max-w-2xl font-sans text-m3-body-lg font-semibold leading-relaxed text-m3-tertiary">
             {s.subtitle}
@@ -474,7 +478,7 @@ export default function HairSalonPage() {
                 src={philosophyImage.src}
                 alt={philosophyImage.alt}
                 fill
-                sizes="(max-width: 1024px) 90vw, 500px"
+                sizes={coverSizes(philosophyImage.src, 4 / 5, "(max-width: 1024px) 90vw, 500px")}
                 className="object-cover object-center"
               />
 
@@ -635,7 +639,55 @@ export default function HairSalonPage() {
                         {details.map((detail) => <div key={detail.label} className="flex min-w-0 items-start gap-3.5"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#322346] text-[#eab2ff]"><LocationIcon name={detail.icon} /></span><div className="min-w-0"><dt className="font-sans text-[0.65rem] uppercase tracking-[0.16em] text-[#c0adca]">{detail.label}</dt><dd className="mt-1 break-words text-sm text-[#eddcff]"><a href={detail.href} target={detail.icon === "chat" || detail.icon === "instagram" ? "_blank" : undefined} rel={detail.icon === "chat" || detail.icon === "instagram" ? "noopener noreferrer" : undefined}>{detail.value}</a></dd></div></div>)}
                       </dl>
                     </div>
-                    <div className="mt-7 rounded-[18px] bg-[#150629] p-6 text-sm text-[#d3c0dd]"><p className="mb-3 flex items-center gap-3 font-sans text-[0.7rem] uppercase tracking-[0.13em] text-[#e4b5ff]"><LocationIcon name="clock" /> Salon Atelier Hours</p><p>Tuesday – Saturday: 10:00 – 19:00</p><p className="mt-1">Sunday &amp; Monday: Closed</p></div>
+
+<div className="mt-7 rounded-[18px] border border-[#e4b5ff]/15 bg-[#150629] p-5 sm:p-6">
+
+  {/* HEADER */}
+  <div className="mb-4 flex items-center gap-3 border-b border-white/10 pb-4">
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#e4b5ff]/10 text-[#e4b5ff]">
+      <LocationIcon name="clock" />
+    </span>
+
+    <p className="font-sans text-[0.75rem] font-semibold uppercase tracking-[0.13em] text-[#e4b5ff]">
+      Salon Atelier Hours
+    </p>
+  </div>
+
+  {/* OPENING HOURS */}
+  <div className="font-sans text-sm">
+
+    {/* MONDAY - FRIDAY */}
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-white/10 py-3">
+      <span className="font-medium text-[#d3c0dd]">
+        Monday – Friday
+      </span>
+      <span className="font-semibold text-white">
+        11:00 AM – 7:00 PM
+      </span>
+    </div>
+
+    {/* SATURDAY */}
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-white/10 py-3">
+      <span className="font-medium text-[#d3c0dd]">
+        Saturday
+      </span>
+      <span className="font-semibold text-[#e4b5ff]">
+        By Appointment
+      </span>
+    </div>
+
+    {/* SUNDAY */}
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pt-3">
+      <span className="font-medium text-[#d3c0dd]">
+        Sunday
+      </span>
+      <span className="font-semibold text-[#d3c0dd]/70">
+        Closed
+      </span>
+    </div>
+
+  </div>
+</div>
                   </article>
 
                   <article className="relative isolate flex min-h-[520px] min-w-0 flex-col justify-end overflow-hidden rounded-[32px] bg-[#150629] p-5 shadow-[0_24px_50px_rgba(16,5,31,0.4)] sm:p-6 lg:col-span-7">
@@ -645,21 +697,53 @@ export default function HairSalonPage() {
                   </article>
 
                   {reviewHref && (
-                    <aside className="relative isolate overflow-hidden rounded-[32px] border border-[#b57acd]/40 bg-gradient-to-r from-[#2a1640] via-[#3a2158] to-[#27183b] p-7 shadow-[0_22px_60px_-20px_rgba(16,5,31,0.7)] sm:p-10 lg:col-span-12">
-                      <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-40 -z-10 h-[420px] w-[420px] rounded-full bg-[#eab2ff]/20 blur-[40px]" />
-                      <div className="flex flex-wrap items-center justify-between gap-7">
-                        <div className="max-w-2xl">
-                          <Stars />
-                          <p className="mt-3 font-sans text-[0.72rem] font-medium uppercase tracking-[0.23em] text-[#e4b5ff]">Your experience</p>
-                          <h3 className="mt-2 font-serif text-2xl font-normal leading-tight text-[#eddcff] sm:text-3xl">Loved your visit? Tell Google.</h3>
-                          <p className="mt-3 font-sans text-base font-semibold leading-relaxed text-[#d3c0dd]">A few words about your appointment helps other clients find Salon Alain Hair & Beauty. It takes less than a minute.</p>
-                        </div>
-                        <a href={reviewHref} target="_blank" rel="noopener noreferrer" aria-label={`Leave a Google review for ${location.title} (opens in a new tab)`} className="inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full bg-[#eab2ff] px-7 py-3.5 font-sans text-xs font-semibold uppercase tracking-[0.13em] text-[#4c1564] shadow-[0_0_34px_rgba(234,178,255,0.2)] transition hover:-translate-y-0.5 hover:bg-[#f7d8ff]">
-                          Leave a Google review
-                          <Arrow />
-                        </a>
-                      </div>
-                    </aside>
+                   
+<aside className="relative isolate w-full overflow-hidden rounded-[32px] border border-[#b57acd]/40 bg-gradient-to-r from-[#2a1640] via-[#3a2158] to-[#27183b] p-8 shadow-[0_22px_60px_-20px_rgba(16,5,31,0.7)] sm:rounded-[36px] sm:p-12 lg:col-span-12 lg:min-h-[340px] lg:p-16">
+
+  {/* Background glow */}
+  <div
+    aria-hidden="true"
+    className="pointer-events-none absolute -right-20 -top-40 -z-10 h-[550px] w-[550px] rounded-full bg-[#eab2ff]/20 blur-[60px]"
+  />
+
+  <div className="flex h-full flex-col justify-center gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+
+    {/* TEXT CONTENT */}
+    <div className="max-w-3xl">
+
+      <Stars />
+
+      <p className="mt-5 font-sans text-[0.8rem] font-semibold uppercase tracking-[0.23em] text-[#e4b5ff] sm:text-[0.9rem]">
+        Your experience
+      </p>
+
+      <h3 className="mt-4 font-serif text-3xl font-normal leading-tight text-[#eddcff] sm:text-4xl lg:text-[2.8rem]">
+        Loved your visit? Tell Google.
+      </h3>
+
+      <p className="mt-5 max-w-2xl font-sans text-[1.05rem] font-semibold leading-[1.85] text-[#d3c0dd] sm:text-lg lg:text-xl">
+        A few words about your appointment helps other clients
+        find Salon Alain Hair &amp; Beauty. It takes less than
+        a minute.
+      </p>
+
+    </div>
+
+    {/* GOOGLE REVIEW BUTTON */}
+    <a
+      href={reviewHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Leave a Google review for ${location.title} (opens in a new tab)`}
+      className="inline-flex min-h-[64px] w-full shrink-0 items-center justify-center gap-4 self-start rounded-full bg-[#eab2ff] px-9 py-5 text-center font-sans text-sm font-semibold uppercase tracking-[0.12em] text-[#4c1564] shadow-[0_0_40px_rgba(234,178,255,0.25)] transition duration-300 hover:-translate-y-1 hover:bg-[#f7d8ff] sm:w-auto lg:min-h-[72px] lg:px-10"
+    >
+      Leave a Google review
+      <Arrow />
+    </a>
+
+  </div>
+</aside>
+
                   )}
                 </Reveal>
               );

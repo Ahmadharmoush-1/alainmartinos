@@ -10,6 +10,10 @@ import { SectionTitle } from "@/components/SectionTitle";
 
 import { VideoShortsRow } from "@/components/VideoShortsRow";
 
+import { LazyIframe } from "@/components/LazyIframe";
+
+import { fullSizeImageUrl } from "@/lib/media";
+
 import { CtaBand } from "@/components/CtaBand";
 
 import { Reveal } from "@/components/Reveal";
@@ -59,14 +63,19 @@ const heroMarks = [
 const instagramPosts = [
 
   "https://www.instagram.com/p/DKuMBilNmAY/",
+  "https://www.instagram.com/p/Cwdql1DI2C2/",
+   "https://www.instagram.com/p/Ch63PE7oOUZ/",
+  "https://www.instagram.com/p/CputLjqIFVq/",
+  "https://www.instagram.com/p/CYqm76yo4Ru/",
+  "https://www.instagram.com/p/Cwsqy1qIK69/",
 
   "https://www.instagram.com/p/DKuJ8_xNvQW/",
 
   "https://www.instagram.com/p/DKt6GRzNMGR/",
 
-  "https://www.instagram.com/p/DDqBLmHNUGm/",
 
-  "https://www.instagram.com/p/C7-IubHNhdh/",
+
+
 
 ];
 
@@ -196,7 +205,7 @@ export default function HomePage() {
 
         style={{
 
-          backgroundImage: "url('/images/salon-purple-background.webp')",
+          backgroundImage: `url('${fullSizeImageUrl("/images/salon-purple-background.webp")}')`,
 
           backgroundSize: "cover",
 
@@ -416,27 +425,17 @@ export default function HomePage() {
 
 <div className="mt-7 animate-rise [animation-delay:150ms]">
 
-  <span className="relative mx-auto block h-[120px] w-full max-w-[720px] sm:h-[170px] sm:max-w-[900px] lg:h-[200px] lg:max-w-[1100px]">
-
-    <Image
-
-      src="/images/logo.jpg?v=white-2"
-
-      alt="Salon Alain Martinos – Hair & Beauty"
-
-      fill
-
-      priority
-
-      unoptimized
-
-      sizes="(max-width: 1024px) 90vw, 1100px"
-
-      className="object-contain object-center"
-
-    />
-
-  </span>
+  
+<span className="relative mx-auto block h-[140px] w-full max-w-[760px] sm:h-[190px] sm:max-w-[950px] lg:h-[230px] lg:max-w-[1150px]">
+  <Image
+    src="/images/logo.jpg?v=white-2"
+    alt="Salon Alain Martinos – Hair & Beauty"
+    fill
+    priority
+    sizes="(max-width: 1024px) 95vw, 1150px"
+    className="object-contain object-center"
+  />
+</span>
 
 </div>
 
@@ -566,125 +565,124 @@ export default function HomePage() {
 
       ===================================================== */}
 
-      <section id="intro" className="scroll-mt-24 border-t border-night-line/60 py-24 sm:py-32">
+     
 
-        <div className="container-page grid items-center gap-14 lg:grid-cols-12 lg:gap-14">
 
-          {/* Portrait — original image colours, no visual effects */}
+<section
+  id="intro"
+  className="scroll-mt-24 border-t border-night-line/60 py-24 sm:py-32"
+>
+  <div className="container-page">
 
-         <Reveal className="lg:col-span-5">
+    {/* TITLE — AT THE TOP ON ALL DEVICES */}
+    <div className="mx-auto w-full max-w-[1100px]">
+      <SectionTitle
+        className="home-section-heading"
+        light
+        kicker={h.intro.kicker}
+        title={h.intro.heading}
+      />
+    </div>
 
-  <div className="relative h-[480px] w-full overflow-hidden rounded-[28px] border border-night-line/70 bg-night-card sm:h-[580px] lg:h-[640px]">
+    {/* IMAGE — ABOVE TEXT ON MOBILE AND DESKTOP */}
+    <Reveal className="mx-auto mt-10 w-full max-w-[600px] sm:mt-12 lg:mt-14">
+      <div className="relative w-full overflow-hidden rounded-[28px] border border-night-line/70 bg-night-card">
+        <Image
+          src="/images/alain-intro.jpg"
+          alt="Alain Martinos"
+          width={1120}
+          height={1372}
+          sizes="(max-width: 640px) 100vw, 600px"
+          className="block h-auto w-full object-contain"
+        />
+      </div>
+    </Reveal>
 
-    <Image
+    {/* INTRODUCTION TEXT — BELOW IMAGE */}
+    <div className="mx-auto mt-12 w-full max-w-[1000px] sm:mt-14 lg:mt-16">
 
-      src="/images/alain-intro.jpg"
+      <Reveal
+        delay={120}
+        className="space-y-6 font-sans text-[1.125rem] font-bold leading-[1.85] text-white sm:text-[1.1875rem]"
+      >
+        {h.intro.p1.split("\n\n").map((paragraph, index) => (
+          <p
+            key={`p1-${index}`}
+            className={index === 0 ? "dropcap" : undefined}
+          >
+            {paragraph}
+          </p>
+        ))}
 
-      alt="Alain Martinos"
+        {h.intro.p2.split("\n\n").map((paragraph, index) => (
+          <p
+            key={`p2-${index}`}
+            className="whitespace-pre-line"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </Reveal>
 
-      fill
+      {/* READ MORE LINK */}
+      <Reveal delay={200} className="mt-9">
+        <Link
+          href="/alain-martinos"
+          className="link-lilac"
+        >
+          {h.intro.cta}
+          <span aria-hidden="true">→</span>
+        </Link>
+      </Reveal>
 
-      priority
+    </div>
 
-      sizes="(max-width: 1024px) 100vw, 42vw"
+    {/* FULL-WIDTH FACT CARDS */}
+    <Reveal
+      delay={280}
+      className="mt-14 min-w-0 sm:mt-16"
+    >
+      <ol className="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 
-      className="object-cover object-top"
+        {h.intro.facts.map((f, i) => (
+          <li
+            key={f.label}
+            className="relative flex min-h-[96px] min-w-0 items-center gap-3 rounded-[22px] border border-night-line/70 bg-night-card/70 px-4 py-5 sm:min-h-[128px] sm:items-start sm:gap-4 sm:px-6 sm:py-6 sm:last:col-span-2 lg:last:col-span-1"
+          >
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-[2px] rounded-t-[22px] bg-bright/70"
+            />
 
-    />
+            <span
+              aria-hidden="true"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bright/35 font-sans text-xs font-semibold text-white sm:h-10 sm:w-10"
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+
+            <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:block">
+
+              <span className="shrink-0 font-sans text-[1.7rem] font-semibold leading-none text-white sm:block sm:text-[2.25rem]">
+                {f.value}
+              </span>
+
+              <span className="min-w-0 break-words font-sans text-[0.76rem] font-bold uppercase leading-[1.35] tracking-[0.02em] text-white sm:mt-3 sm:block sm:text-[0.85rem] sm:leading-5 sm:tracking-[0.05em]">
+                {f.label.trim()}
+              </span>
+
+            </div>
+          </li>
+        ))}
+
+      </ol>
+    </Reveal>
 
   </div>
-
-</Reveal>
-
-
-
-          {/* Introduction copy */}
-
-          <div className="min-w-0 lg:col-span-7">
-
-            <SectionTitle className="home-section-heading" light kicker={h.intro.kicker} title={h.intro.heading} />
+</section>
 
 
 
-           <Reveal
-
-  delay={120}
-
-  className="mt-9 space-y-6 font-sans text-[1.125rem] font-bold leading-[1.85] text-white sm:text-[1.1875rem]"
-
->
-
-  {h.intro.p1.split("\n\n").map((paragraph, index) => (
-
-    <p key={`p1-${index}`} className={index === 0 ? "dropcap" : undefined}>
-
-      {paragraph}
-
-    </p>
-
-  ))}
-
-
-
-  {h.intro.p2.split("\n\n").map((paragraph, index) => (
-
-    <p key={`p2-${index}`} className="whitespace-pre-line">
-
-      {paragraph}
-
-    </p>
-
-  ))}
-
-</Reveal>
-
-
-
-            <Reveal delay={200} className="mt-9">
-
-              <Link href="/alain-martinos" className="link-lilac">
-
-                {h.intro.cta}
-
-                <span aria-hidden="true">→</span>
-
-              </Link>
-
-            </Reveal>
-
-          </div>
-
-          {/* Full-width fact cards with values and full labels side by side on mobile. */}
-          <Reveal delay={280} className="min-w-0 lg:col-span-12">
-            <ol className="grid min-w-0 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {h.intro.facts.map((f, i) => (
-                <li
-                  key={f.label}
-                  className="relative flex min-h-[96px] min-w-0 items-center gap-3 rounded-[22px] border border-night-line/70 bg-night-card/70 px-4 py-5 sm:min-h-[128px] sm:items-start sm:gap-4 sm:px-6 sm:py-6 sm:last:col-span-2 lg:last:col-span-1"
-                >
-                  <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] rounded-t-[22px] bg-bright/70" />
-                  <span
-                    aria-hidden="true"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bright/35 font-sans text-xs font-semibold text-white sm:h-10 sm:w-10"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:block">
-                    <span className="shrink-0 font-sans text-[1.7rem] font-semibold leading-none text-white sm:block sm:text-[2.25rem]">
-                      {f.value}
-                    </span>
-                    <span className="min-w-0 break-words font-sans text-[0.76rem] font-bold uppercase leading-[1.35] tracking-[0.02em] text-white sm:mt-3 sm:block sm:text-[0.85rem] sm:leading-5 sm:tracking-[0.05em]">
-                      {f.label.trim()}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
-
-        </div>
-
-      </section>
 
 
 
@@ -918,255 +916,145 @@ export default function HomePage() {
 
       ===================================================== */}
 
-      <section id="vanish" className="w-full scroll-mt-24 py-10">
-
+    
+<section id="vanish" className="w-full scroll-mt-24 py-10">
   <div className="container-page">
-
     <div className="relative mx-auto max-w-[1240px] rounded-xl bg-m3-container p-5 shadow-[0_24px_64px_-16px_rgba(26,11,46,0.8)] sm:p-8 lg:p-10">
 
-      <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-6">
+      <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
 
-        {/* LEFT: text, mobile image, wavelengths, benefits */}
-
+        {/* LEFT: Content */}
         <Reveal className="flex min-w-0 flex-col items-start gap-5 lg:col-span-6">
 
           <div className="inline-flex items-center gap-2 rounded-full bg-m3-high px-3 py-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-secondary">
-
             <span
-
               aria-hidden="true"
-
               className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-m3-secondary"
-
             />
-
             UK Medical-Grade Tri-Wave Platform
-
           </div>
 
-
-
           <h2 className="font-serif text-m3-headline-md !font-normal leading-[1.15] !text-m3-on-surface lg:text-m3-headline-lg">
-
             Goodbye Unwanted Hair.
-
             <br />
-
             <span className="italic text-m3-secondary">
-
               Hello Smooth Skin.
-
             </span>
-
           </h2>
 
-
-
           <p className="max-w-xl font-sans text-m3-body-lg font-semibold text-m3-tertiary">
-
             Advanced laser hair removal at Salon Alain Martinos Hair &amp;
-
             Beauty with our UK-manufactured laser system. Three distinct
-
             optical wavelengths orchestrated into one seamless, comfortable
-
             clinical session.
-
           </p>
 
+          {/* MOBILE IMAGE */}
+          <div className="mt-2 w-full lg:hidden">
+            <div className="mx-auto flex w-full max-w-[450px] flex-col items-center text-center">
 
-
-          {/* MOBILE IMAGE: displayed in the middle, after text */}
-
-          <div className="w-full lg:hidden">
-
-            <div className="flex w-full flex-col items-center bg-transparent text-center">
-
-              <div className="relative h-[380px] w-full sm:h-[520px]">
-
+              <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl bg-white shadow-[0_18px_44px_-20px_rgba(0,0,0,0.35)]">
                 <Image
-
                   src="/images/vanish-machine.png"
-
                   alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
-
                   fill
-
-                  sizes="(max-width: 640px) 90vw, 85vw"
-
+                  sizes="(max-width: 640px) 100vw, 450px"
                   className="object-contain object-center"
-
                 />
-
               </div>
 
-
-
-              <p className="mx-auto mt-3 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
-
+              <p className="mx-auto mt-5 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
                 &ldquo;Gentle on delicate skin, decisive on unwanted
-
                 growth.&rdquo;
-
               </p>
 
             </div>
-
           </div>
 
-
-
-          {/* Wavelengths */}
-
+          {/* WAVELENGTHS */}
           <div className="w-full pt-1.5">
-
             <p className="mb-2 font-sans text-m3-eyebrow font-medium uppercase text-m3-outline">
-
               3 Integrated Wavelengths
-
             </p>
 
-
-
             <div className="flex flex-wrap gap-2">
-
               {wavelengths.map((wave) => (
-
                 <div
-
                   key={wave}
-
                   className="flex items-center gap-1.5 rounded-full bg-m3-high px-5 py-2 font-sans text-m3-label font-medium text-m3-secondary shadow-sm"
-
                 >
-
                   <SparkIcon />
-
                   {wave}
-
                 </div>
-
               ))}
-
             </div>
-
           </div>
 
-
-
-          {/* Benefits */}
-
+          {/* BENEFITS */}
           <div className="flex flex-col gap-3 pt-1.5 font-sans text-m3-body-md font-semibold text-m3-on-surface-variant">
-
             {laserPoints.map((point) => (
-
               <div key={point} className="flex items-start gap-3">
-
                 <span className="shrink-0">
-
                   <CheckIcon />
-
                 </span>
 
-
-
                 <span>{point}</span>
-
               </div>
-
             ))}
-
           </div>
 
-
-
+          {/* CTA */}
           <div className="flex w-full flex-col items-start gap-4 pt-3 sm:flex-row sm:flex-wrap sm:items-center">
 
             <Link
-
               href="/contact?service=Laser%20Hair%20Removal"
-
               className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-m3-primary px-6 py-3 text-center font-sans text-m3-label font-medium uppercase text-m3-on-primary transition-colors duration-300 hover:bg-m3-secondary sm:w-auto"
-
             >
-
               Book Your Consultation
 
-
-
               <span className="shrink-0">
-
                 <ArrowIcon />
-
               </span>
-
             </Link>
 
-
-
             <span className="font-sans text-m3-body-sm font-semibold text-m3-tertiary">
-
               Women &amp; Men Welcome
-
             </span>
 
           </div>
 
         </Reveal>
 
-
-
-        {/* DESKTOP IMAGE: stays on the right */}
-
+        {/* DESKTOP IMAGE */}
         <Reveal
-
           delay={150}
-
-          className="hidden w-full min-w-0 lg:col-span-6 lg:block"
-
+          className="hidden min-w-0 lg:col-span-6 lg:block"
         >
+          <div className="flex w-full flex-col items-center justify-center">
 
-          <div className="flex w-full flex-col items-center bg-transparent text-center">
-
-            <div className="relative h-[720px] w-full">
-
+            <div className="relative mx-auto aspect-[2/3] w-full max-w-[470px] overflow-hidden rounded-[24px] bg-white shadow-[0_24px_60px_-20px_rgba(0,0,0,0.4)] xl:max-w-[500px]">
               <Image
-
                 src="/images/vanish-machine.png"
-
                 alt="Laser hair removal equipment at Salon Alain Martinos Hair & Beauty"
-
                 fill
-
-                sizes="560px"
-
+                sizes="(max-width: 1280px) 470px, 500px"
                 className="object-contain object-center"
-
               />
-
             </div>
 
-
-
-            <p className="mx-auto mt-5 max-w-sm px-2 font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
-
+            <p className="mx-auto mt-6 max-w-sm px-2 text-center font-sans text-m3-body-sm font-semibold italic leading-relaxed text-m3-tertiary">
               &ldquo;Gentle on delicate skin, decisive on unwanted
-
               growth.&rdquo;
-
             </p>
 
           </div>
-
         </Reveal>
 
       </div>
-
     </div>
-
   </div>
-
 </section>
+
 
 
 
@@ -1176,55 +1064,45 @@ export default function HomePage() {
 
       ===================================================== */}
 
-      <section className="border-t border-night-line/60 py-24 sm:py-32">
-
-        <div className="container-page">
-
-          <SectionTitle
-
-            className="home-section-heading"
-
-            light
-
-            align="center"
+     
 
 
+    
+<section className="border-t border-night-line/60 py-10 sm:py-14">
+  <div className="container-page">
 
-            title={h.salon.subtitle}
-
-          />
-
-
-
-       <Reveal delay={120} className="mx-auto mt-16 w-full max-w-6xl">
-
-  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[28px]">
-
-    <Image
-
-      src="/images/salon-main.jpg"
-
-      alt="Salon Alain interior"
-
-      fill
-
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-
-      className="object-cover object-center"
-
+    <SectionTitle
+      className="home-section-heading !mb-0"
+      light
+      align="center"
+      title={h.salon.subtitle}
     />
 
+    {/* IMAGE — 1.5X BIGGER */}
+    <Reveal
+      delay={120}
+      className="mx-auto !mt-5 w-full max-w-[1050px] sm:!mt-6"
+    >
+      <div className="w-full overflow-hidden rounded-[28px]">
+        <Image
+          src="/images/salon-05.jpg"
+          alt="Salon Alain interior"
+          width={900}
+          height={1600}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1050px"
+          className="block h-auto w-full"
+        />
+      </div>
+    </Reveal>
+
   </div>
-
-</Reveal>
-
+</section>
 
 
 
 
-        </div>
 
-      </section>
+
 
 
 
@@ -1286,7 +1164,7 @@ export default function HomePage() {
 
           >
 
-            <iframe
+            <LazyIframe
 
               title={`Salon Alain Instagram post ${index + 1}`}
 

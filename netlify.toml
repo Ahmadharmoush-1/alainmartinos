@@ -4,3 +4,44 @@
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+# ---------------------------------------------------------------------------
+# Browser caching. Netlify's default is to revalidate every file on every
+# visit; these rules let returning visitors reuse what they already have.
+# (Netlify serves byte ranges for all static files, so videos and MP3s
+# still stream and seek without downloading the whole file.)
+# ---------------------------------------------------------------------------
+
+# Fingerprinted by Next.js / by content hash: safe to keep forever.
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/optimized/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Original media keep their names when replaced, so they are cached for a day
+# and then refreshed in the background (a replaced file shows up on the next
+# visit after that).
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"

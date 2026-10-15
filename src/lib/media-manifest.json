@@ -1,0 +1,616 @@
+{
+ "/brand/am-pattern.jpg": {
+  "h": "46521e38",
+  "w": 1024,
+  "ht": 1024
+ },
+ "/brand/logo.jpg": {
+  "h": "7d7d12af",
+  "w": 778,
+  "ht": 771
+ },
+ "/images/about-alain1.jpg": {
+  "h": "b50ec565",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/about-hero.jpg": {
+  "h": "342e12a8",
+  "w": 2000,
+  "ht": 1250,
+  "c": 1920
+ },
+ "/images/alain-01.jpg": {
+  "h": "bd9a63ac",
+  "w": 1206,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-03.jpg": {
+  "h": "e97024e2",
+  "w": 1200,
+  "ht": 1200
+ },
+ "/images/alain-044.jpg": {
+  "h": "933b33bf",
+  "w": 900,
+  "ht": 1600,
+  "c": 360
+ },
+ "/images/alain-05.jpg": {
+  "h": "af9621a1",
+  "w": 1200,
+  "ht": 1500,
+  "c": 1024
+ },
+ "/images/alain-bg.jpg": {
+  "h": "0dad88b6",
+  "w": 1672,
+  "ht": 941,
+  "f": 1
+ },
+ "/images/alain-gallery/01.jpg": {
+  "h": "07f18278",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/02.jpg": {
+  "h": "e6bef565",
+  "w": 900,
+  "ht": 1600,
+  "c": 640
+ },
+ "/images/alain-gallery/03.jpg": {
+  "h": "294f6c6f",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/04.jpg": {
+  "h": "50395c81",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/05.jpg": {
+  "h": "f15996c0",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/06.jpg": {
+  "h": "8b968e77",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/07.jpg": {
+  "h": "3fe18835",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/08.jpg": {
+  "h": "1a279554",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/09.jpg": {
+  "h": "1d84c3df",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/10.jpg": {
+  "h": "b9db3344",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/11.jpg": {
+  "h": "f6a3ee1a",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/12.jpg": {
+  "h": "dfcf51c3",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/13.jpg": {
+  "h": "c758a9b6",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/14.jpg": {
+  "h": "f1e656e3",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/15.jpg": {
+  "h": "af1898b5",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/16.jpg": {
+  "h": "40e3928f",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/17.jpg": {
+  "h": "611b25f3",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/18.jpg": {
+  "h": "1605afe4",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/19.jpg": {
+  "h": "3ad76da6",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/20.jpg": {
+  "h": "303aa461",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/21.jpg": {
+  "h": "9e605dca",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/22.jpg": {
+  "h": "25f645a6",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/23.jpg": {
+  "h": "de13086c",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/24.jpg": {
+  "h": "3452b386",
+  "w": 874,
+  "ht": 1240,
+  "c": 640
+ },
+ "/images/alain-gallery/25.jpg": {
+  "h": "d44ffaaa",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/26.jpg": {
+  "h": "8a755c88",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/27.jpg": {
+  "h": "80c8866b",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/28.jpg": {
+  "h": "30b89967",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/29.jpg": {
+  "h": "19873f4d",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/30.jpg": {
+  "h": "565934df",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/31.jpg": {
+  "h": "cb6cc8df",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/32.jpg": {
+  "h": "56679272",
+  "w": 1280,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/33.jpg": {
+  "h": "a3a04663",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/34.jpg": {
+  "h": "a5369ede",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/35.jpg": {
+  "h": "3e0f2b4e",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/36.jpg": {
+  "h": "28812818",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-gallery/37.jpg": {
+  "h": "1655f7e8",
+  "w": 1200,
+  "ht": 1600,
+  "c": 1024
+ },
+ "/images/alain-intro.jpg": {
+  "h": "928955dc",
+  "w": 1133,
+  "ht": 1388,
+  "f": 1
+ },
+ "/images/alain-portrait.jpg": {
+  "h": "3df69dc3",
+  "w": 3024,
+  "ht": 3780
+ },
+ "/images/alain-with-mother.jpg": {
+  "h": "38c79edf",
+  "w": 1024,
+  "ht": 1280,
+  "c": 768
+ },
+ "/images/alainmartinos.jpg": {
+  "h": "cfbf8a13",
+  "w": 1024,
+  "ht": 1024,
+  "c": 768
+ },
+ "/images/alainthesinger-mobile.jpg": {
+  "h": "e411e152",
+  "w": 1024,
+  "ht": 1304,
+  "f": 1
+ },
+ "/images/alainthesinger.jpg": {
+  "h": "1ed703ca",
+  "w": 1024,
+  "ht": 1536,
+  "f": 1
+ },
+ "/images/barbie-collection-icon.jpg": {
+  "h": "5f75c36b",
+  "w": 960,
+  "ht": 1280,
+  "c": 768
+ },
+ "/images/barbie-collection-icon2.png": {
+  "h": "4c94aead",
+  "w": 1254,
+  "ht": 1254,
+  "f": 1
+ },
+ "/images/barbie-collection-icon4.jpg": {
+  "h": "80b24488",
+  "w": 861,
+  "ht": 1280,
+  "c": 640
+ },
+ "/images/barbie-community.jpg": {
+  "h": "aa2d80b3",
+  "w": 1254,
+  "ht": 1254,
+  "c": 1024
+ },
+ "/images/beauty-love-bg.png": {
+  "h": "e7396e54",
+  "w": 1600,
+  "ht": 1233,
+  "f": 1
+ },
+ "/images/contact-alain.jpg": {
+  "h": "acbecaaf",
+  "w": 1440,
+  "ht": 1080,
+  "c": 1024
+ },
+ "/images/contact.jpg": {
+  "h": "e23defb7",
+  "w": 1400,
+  "ht": 1600
+ },
+ "/images/dream-date-barbie.jpg": {
+  "h": "da34a0f6",
+  "w": 1280,
+  "ht": 1280,
+  "c": 1024
+ },
+ "/images/footer-bg-1.jpg": {
+  "h": "bdb0cd47",
+  "w": 1672,
+  "ht": 941,
+  "f": 1
+ },
+ "/images/footer-bg.jpg": {
+  "h": "05e9c64f",
+  "w": 1672,
+  "ht": 941,
+  "f": 1
+ },
+ "/images/hero-salon.jpg": {
+  "h": "ec8064df",
+  "w": 2000,
+  "ht": 1250,
+  "c": 1920
+ },
+ "/images/locations.jpg": {
+  "h": "99a928e9",
+  "w": 1536,
+  "ht": 1024,
+  "f": 1
+ },
+ "/images/logo.jpg": {
+  "h": "d54a6aab",
+  "w": 2172,
+  "ht": 724,
+  "f": 1
+ },
+ "/images/my-first-barbie.jpg": {
+  "h": "e9f816cf",
+  "w": 960,
+  "ht": 1280,
+  "c": 768
+ },
+ "/images/og.jpg": {
+  "h": "cf233087",
+  "w": 1200,
+  "ht": 630,
+  "c": 1024
+ },
+ "/images/salon-01.jpg": {
+  "h": "c21f29b9",
+  "w": 4032,
+  "ht": 3024,
+  "c": 3840
+ },
+ "/images/salon-02.jpg": {
+  "h": "d6475ba2",
+  "w": 3840,
+  "ht": 2160
+ },
+ "/images/salon-03.jpg": {
+  "h": "a928f2b7",
+  "w": 3008,
+  "ht": 3886
+ },
+ "/images/salon-04.jpg": {
+  "h": "65fe7c0d",
+  "w": 4032,
+  "ht": 3024,
+  "c": 3840
+ },
+ "/images/salon-05.jpg": {
+  "h": "05285b90",
+  "w": 1600,
+  "ht": 1219
+ },
+ "/images/salon-06.jpg": {
+  "h": "bb09ffa3",
+  "w": 2958,
+  "ht": 3940
+ },
+ "/images/salon-main.jpg": {
+  "h": "40abd00f",
+  "w": 3274,
+  "ht": 2964
+ },
+ "/images/salon-purple-background.webp": {
+  "h": "2381dbc3",
+  "w": 1536,
+  "ht": 1024,
+  "f": 1
+ },
+ "/images/services-hero.jpg": {
+  "h": "07dd233c",
+  "w": 2000,
+  "ht": 1100
+ },
+ "/images/services-purple-bg.png": {
+  "h": "d3aab3d1",
+  "w": 1672,
+  "ht": 940,
+  "f": 1
+ },
+ "/images/social/f.png": {
+  "h": "2cef8c85",
+  "w": 840,
+  "ht": 859,
+  "f": 1
+ },
+ "/images/social/facebook.jpg": {
+  "h": "95dc255e",
+  "w": 710,
+  "ht": 739,
+  "f": 1
+ },
+ "/images/social/instagram.jpg": {
+  "h": "bd3efa00",
+  "w": 512,
+  "ht": 512,
+  "c": 414,
+  "f": 1
+ },
+ "/images/social/tiktok.jpg": {
+  "h": "59373937",
+  "w": 4096,
+  "ht": 4096,
+  "f": 1
+ },
+ "/images/social/whatsapp.jpg": {
+  "h": "6fd780ee",
+  "w": 1000,
+  "ht": 1000,
+  "f": 1
+ },
+ "/images/social/youtube.jpg": {
+  "h": "df30938c",
+  "w": 1600,
+  "ht": 1600,
+  "f": 1
+ },
+ "/images/vanish-arms-1.jpg": {
+  "h": "56d473b9",
+  "w": 667,
+  "ht": 1000,
+  "c": 414
+ },
+ "/images/vanish-arms.jpg": {
+  "h": "56d473b9",
+  "w": 667,
+  "ht": 1000,
+  "c": 414
+ },
+ "/images/vanish-back.jpg": {
+  "h": "000156c1",
+  "w": 1200,
+  "ht": 1551,
+  "c": 1024
+ },
+ "/images/vanish-chest.jpg": {
+  "h": "731fb7a0",
+  "w": 720,
+  "ht": 1280,
+  "c": 640
+ },
+ "/images/vanish-face.jpg": {
+  "h": "f05cc6ce",
+  "w": 236,
+  "ht": 354,
+  "c": 128
+ },
+ "/images/vanish-legs.jpg": {
+  "h": "cc9251f6",
+  "w": 1080,
+  "ht": 1080,
+  "c": 1024
+ },
+ "/images/vanish-machine.png": {
+  "h": "a2656faa",
+  "w": 848,
+  "ht": 1264,
+  "c": 640
+ },
+ "/posters/alain-video-1.jpg": {
+  "h": "f824f179",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-10.jpg": {
+  "h": "42644bfe",
+  "w": 1276,
+  "ht": 718,
+  "f": 1
+ },
+ "/posters/alain-video-11.jpg": {
+  "h": "ca035d8b",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-12.jpg": {
+  "h": "26a68dcc",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-13.jpg": {
+  "h": "aa1c8c28",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-14.jpg": {
+  "h": "86ed72ba",
+  "w": 716,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-2.jpg": {
+  "h": "b88e2e2c",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-3.jpg": {
+  "h": "86e125ff",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-4.jpg": {
+  "h": "671efab1",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-5.jpg": {
+  "h": "42644bfe",
+  "w": 1276,
+  "ht": 718,
+  "f": 1
+ },
+ "/posters/alain-video-6.jpg": {
+  "h": "ca035d8b",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-7.jpg": {
+  "h": "747f6970",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-8.jpg": {
+  "h": "cbe0d381",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ },
+ "/posters/alain-video-9.jpg": {
+  "h": "067453d0",
+  "w": 720,
+  "ht": 1280,
+  "f": 1
+ }
+}

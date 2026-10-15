@@ -1,3 +1,4 @@
+import { responsiveImage } from "@/lib/media";
 import { site, whatsappHref } from "@/lib/site";
 
 const links = [
@@ -65,10 +66,13 @@ export function SocialIcons({
             "
           >
             <img
-  src={link.icon}
+  {...responsiveImage(link.icon)}
+  sizes="48px"
   alt=""
   width={48}
   height={48}
+  loading="lazy"
+  decoding="async"
   className="block h-[48px] w-[48px] !rounded-none object-contain"
 />
           </a>

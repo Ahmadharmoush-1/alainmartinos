@@ -1,14 +1,18 @@
 import type { NextConfig } from "next";
+import { deviceSizes, imageSizes } from "./src/lib/image-sizes.json";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   output: "export",
   images: {
-    unoptimized: true,
-    // Serve modern formats automatically (AVIF first, WebP fallback).
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [360, 414, 640, 768, 1024, 1280, 1536, 1920],
+    // The static export has no image server, so responsive copies are built
+    // ahead of time by scripts/optimize-images.mjs (run before every build)
+    // and this loader points each srcset width at the right one.
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
+    deviceSizes,
+    imageSizes,
     // YouTube thumbnails for the lazy "Beauty in Motion" facade.
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
   },

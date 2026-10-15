@@ -12,6 +12,7 @@ import { ChapterCarousel } from "@/components/ChapterCarousel";
 
 import { getContent } from "@/lib/i18n";
 import { videos } from "@/lib/images";
+import { coverSizes, fullSizeImageUrl, responsiveImage } from "@/lib/media";
 import { SITE_URL } from "@/lib/site";
 
 const a = getContent().alain;
@@ -157,11 +158,11 @@ const collectorMilestones = [
   {
     src: "/images/my-first-barbie.jpg",
 
-    alt: "Hawaiian Fun Barbie, Alain Martinos’s first Barbie as a child",
+    alt: "Hawaii-Hawaiian Fun Barbie, Alain Martinos’s first Barbie as a child",
 
     title: "My First Barbie as a Kid",
 
-    subtitle: "Hawaiian Fun Barbie · 1990 · China Version",
+    subtitle: "Hawaii-Hawaiian Fun Barbiee · 1990 · China Version",
   },
 
   {
@@ -204,7 +205,7 @@ const galleryImages: readonly Portrait[] = [
 ];
 
 /* =========================================================
-   VOICE NOTES
+   VOICE NOTES - CUSTOM DISPLAY ORDER
 ========================================================= */
 
 const voiceNotesDirectory = join(
@@ -214,22 +215,51 @@ const voiceNotesDirectory = join(
   "voice-notes",
 );
 
+// Use exact filenames from public/audio/voice-notes (no folder prefix).
+// These recordings appear first, in this order, and only once.
+const preferredSongOrder: readonly string[] = [
+  "Algani Ba3ed Youmein.mp3",
+  "Ba3ed El Lyoum.mp3",
+  "Cht2atellak Hayaty.mp3",
+  "Ya Oumana Ya Maryam El 3zra2.mp3",
+  "Chante ô mon amour.mp3",
+  "A3tina Rabi.mp3",
+  "Wa3adouni.mp3",
+  "Kilmet Hob.mp3",
+  "Ya Hobi le Ghab.mp3",
+];
+
 const singerVoiceNotes: readonly VoiceNote[] = existsSync(
   voiceNotesDirectory,
 )
-  ? readdirSync(voiceNotesDirectory)
-      .filter((fileName) =>
+  ? [...new Set(
+      readdirSync(voiceNotesDirectory).filter((fileName) =>
         fileName.toLowerCase().endsWith(".mp3"),
-      )
-      .sort((first, second) =>
-        first.localeCompare(second, "en", {
+      ),
+    )]
+      .sort((first, second) => {
+        const firstIndex = preferredSongOrder.indexOf(first);
+        const secondIndex = preferredSongOrder.indexOf(second);
+
+        // Both selected: follow the exact priority order.
+        if (firstIndex !== -1 && secondIndex !== -1) {
+          return firstIndex - secondIndex;
+        }
+        if (firstIndex !== -1) return -1;
+        if (secondIndex !== -1) return 1;
+
+        // Every other recording comes afterward, alphabetically.
+        return first.localeCompare(second, "en", {
           numeric: true,
           sensitivity: "base",
-        }),
-      )
+        });
+      })
       .map((fileName) => ({
-        src: `/audio/voice-notes/${fileName}`,
-        title: fileName.slice(0, -4),
+        // Encode spaces and accented letters safely in the URL.
+        src: `/audio/voice-notes/${encodeURIComponent(fileName)}`,
+
+        // Display the EXACT filename (including the .mp3 extension).
+        title: fileName.replace(/\.mp3$/i, ""),
         caption: "Alain Martinos",
       }))
   : [];
@@ -365,12 +395,27 @@ function SingerRecordings({
       className="am-singer"
       aria-labelledby="am-recordings-title"
     >
-      <div className="am-singer-image">
-        <img
-          src="/images/alainthesinger.jpg"
-          alt="Alain Martinos the Singer"
-        />
-      </div>
+    <div className="am-singer-image">
+  <picture>
+    <source
+      media="(max-width: 768px)"
+      srcSet={responsiveImage("/images/alainthesinger-mobile.jpg").srcSet ?? "/images/alainthesinger-mobile.jpg"}
+      sizes="100vw"
+      width={1024}
+      height={1304}
+    />
+
+    <img
+      {...responsiveImage("/images/alainthesinger.jpg")}
+      sizes="(max-width: 768px) 100vw, 760px"
+      width={1024}
+      height={1536}
+      loading="lazy"
+      decoding="async"
+      alt="Alain Martinos the Singer"
+    />
+  </picture>
+</div>
 
       <section
         className="am-recordings"
@@ -498,7 +543,7 @@ function CollectorMilestones() {
                   alt={barbie.alt}
                   fill
                   loading="lazy"
-                  sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 400px"
+                  sizes={coverSizes(barbie.src, 3 / 4, "(max-width: 639px) calc(100vw - 16px), (max-width: 750px) 520px, (max-width: 1235px) 43vw, 530px")}
                   className="am-collector-milestone-img"
                 />
 
@@ -533,6 +578,118 @@ function CollectorMilestones() {
 /* =========================================================
    CHAPTER LINKS
 ========================================================= */
+
+/* =========================================================
+   BARBIE COLLECTING HAS NO GENDER
+   Add your photo at public/images/barbie-community.jpg.
+   Update the alt text below to describe the photo you choose.
+   The existing collection photo is used until the new file exists.
+========================================================= */
+
+const hasCollectorCommunityImage = existsSync(
+  join(process.cwd(), "public", "images", "barbie-community.jpg"),
+);
+
+const collectorCommunityImage: Portrait = {
+  src: hasCollectorCommunityImage
+    ? "/images/barbie-community.jpg"
+    : "/images/alain-044.jpg",
+  alt: hasCollectorCommunityImage
+    ? "The international Barbie collecting community"
+    : "Alain Martinos’s Barbie collection",
+};
+
+function CollectorPassionStory() {
+  return (
+    <section className="am-collector-story" aria-labelledby="collector-passion-title" lang="en">
+      <header className="am-collector-story-header">
+        
+<h3
+  id="collector-passion-title"
+  className="font-serif italic text-[24px] font-semibold leading-tight sm:text-[28px] lg:text-[32px]"
+>
+  Barbie Collecting Has No Gender: A Passion Beyond Boundaries 💜
+</h3>
+
+      </header>
+      <div className="am-collector-story-body">
+        <section className="am-collector-story-section" aria-labelledby="collector-story-0">
+          <h4 id="collector-story-0">{"From the Middle East to the International Barbie Collecting Community"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"Barbie is far more than a childhood toy. For adult collectors around the world, she represents fashion history, artistic creativity, design, nostalgia and a lifelong passion that transcends age, gender and cultural boundaries."}</p>
+            <p>{"My name is Alain Martinos, and I am a Lebanese-German Barbie collector whose passion began in 2002. Today, my collection exceeds 10,000 Barbie dolls, reflecting more than two decades of dedication to preserving and celebrating Barbie’s extraordinary history."}</p>
+            <p>{"My collection focuses particularly on Barbie dolls released between 1976 and 2003, a remarkable period encompassing iconic fashions, memorable face sculpts, changing hairstyles, diverse characters and some of the most beloved eras in Barbie’s history. I have a special appreciation for the vintage and classic dolls that represent Barbie’s evolution through fashion, beauty and popular culture."}</p>
+            <p>{"As an adult male collector in the Middle East, I want to demonstrate that a passion for dolls is not defined by gender, nationality or society’s expectations."}</p>
+          </div>
+        </section>
+        <section className="am-collector-story-section" aria-labelledby="collector-story-1">
+          <h4 id="collector-story-1">{"Mattel Creations: Celebrating Collectors and Creativity"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"Through Mattel Creations and Barbie Signature, Mattel offers collectible dolls, limited editions, designer collaborations, vintage reproductions and tributes to cultural icons. These collections celebrate Barbie as a collectible object of fashion, design and art, appealing to adult enthusiasts who appreciate craftsmanship, rarity and cultural significance."}</p>
+            <p>{"Barbie’s evolution and expanding diversity also invite us to challenge traditional stereotypes. A doll can inspire creativity, storytelling, fashion design and personal expression. There is no reason these interests should be restricted to one gender."}</p>
+          </div>
+        </section>
+        <section className="am-collector-story-section" aria-labelledby="collector-story-2">
+          <h4 id="collector-story-2">{"Adult Male Barbie Collectors: A Worldwide Community"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"Adult men are part of the international Barbie collecting community. They build extensive collections, research doll history, preserve rare editions, share their knowledge and attend conventions dedicated to their passion."}</p>
+              <figure className="am-collector-story-photo">
+                <figcaption className="am-collector-story-photo-title">
+                  <span>Alain Martinos and Bettina Dorfmann — Barbie Convention in Germany</span>{" "}
+                  <a
+                    href="https://www.instagram.com/bettina.dorfmann.barbiepuppen/p/BLZXzN3jW34/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <time dateTime="2016-10-10">October 10, 2016</time>
+                  </a>
+                </figcaption>
+                <div className="am-collector-story-image">
+                  <Image
+                    src={collectorCommunityImage.src}
+                    alt={collectorCommunityImage.alt}
+                    fill
+                    loading="lazy"
+                    sizes="(max-width: 639px) calc(100vw - 16px), (max-width: 1235px) 89vw, 1100px"
+                    className="am-collector-story-img"
+                  />
+                </div>
+              </figure>
+            <p>{"One remarkable example is Bettina Dorfmann, the renowned German Barbie collector whom I know personally through Barbie doll conventions in Germany. Recognised by Guinness World Records for her extraordinary Barbie collection, reported to exceed 18,000 dolls, Bettina is a prominent figure in the international collecting world."}</p>
+            <p>{"As someone who owns more than 10,000 Barbie dolls myself, I feel connected to this international community of collectors who dedicate their time, knowledge and enthusiasm to preserving Barbie’s legacy."}</p>
+            <p>{"International conventions, including the National Barbie Doll Collectors Convention in the United States and collector gatherings in Germany, bring enthusiasts together to exchange knowledge, discover rare dolls, celebrate fashion and build friendships across borders. These events demonstrate that Barbie collecting is an established adult collecting culture, shared by people from many different backgrounds, including men."}</p>
+            <p>{"Although there is no reliable public statistic establishing the exact number of adult male Barbie collectors worldwide, their presence in the collecting community is undeniable."}</p>
+          </div>
+        </section>
+        <section className="am-collector-story-section" aria-labelledby="collector-story-3">
+          <h4 id="collector-story-3">{"Psychology, Identity and Freedom of Expression"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"Psychologically, hobbies can provide opportunities for enjoyment, creativity, connection and personal fulfilment. Research published in Nature Medicine in 2023 found an association between participation in hobbies and better measures of mental well-being among adults across 16 countries."}</p>
+            <p>{"Collecting Barbie can involve historical research, organisation, aesthetic appreciation, photography, styling and the preservation of cultural objects. Like other collecting interests, it can become a meaningful part of someone’s personal identity."}</p>
+            <p>{"Collecting dolls does not determine a man’s masculinity, sexual orientation or gender identity. A doll can be admired, styled, displayed, photographed, collected or played with by anyone. There is no single correct way to express masculinity, femininity or individuality."}</p>
+          </div>
+        </section>
+        <section className="am-collector-story-section" aria-labelledby="collector-story-4">
+          <h4 id="collector-story-4">{"Lebanon: Challenging Gender Stereotypes and Homophobia"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"In Lebanon, where conservative social expectations and homophobia can make authentic self-expression difficult, an adult man who collects Barbie may encounter misunderstanding, ridicule or prejudice."}</p>
+            <p>{"I believe that no one should have to hide a meaningful passion simply because it does not conform to society’s expectations of how a man should behave. The value of a hobby should be measured by the joy, creativity and meaning it brings to the individual—not by gender stereotypes."}</p>
+            <p>{"My collection is more than a number of dolls. It represents years of dedication, a deep appreciation of fashion and design, and a personal connection to an international community that shares my passion."}</p>
+            <p>{"I hope to encourage a more open-minded society in which people can appreciate differences without judgment, where men can love dolls without shame, and where creativity is welcomed rather than questioned."}</p>
+          </div>
+        </section>
+        <section className="am-collector-story-section am-collector-story-message" aria-labelledby="collector-story-5">
+          <h4 id="collector-story-5">{"My Message to the World 💜"}</h4>
+          <div className="am-collector-story-prose">
+            <p>{"As a male Barbie collector from the Middle East with more than 10,000 dolls, particularly focused on the years 1976–2003, I stand for the freedom to pursue one’s passion openly and proudly."}</p>
+            <p>{"Barbie belongs to everyone. Passion has no gender. Collecting has no age limit. And authenticity has no boundaries."}</p>
+            <p>{"Because the freedom to love what you love should never depend on where you were born, how you identify or what society expects of you."}</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  );
+}
 
 function ChapterLinks() {
   return (
@@ -750,9 +907,11 @@ export default function AlainPage() {
             Haute Coiffure · Visagisme · Collection
           </p>
 
-          <h1 id="alain-heading">
-            {a.heading}
-          </h1>
+          
+<h1 id="alain-heading" className="italic">
+  {a.heading}
+</h1>
+
 
           <ul
             className="am-roles"
@@ -831,16 +990,25 @@ export default function AlainPage() {
             </details>
 
             {portrait && (
-              <figure className="am-founder">
-                <Photo
-                  image={portrait}
-                  priority
-                />
+             
+<figure className="am-founder mx-auto w-full">
+  <div className="relative w-full overflow-hidden rounded-[22px] bg-[#27183b]">
+    <Image
+      src={portrait.src}
+      alt={portrait.alt}
+      width={1120}
+      height={1372}
+      priority
+      sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 380px, 30vw"
+      className="block h-auto w-full object-contain"
+    />
+  </div>
 
-                <figcaption>
-                  Alain Martinos
-                </figcaption>
-              </figure>
+  <figcaption>
+    Alain Martinos
+  </figcaption>
+</figure>
+
             )}
           </aside>
 
@@ -1107,6 +1275,8 @@ export default function AlainPage() {
             index={collectorIndex}
           />
 
+          <CollectorPassionStory />
+
           <a
             href="https://www.instagram.com/barbie80s/"
             target="_blank"
@@ -1122,7 +1292,7 @@ export default function AlainPage() {
                 src="/images/barbie-collection-icon2.png"
                 alt=""
                 fill
-                sizes="90px"
+                sizes="110px"
                 className="object-cover scale-100"
               />
             </span>
@@ -1331,7 +1501,7 @@ const pageCss = `
       rgba(26,11,46,.91),
       #1a0b2e
     ),
-    url('/images/footer-bg.jpg')
+    url('${fullSizeImageUrl("/images/footer-bg.jpg")}')
     center/cover no-repeat;
 }
 
@@ -1781,7 +1951,7 @@ const pageCss = `
   gap:clamp(24px,4.5vw,52px);
   align-items:start;
 
-  max-width:900px;
+  max-width:1100px;
   margin-inline:auto;
 }
 
@@ -1796,7 +1966,7 @@ const pageCss = `
 .alain-editorial .am-collector-milestone-image{
   position:relative;
   width:100%;
-  aspect-ratio:4/5;
+  aspect-ratio:3/4;
   overflow:hidden;
 
   border:
@@ -1837,9 +2007,9 @@ const pageCss = `
 }
 
 .alain-editorial .am-collector-milestone-img{
-  object-fit:contain;
+  object-fit:cover;
   object-position:center;
-  padding:14px;
+  padding:0;
 
   transition:
     transform .6s ease;
@@ -2370,11 +2540,6 @@ const pageCss = `
 /* =========================================================
    SINGER
 ========================================================= */
-
-.alain-editorial .am-singer{
-  width:100%;
-}
-
 .alain-editorial .am-singer-image{
   width:100%;
   max-width:760px;
@@ -2383,11 +2548,30 @@ const pageCss = `
   border-radius:22px;
 }
 
+.alain-editorial .am-singer-image picture{
+  display:block;
+  width:100%;
+}
+
 .alain-editorial .am-singer-image img{
   display:block;
   width:100%;
   height:auto;
-  object-fit:contain;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+
+  .alain-editorial .am-singer-image{
+    width:100%;
+    max-width:none;
+    margin:10px auto 32px;
+  }
+
+  .alain-editorial .am-singer-image img{
+    width:100%;
+    height:auto;
+  }
 }
 
 .alain-editorial .am-recordings{
@@ -3207,4 +3391,307 @@ const pageCss = `
   }
 }
 
+/* =========================================================
+   BARBIE COLLECTING HAS NO GENDER
+   Premium, responsive editorial story styling
+   All styling is scoped to this page.
+========================================================= */
+
+.alain-editorial .am-collector-story {
+  width: 100%;
+  min-width: 0;
+  margin-top: clamp(36px, 6vw, 80px);
+  padding-top: clamp(28px, 5vw, 60px);
+  border-top: 1px solid var(--am-line);
+}
+
+.alain-editorial .am-collector-story-header,
+.alain-editorial .am-collector-story-body {
+  width: min(100%, 1100px);
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.alain-editorial .am-collector-story-header {
+  margin-bottom: clamp(28px, 4vw, 44px);
+  text-align: center;
+}
+
+.alain-editorial .am-collector-story-header h3 {
+  max-width: 940px;
+  margin-inline: auto;
+  font-family: "EB Garamond", Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: #f8edff;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.alain-editorial .am-collector-story-body {
+  display: grid;
+  gap: clamp(24px, 4vw, 42px);
+  counter-reset: story-section;
+}
+
+/* Subtle numbered chapter cards */
+.alain-editorial .am-collector-story-section {
+  counter-increment: story-section;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(26px, 4vw, 54px);
+  border: 1px solid rgba(228, 181, 255, .22);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(49, 25, 70, .84), rgba(23, 11, 39, .88));
+  box-shadow: 0 20px 60px -35px rgba(5, 0, 17, .75);
+}
+
+.alain-editorial .am-collector-story-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 2px;
+  background: linear-gradient(90deg, #e4b5ff, rgba(228, 181, 255, 0));
+  pointer-events: none;
+}
+
+.alain-editorial .am-collector-story-section:nth-child(even) {
+  background: linear-gradient(135deg, rgba(37, 19, 57, .92), rgba(26, 12, 43, .85));
+}
+
+/* Large editorial headings with elegant numbering */
+.alain-editorial .am-collector-story-section h4 {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 0 25px;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(27px, 3.1vw, 42px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.23;
+  letter-spacing: -0.03em;
+  color: #f8edff;
+  text-wrap: balance;
+}
+
+.alain-editorial .am-collector-story-section h4::before {
+  content: "CHAPTER " counter(story-section, decimal-leading-zero);
+  display: block;
+  margin-bottom: 15px;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1.5;
+  color: #e4b5ff;
+}
+
+/* Calm, readable long-form typography */
+.alain-editorial .am-collector-story-prose {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  color: #d9c9e7;
+  text-align: left;
+}
+
+.alain-editorial .am-collector-story-prose > p {
+  max-width: 78ch;
+  margin: 0;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: clamp(16px, 1.35vw, 18px);
+  font-weight: 600;
+  line-height: 1.95;
+  letter-spacing: .005em;
+  color: #d9c9e7;
+  text-wrap: pretty;
+}
+
+.alain-editorial .am-collector-story-prose > p + p {
+  margin-top: 22px;
+}
+
+.alain-editorial .am-collector-story-prose > p:first-child {
+  color: #f0e4f7;
+  font-weight: 650;
+}
+
+/* Drop cap on the very first paragraph only */
+.alain-editorial .am-collector-story-section:first-child
+.am-collector-story-prose > p:first-child::first-letter {
+  float: left;
+  margin: 5px 12px 0 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 67px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: .9;
+  color: #e4b5ff;
+}
+
+/* Barbie convention photo and caption */
+.alain-editorial .am-collector-story-photo {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 35px auto;
+  padding: clamp(12px, 2vw, 22px);
+  border: 1px solid rgba(228, 181, 255, .25);
+  border-radius: 25px;
+  background: rgba(12, 5, 24, .6);
+  box-shadow: 0 24px 65px -30px rgba(0, 0, 0, .6);
+}
+
+.alain-editorial .am-collector-story-photo-title {
+  margin: 0 0 20px;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(19px, 2vw, 27px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #f7e8ff;
+  text-wrap: balance;
+}
+
+.alain-editorial .am-collector-story-photo-title span {
+  display: block;
+}
+
+.alain-editorial .am-collector-story-photo-title a {
+  display: inline-block;
+  margin-top: 9px;
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  color: #e4b5ff;
+  text-decoration: underline;
+  text-decoration-color: rgba(228, 181, 255, .5);
+  text-underline-offset: 5px;
+  transition: color .2s ease;
+}
+
+.alain-editorial .am-collector-story-photo-title a:hover {
+  color: #fff;
+}
+
+.alain-editorial .am-collector-story-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(228, 181, 255, .2);
+  border-radius: 19px;
+  background: var(--am-panel);
+}
+
+.alain-editorial .am-collector-story-img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Highlight the closing message */
+.alain-editorial .am-collector-story-message {
+  border-color: rgba(228, 181, 255, .4);
+  background: linear-gradient(135deg, #351d50 0%, #231236 55%, #160b27 100%);
+  box-shadow: 0 25px 75px -35px rgba(160, 94, 194, .35);
+}
+
+.alain-editorial .am-collector-story-message h4 {
+  color: #fff;
+}
+
+.alain-editorial .am-collector-story-message
+.am-collector-story-prose > p:nth-child(2) {
+  max-width: 850px;
+  margin: 28px 0;
+  padding-left: 23px;
+  border-left: 3px solid #e4b5ff;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: clamp(21px, 2.4vw, 31px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #fff;
+}
+
+/* Responsive photo, typography, and chapter spacing */
+@media (max-width: 639px) {
+  .alain-editorial .am-collector-milestones-grid {
+    width: calc(100% + 24px);
+    max-width: none;
+    margin-inline: -12px;
+  }
+
+  .alain-editorial .am-collector-milestone-caption {
+    padding-inline: 12px;
+  }
+
+  .alain-editorial .am-collector-story-body {
+    gap: 22px;
+    padding-inline: 0;
+  }
+
+  .alain-editorial .am-collector-story-section {
+    padding: 24px 20px;
+    border-radius: 22px;
+  }
+
+  .alain-editorial .am-collector-story-section h4 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    line-height: 1.3;
+  }
+
+  .alain-editorial .am-collector-story-section h4::before {
+    margin-bottom: 12px;
+    font-size: 10px;
+  }
+
+  .alain-editorial .am-collector-story-prose > p {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  .alain-editorial .am-collector-story-prose > p + p {
+    margin-top: 19px;
+  }
+
+  .alain-editorial .am-collector-story-section:first-child
+  .am-collector-story-prose > p:first-child::first-letter {
+    font-size: 52px;
+    margin-right: 9px;
+  }
+
+  .alain-editorial .am-collector-story-photo {
+    margin: 26px 0;
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .alain-editorial .am-collector-story-photo-title {
+    margin-bottom: 15px;
+    font-size: 19px;s
+    line-height: 1.45;
+  }
+
+  .alain-editorial .am-collector-story-image {
+    border-radius: 13px;
+  }
+
+  .alain-editorial .am-collector-story-message
+  .am-collector-story-prose > p:nth-child(2) {
+    padding-left: 16px;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+}
 `;

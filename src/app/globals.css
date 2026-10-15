@@ -362,7 +362,9 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url("/images/salon-purple-background.webp");
+  /* --purple-page-bg is the same artwork as a pixel-identical lossless copy,
+     set in layout.tsx; the original file is the fallback. */
+  background-image: var(--purple-page-bg, url("/images/salon-purple-background.webp"));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

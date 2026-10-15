@@ -41,7 +41,8 @@ export function PageHero({
             alt=""
             fill
             priority
-            sizes="100vw"
+            // Portrait screens crop this wide photo, drawing it wider than the screen.
+            sizes="(orientation: portrait) 300vw, 100vw"
             className="animate-bloom object-cover object-center"
           />
           <div aria-hidden="true" className="absolute inset-0 bg-[#4A2A72] mix-blend-multiply" />

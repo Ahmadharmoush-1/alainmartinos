@@ -4,8 +4,13 @@
   "private": true,
   "description": "Salon Alain — Hair & Beauty by Alain Martinos. Premium salon website.",
   "scripts": {
+    "predev": "node scripts/optimize-images.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/optimize-images.mjs",
     "build": "next build",
+    "postbuild": "node scripts/fix-export-prefetch.mjs",
+    "media:posters": "node scripts/generate-video-posters.mjs",
+    "media:verify": "node scripts/verify-images.mjs",
     "start": "next start",
     "lint": "next lint"
   },
@@ -20,6 +25,7 @@
     "@types/react-dom": "^19.1.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.0"
   }

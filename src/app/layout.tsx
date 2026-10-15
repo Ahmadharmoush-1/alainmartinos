@@ -3,7 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import type { CSSProperties } from "react";
 import { getContent, defaultLocale, getDir } from "@/lib/i18n";
+import { fullSizeImageUrl } from "@/lib/media";
 import { SITE_URL, site } from "@/lib/site";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { SiteMusic } from "@/components/SiteMusic";
@@ -107,7 +109,12 @@ const organizationSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={defaultLocale} dir={getDir(defaultLocale)} className={`${serif.variable} ${sans.variable}`}>
+    <html
+      lang={defaultLocale}
+      dir={getDir(defaultLocale)}
+      className={`${serif.variable} ${sans.variable}`}
+      style={{ "--purple-page-bg": `url("${fullSizeImageUrl("/images/salon-purple-background.webp")}")` } as CSSProperties}
+    >
       <body>
         <a
           href="#main"

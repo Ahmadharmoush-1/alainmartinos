@@ -30,7 +30,7 @@ export default function AlainGalleryPage() {
   return (
     <main className="alain-full-gallery">
       <div className="alain-full-gallery-grid">
-        {galleryImages.map((image) => (
+        {galleryImages.map((image, index) => (
           <figure key={image.src} className="alain-full-gallery-image">
             <Image
               src={image.src}
@@ -38,6 +38,9 @@ export default function AlainGalleryPage() {
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover"
+              // The first rows are on screen at load; the rest stay lazy.
+              loading={index < 6 ? "eager" : "lazy"}
+              fetchPriority={index < 3 ? "high" : undefined}
             />
           </figure>
         ))}

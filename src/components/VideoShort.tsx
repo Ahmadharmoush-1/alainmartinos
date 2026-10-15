@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 export type ShortSource = {
   src: string;
@@ -13,12 +13,18 @@ type Props = {
   src: string;
   title: string;
   poster?: string;
+  /** Responsive candidates for the poster; pair with `posterSizes`. */
+  posterSrcSet?: string;
+  posterSizes?: string;
   sources?: readonly ShortSource[];
   mobileSources?: readonly ShortSource[];
   playLabel?: string;
   badge?: string;
   priority?: Priority;
   eagerPoster?: boolean;
+  posterFetchPriority?: "high" | "low" | "auto";
+  /** Attach the video before the card itself is on screen (next in line). */
+  prepare?: boolean;
   active?: boolean;
 };
 
@@ -41,16 +47,20 @@ function withFirstFrame(url: string) {
   return url.includes("#") ? url : `${url}#t=0.1`;
 }
 
-export function VideoShort({
+export const VideoShort = memo(function VideoShort({
   src,
   title,
   poster,
+  posterSrcSet,
+  posterSizes,
   sources,
   mobileSources,
   playLabel = "Play video",
   badge = "Salon Alain",
   priority = "low",
   eagerPoster = false,
+  posterFetchPriority = "auto",
+  prepare = false,
   active = true,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -62,6 +72,7 @@ export function VideoShort({
   const [buffering, setBuffering] = useState(false);
   const [error, setError] = useState(false);
   const [nearby, setNearby] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -111,14 +122,15 @@ export function VideoShort({
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || started || !nearby) return;
+    if (!video || started || !(nearby || prepare)) return;
 
     // "metadata" is the floor for every card: it costs a few KB and guarantees
     // a painted first frame instead of a black rectangle. The centred card goes
-    // to "auto" so tapping play starts it immediately.
+    // to "auto" so tapping play starts it immediately; the row also prepares
+    // its neighbours before they are swiped into view.
     video.preload = priority === "high" && allowsPrefetch() ? "auto" : "metadata";
     attachSource();
-  }, [attachSource, priority, started, nearby]);
+  }, [attachSource, priority, started, nearby, prepare]);
 
   useEffect(() => {
     if (active) return;
@@ -171,14 +183,17 @@ export function VideoShort({
     });
   };
 
-  const showPoster = Boolean(poster) && !started;
+  // The poster is an <img> over the player rather than the video's own
+  // `poster` attribute: that attribute downloads on mount for every card,
+  // while the <img> follows the row's lazy / priority hints. It stays until
+  // the video fires `playing`, i.e. until a decoded frame is on screen.
+  const showPoster = Boolean(poster) && !started && !posterFailed;
 
   return (
     <article className="w-full">
       <div className="relative aspect-[9/16] w-full overflow-hidden rounded-[1.5rem] bg-plum-900 shadow-[0_12px_35px_rgba(35,15,28,0.16)]">
         <video
           ref={videoRef}
-          poster={poster}
           preload="none"
           playsInline
           controls={started}
@@ -212,11 +227,16 @@ export function VideoShort({
         {showPoster && (
           <img
             src={poster}
+            srcSet={posterSrcSet}
+            sizes={posterSrcSet ? posterSizes : undefined}
             alt=""
             aria-hidden="true"
             draggable={false}
             loading={eagerPoster ? "eager" : "lazy"}
+            fetchPriority={posterFetchPriority}
             decoding="async"
+            // If a poster ever fails, fall back to the video's own first frame.
+            onError={() => setPosterFailed(true)}
             className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           />
         )}
@@ -260,4 +280,4 @@ export function VideoShort({
       </div>
     </article>
   );
-}
+});

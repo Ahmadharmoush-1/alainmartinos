@@ -7,6 +7,7 @@ import { Divider } from "@/components/Divider";
 import { CtaBand } from "@/components/CtaBand";
 import { getContent } from "@/lib/i18n";
 import { alainImages, heroImages, salonImages } from "@/lib/images";
+import { coverSizes } from "@/lib/media";
 
 const t = getContent();
 
@@ -34,7 +35,7 @@ export default function AboutPage() {
               <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
                 <div className={`lg:col-span-5 ${flip ? "lg:order-2 lg:col-start-8" : ""}`}>
                   <Reveal className="zoom-frame aspect-[4/5]">
-                    <Image src={img.src} alt={img.alt} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" loading="lazy" />
+                    <Image src={img.src} alt={img.alt} fill sizes={coverSizes(img.src, 4 / 5, "(max-width: 1024px) 100vw, 40vw")} className="object-cover" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : undefined} />
                   </Reveal>
                 </div>
                 <div className={`lg:col-span-6 ${flip ? "lg:order-1 lg:col-start-1" : "lg:col-start-7"}`}>

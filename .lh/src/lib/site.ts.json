@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 30,
             "patches": [
                 {
                     "date": 1789390687164,
@@ -56,6 +56,78 @@
                 {
                     "date": 1790261247381,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n   whatsapp: \"96170585661\",\n \n   whatsappNumber: \"96170585661\",\n \n-  email: \"hello@salonalain.com\",\n+  email: \"martinosalain@yahoo.com\",\n \n   /* =======================================================\n      SOCIAL MEDIA\n   ======================================================= */\n"
+                },
+                {
+                    "date": 1792054045113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n         \"https://www.google.com/maps/place/Salon+Alain+Hair+%26+Beauty+-+Alain+Martinos/@33.9694255,35.6165458,17z/data=!4m14!1m7!3m6!1s0x151f3f34a4e5a4f9:0xd8ca22d31b961e6c!2sSalon+Alain+Hair+%26+Beauty+-+Alain+Martinos!8m2!3d33.9694255!4d35.6191207!16s%2Fg%2F11v5fb7ws_!3m5!1s0x151f3f34a4e5a4f9:0xd8ca22d31b961e6c!8m2!3d33.9694255!4d35.6191207!16s%2Fg%2F11v5fb7ws_?entry=ttu&g_ep=EgoyMDI2MDkwOS4wIKXMDSoASAFQAw%3D%3D\",\n \n       hours: [\n         {\n-          days: \"Tuesday – Saturday\",\n+          days: \"Ty – Saturday\",\n           time: \"10:00 – 19:00\",\n         },\n \n         {\n"
+                },
+                {
+                    "date": 1792054057500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n         \"https://www.google.com/maps/place/Salon+Alain+Hair+%26+Beauty+-+Alain+Martinos/@33.9694255,35.6165458,17z/data=!4m14!1m7!3m6!1s0x151f3f34a4e5a4f9:0xd8ca22d31b961e6c!2sSalon+Alain+Hair+%26+Beauty+-+Alain+Martinos!8m2!3d33.9694255!4d35.6191207!16s%2Fg%2F11v5fb7ws_!3m5!1s0x151f3f34a4e5a4f9:0xd8ca22d31b961e6c!8m2!3d33.9694255!4d35.6191207!16s%2Fg%2F11v5fb7ws_?entry=ttu&g_ep=EgoyMDI2MDkwOS4wIKXMDSoASAFQAw%3D%3D\",\n \n       hours: [\n         {\n-          days: \"Ty – Saturday\",\n+          days: \"Monday – Friday\",\n           time: \"10:00 – 19:00\",\n         },\n \n         {\n"
+                },
+                {
+                    "date": 1792054063121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \n       hours: [\n         {\n           days: \"Monday – Friday\",\n-          time: \"10:00 – 19:00\",\n+          time: \"11:00 A – 19:00\",\n         },\n \n         {\n           days: \"Sunday – Monday\",\n"
+                },
+                {
+                    "date": 1792054070723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \n       hours: [\n         {\n           days: \"Monday – Friday\",\n-          time: \"11:00 A – 19:00\",\n+          time: \"11:00 AM – 7:00\",\n         },\n \n         {\n           days: \"Sunday – Monday\",\n"
+                },
+                {
+                    "date": 1792054077095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \n       hours: [\n         {\n           days: \"Monday – Friday\",\n-          time: \"11:00 AM – 7:00\",\n+          time: \"11:00 AM – 7:00 \",\n         },\n \n         {\n           days: \"Sunday – Monday\",\n"
+                },
+                {
+                    "date": 1792054085862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \n       hours: [\n         {\n           days: \"Monday – Friday\",\n-          time: \"11:00 AM – 7:00 \",\n+          time: \"11:00 AM – 7:00 PM\",\n         },\n \n         {\n           days: \"Sunday – Monday\",\n"
+                },
+                {
+                    "date": 1792054091121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n           time: \"11:00 AM – 7:00 PM\",\n         },\n \n         {\n-          days: \"Sunday – Monday\",\n+          days: \"S – Monday\",\n           time: \"Closed\",\n         },\n       ],\n \n"
+                },
+                {
+                    "date": 1792054098417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n           time: \"11:00 AM – 7:00 PM\",\n         },\n \n         {\n-          days: \"S – Monday\",\n+          days: \"Saturday – Monday\",\n           time: \"Closed\",\n         },\n       ],\n \n"
+                },
+                {
+                    "date": 1792054105944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n           time: \"11:00 AM – 7:00 PM\",\n         },\n \n         {\n-          days: \"Saturday – Monday\",\n+          days: \"Saturday\",\n           time: \"Closed\",\n         },\n       ],\n \n"
+                },
+                {
+                    "date": 1792054115691,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         },\n \n         {\n           days: \"Saturday\",\n-          time: \"Closed\",\n+          time: \"By Appo\",\n         },\n       ],\n \n       bookHref:\n"
+                },
+                {
+                    "date": 1792054121260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         },\n \n         {\n           days: \"Saturday\",\n-          time: \"By Appo\",\n+          time: \"By Appointment  On\",\n         },\n       ],\n \n       bookHref:\n"
+                },
+                {
+                    "date": 1792054129883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,10 +109,13 @@\n         },\n \n         {\n           days: \"Saturday\",\n-          time: \"By Appointment  On\",\n+          time: \"By Appointment  Only\",\n         },\n+        {\n+          \n+        }\n       ],\n \n       bookHref:\n         \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Lebanon\",\n"
+                },
+                {
+                    "date": 1792054136104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,9 @@\n           days: \"Saturday\",\n           time: \"By Appointment  Only\",\n         },\n         {\n-          \n+          days: \"Sunday\"\n         }\n       ],\n \n       bookHref:\n"
+                },
+                {
+                    "date": 1792054142317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,10 @@\n           days: \"Saturday\",\n           time: \"By Appointment  Only\",\n         },\n         {\n-          days: \"Sunday\"\n+          days: \"Sunday\",\n+          time\n         }\n       ],\n \n       bookHref:\n"
+                },
+                {
+                    "date": 1792054160901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -113,9 +113,9 @@\n           time: \"By Appointment  Only\",\n         },\n         {\n           days: \"Sunday\",\n-          time\n+          time: \"Closed\",\n         }\n       ],\n \n       bookHref:\n"
+                },
+                {
+                    "date": 1792054200742,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -114,9 +114,9 @@\n         },\n         {\n           days: \"Sunday\",\n           time: \"Closed\",\n-        }\n+        },\n       ],\n \n       bookHref:\n         \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Lebanon\",\n"
+                },
+                {
+                    "date": 1792054211190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,12 +111,9 @@\n         {\n           days: \"Saturday\",\n           time: \"By Appointment  Only\",\n         },\n-        {\n-          days: \"Sunday\",\n-          time: \"Closed\",\n-        },\n+     \n       ],\n \n       bookHref:\n         \"https://wa.me/86170585661?text=Hello%20Salon%20Alain%2C%20I%20would%20like%20to%20book%20an%20appointment%20in%20Lebanon\",\n"
+                },
+                {
+                    "date": 1792054220138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,8 +111,12 @@\n         {\n           days: \"Saturday\",\n           time: \"By Appointment  Only\",\n         },\n+        {\n+          days: \"Sunday\",\n+          time: \"Closed\",\n+        }\n      \n       ],\n \n       bookHref:\n"
                 }
             ],
             "date": 1789390687164,

@@ -1,4 +1,6 @@
+
 import Link from "next/link";
+import Image from "next/image";
 
 import { Logo } from "./Logo";
 import { SocialIcons } from "./SocialIcons";
@@ -24,32 +26,37 @@ export function Footer() {
 
       <div className="container-page relative z-10 py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* =====================================================
-              BRAND
-          ===================================================== */}
 
-          <div className="lg:col-span-4">
-            <Logo size={80} />
+          {/* BRAND */}
+          <div className="flex min-w-0 flex-col items-center text-center sm:items-start sm:text-left lg:col-span-4">
+            
 
-            <p className="mt-6 font-serif text-2xl font-light leading-tight text-chalk sm:text-3xl">
-              Salon Alain
-            </p>
-
-            <p className="mt-3 max-w-sm font-serif text-lg font-light italic leading-relaxed text-dusk sm:text-xl">
-              {t.footer.tagline}
-            </p>
-
-            {/* SOCIAL ICONS */}
-
-            <div className="mt-8">
-              <SocialIcons className="footer-social-icons" />
+            <div className="relative mt-6 h-[130px] w-full max-w-[280px] sm:h-[150px] sm:max-w-[320px]">
+              <Image
+                src="/images/logo.jpg"
+                alt="Salon Alain Martinos Logo"
+                fill
+                sizes="(max-width: 640px) 280px, 320px"
+                className="object-contain object-center sm:object-left"
+              />
             </div>
+
+            {/* SLIGHTLY BIGGER SOCIAL ICONS */}
+            <div className="mt-8 max-w-full">
+              <SocialIcons
+                className="footer-social-icons flex flex-wrap items-center justify-center gap-3 sm:justify-start [&_a]:inline-flex [&_a]:min-h-[44px] [&_a]:min-w-[44px] [&_a]:items-center [&_a]:justify-center [&_svg]:!h-[26px] [&_svg]:!w-[26px] sm:[&_svg]:!h-[30px] sm:[&_svg]:!w-[30px]"
+              />
+            </div>
+
+           
+{/* LGBTQ+ FRIENDLY MESSAGE */}
+<p className="mt-5 w-full max-w-[360px] rounded-2xl border border-bright/25 bg-bright/5 px-4 py-3 text-center font-sans text-[17px] !font-extrabold leading-relaxed text-chalk sm:text-[19px]">
+  The Salon is LGBTQ+ Friendly
+</p>
+
           </div>
 
-          {/* =====================================================
-              NAVIGATION
-          ===================================================== */}
-
+          {/* NAVIGATION */}
           <div className="lg:col-span-2">
             <h2 className={colTitle}>{t.footer.navTitle}</h2>
 
@@ -58,16 +65,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="
-                      link-line
-                      font-sans
-                      text-[0.95rem]
-                      font-light
-                      text-lavender
-                      transition-colors
-                      duration-300
-                      hover:text-bright
-                    "
+                    className="link-line font-sans text-[0.95rem] font-light text-lavender transition-colors duration-300 hover:text-bright"
                   >
                     {item.label.replace(" Us", "")}
                   </Link>
@@ -76,10 +74,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* =====================================================
-              LOCATIONS
-          ===================================================== */}
-
+          {/* LOCATIONS */}
           <div className="lg:col-span-3">
             <h2 className={colTitle}>{t.footer.locationsTitle}</h2>
 
@@ -90,98 +85,83 @@ export function Footer() {
                     {loc.country}
                   </p>
 
-                {loc.mapLink ? (
-  <>
-    <a
-      href={loc.mapLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="
-        mt-2 inline-block font-sans text-[0.95rem]
-        font-light leading-relaxed text-lavender
-        transition-colors duration-300 hover:text-bright
-      "
-    >
-      {loc.addressLines.map((line, i) => (
-        <span key={i} className="block">
-          {line}
-        </span>
-      ))}
+                  {loc.mapLink ? (
+                    <>
+                      <a
+                        href={loc.mapLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block font-sans text-[0.95rem] font-light leading-relaxed text-lavender transition-colors duration-300 hover:text-bright"
+                      >
+                        {loc.addressLines.map((line, i) => (
+                          <span key={i} className="block">
+                            {line}
+                          </span>
+                        ))}
 
-      <span className="mt-3 inline-block font-sans text-[0.6rem] font-medium uppercase tracking-[0.22em] text-bright">
-        View on Google Maps →
-      </span>
-    </a>
+                        <span className="mt-3 inline-block font-sans text-[0.6rem] font-medium uppercase tracking-[0.22em] text-bright">
+                          View on Google Maps →
+                        </span>
+                      </a>
 
-    {loc.id === lebanon.id && (
-      <div className="mt-5 rounded-2xl border border-bright/25 bg-night-raised/80 p-4 shadow-[0_0_28px_rgba(228,181,255,0.14)]">
-        <div className="flex items-start gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bright/15 text-bright">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-5 w-5"
-            >
-              <path d="m12 2.6 2.9 5.9 6.5 1-4.7 4.6 1.1 6.5L12 17.5 6.2 20.6l1.1-6.5L2.6 9.5l6.5-1L12 2.6Z" />
-            </svg>
-          </span>
+                      {loc.id === lebanon.id && (
+                        <div className="mt-5 rounded-2xl border border-bright/25 bg-night-raised/80 p-4 shadow-[0_0_28px_rgba(228,181,255,0.14)]">
+                          <div className="flex items-start gap-3">
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bright/15 text-bright">
+                              <svg
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="h-5 w-5"
+                              >
+                                <path d="m12 2.6 2.9 5.9 6.5 1-4.7 4.6 1.1 6.5L12 17.5 6.2 20.6l1.1-6.5L2.6 9.5l6.5-1L12 2.6Z" />
+                              </svg>
+                            </span>
 
-          <div>
-            <p className="font-sans text-sm font-semibold text-chalk">
-              Loved your visit?
-            </p>
+                            <div>
+                              <p className="font-sans text-sm font-semibold text-chalk">
+                                Loved your visit?
+                              </p>
 
-            <p className="mt-1 font-sans text-xs font-semibold leading-relaxed text-lavender">
-              Your Google review helps more clients discover Salon Alain
-              Martinos.
-            </p>
+                              <p className="mt-1 font-sans text-xs font-semibold leading-relaxed text-lavender">
+                                Your Google review helps more clients discover Salon Alain
+                                Martinos.
+                              </p>
 
-            <a
-              href={loc.mapLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                mt-4 inline-flex items-center gap-2 rounded-full
-                bg-bright px-4 py-2.5 font-sans text-[0.62rem]
-                font-bold uppercase tracking-[0.14em] text-night-deep
-                shadow-[0_0_20px_rgba(228,181,255,0.42)]
-                transition-all duration-300 hover:-translate-y-0.5
-                hover:bg-white hover:shadow-[0_0_28px_rgba(228,181,255,0.7)]
-              "
-            >
-              Rate us on Google
-              <span aria-hidden="true">★★★★★</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    )}
-  </>
-) : (
-  <p className="mt-2 font-sans text-[0.95rem] font-light leading-relaxed text-lavender">
-    {loc.addressLines.map((line, i) => (
-      <span key={i} className="block">
-        {line}
-      </span>
-    ))}
-  </p>
-)}
+                              <a
+                                href={loc.mapLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-4 inline-flex items-center gap-2 rounded-full bg-bright px-4 py-2.5 font-sans text-[0.62rem] font-bold uppercase tracking-[0.14em] text-night-deep shadow-[0_0_20px_rgba(228,181,255,0.42)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_0_28px_rgba(228,181,255,0.7)]"
+                              >
+                                Rate us on Google
+                                <span aria-hidden="true">★★★★★</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <p className="mt-2 font-sans text-[0.95rem] font-light leading-relaxed text-lavender">
+                      {loc.addressLines.map((line, i) => (
+                        <span key={i} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* =====================================================
-              CONTACT
-          ===================================================== */}
-
+          {/* CONTACT */}
           <div className="lg:col-span-3">
             <h2 className={colTitle}>{t.footer.contactTitle}</h2>
 
             <ul className="mt-6 space-y-4 font-sans text-[0.95rem] font-light text-lavender">
               {/* PHONE */}
-
               <li>
                 <a
                   href={site.phoneHref}
@@ -192,7 +172,6 @@ export function Footer() {
               </li>
 
               {/* WHATSAPP */}
-
               <li>
                 <a
                   href={whatsappHref(
@@ -200,14 +179,7 @@ export function Footer() {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="
-                    inline-flex
-                    items-center
-                    gap-3
-                    transition-colors
-                    duration-300
-                    hover:text-bright
-                  "
+                  className="inline-flex items-center gap-3 transition-colors duration-300 hover:text-bright"
                 >
                   <svg
                     viewBox="0 0 32 32"
@@ -223,7 +195,6 @@ export function Footer() {
               </li>
 
               {/* EMAIL */}
-
               <li>
                 <a
                   href={`mailto:${site.email}`}
@@ -235,7 +206,6 @@ export function Footer() {
             </ul>
 
             {/* HOURS */}
-
             <h2 className={`mt-10 ${colTitle}`}>{t.footer.hoursTitle}</h2>
 
             <ul className="mt-6 space-y-3 font-sans text-[0.9rem] font-light text-lavender">
@@ -252,32 +222,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* =====================================================
-            COPYRIGHT
-        ===================================================== */}
-
-        <div
-          className="
-            mt-16
-            flex
-            flex-col
-            items-center
-            justify-between
-            gap-3
-            border-t
-            border-night-line
-            pt-7
-            text-center
-            font-sans
-            text-[0.72rem]
-            font-light
-            text-dusk
-            sm:flex-row
-            sm:text-left
-          "
-        >
+        {/* COPYRIGHT */}
+        <div className="mt-16 flex flex-col items-center justify-between gap-3 border-t border-night-line pt-7 text-center font-sans text-[0.72rem] font-light text-dusk sm:flex-row sm:text-left">
           <p>{t.footer.copyright.replace("{year}", String(year))}</p>
-
           <p>{t.footer.rights}</p>
         </div>
       </div>

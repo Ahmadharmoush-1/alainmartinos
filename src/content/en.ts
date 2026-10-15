@@ -17,7 +17,7 @@ export const en = {
       { label: "Services", href: "/services" },
       { label: "Hair Salon", href: "/hair-salon" },
       { label: "My Work", href: "/our-work" },
-      { label: "Alain Martinos", href: "/alain-martinos" },
+      { label: "Alain Martinos Biography", href: "/alain-martinos" },
       { label: "Contact Us", href: "/contact" },
     ],
     book: "Book Appointment",
@@ -392,7 +392,7 @@ p2: [
               "price": ""
             },
             {
-              "name": "Keratin treatment",
+              "name": "Keratin / Botox  treatment",
               "desc": "",
               "duration": "",
               "price": ""
@@ -766,7 +766,7 @@ p2: [
     title: "Alain Martinos",
     description: "The story of Alain Martinos — Lebanese hairdresser, visagist, singer and Barbie collector with more than 25 years of experience in beauty.",
     roles: ["Hairdresser", "Visagist", "Singer", "Barbie Collector", "Creative Artist"],
-    heading: "Alain Martinos",
+    heading: "Alain Martinos Biography",
     intro:
       "Alain Martinos is a Lebanese hairdresser, visagist, singer, and one of the most passionate Barbie collectors in the Middle East. His life and career have been built around one central idea:",
     thesis: "Beauty is not merely something we see — it is something we create, express, and preserve.",
@@ -829,7 +829,7 @@ p2: [
           { role: "As a Hairdresser", what: "he studies hair." },
           { role: "As a Visagist", what: "he studies faces and makeup." },
           { role: "As a Singer", what: "he studies performance and glamour." },
-          { role: "As a Collector ", what: "he studies fashion, styling, photography, packaging, and cultural history." },
+          { role: "As a Barbie Collector ", what: "he studies fashion, styling, photography, packaging, and cultural history." },
         ],
         closing: ["Barbie brings many different parts of Alain Martinos's creative personality together."],
       },
@@ -841,7 +841,7 @@ p2: [
           "Born in Lebanon, Alain Martinos later built a life in Germany while maintaining a deep connection to his Lebanese roots. Living between cultures gave him a distinctive perspective on beauty and identity.",
           "He understands both the glamour and aesthetic traditions of the Middle East and the European approach to fashion, beauty, and individual expression. His life has never fitted neatly into one category.",
         ],
-        identities: ["A Hairdresser.", "A Visagist.", "A Singer.", "A Collector.", "A Creative Personality."],
+        identities: ["A Hairdresser.", "A Visagist.", "A Singer.", "A Barbie Collector.", "A Creative Personality.","Bachelor & D.E.A in Law (Lebanese-French Law)"],
         closing: ["Above all, he is someone who has always searched for ways to express himself through beauty and art."],
       },
       {
@@ -849,15 +849,16 @@ p2: [
         number: "VI",
         title: "Education beyond beauty",
         paragraphs: [
-          "Although Alain Martinos is known professionally for hair and beauty, his academic background extends into another field: law. He completed advanced legal studies, including a D.E.A. in Intellectual Property Law.",
-          "This unusual combination of law, beauty, music, and collecting reflects the complexity of his interests. Intellectual property, fashion, design, celebrity culture, art, and collectibles all intersect with worlds Alain naturally understands from different perspectives.",
+          "Although Alain Martinos is known professionally for hair and beauty, his academic background extends into another field: law  bachelors in civil law , and  D.E.A Informatique Law ",
+          " He completed advanced legal studies, including a D.E.A. En Informatique Juridique/ cybercriminalité sur internet , propriété intellectuelle, nom de domaines, etc…",
+          "Alain speaks , writes and reads 4 different languages fluently: German , French , English and Arabic. ",
         ],
       },
     ],
     inspiration: {
       title: "Inspiration",
       items: [
-        { title: "Nawal Al Zoghbi", sub: "Music & glamour", desc: "Presence, femininity and a distinctive artistic identity — the proof that glamour and personality can become unforgettable." },
+        
         { title: "Barbie", sub: "Beauty, fashion & imagination", desc: "Fashion history in miniature: eras, packaging, faces and the childhood dream of transformation." },
         { title: "Hair & Beauty", sub: "Artistic transformation", desc: "The daily craft of changing how someone feels about themselves — with scissors, color and light." },
         { title: "His own journey", sub: "Resilience", desc: "The long road between two countries, and the will to rebuild whenever it was needed." },
@@ -872,10 +873,11 @@ p2: [
       lead: "Alain Martinos's story is ultimately not about the number of years he has worked, the number of songs he has sung, or even the number of Barbie dolls he owns. It is about passion.",
       passions: ["A passion for creating beauty.", "A passion for music.", "A passion for fashion.", "A passion for preserving memories.", "A passion for remaining authentic."],
       arcs: [
-        { from: "From a childhood Barbie", to: "to a collection exceeding 10,000 dolls." },
-        { from: "From singing since 2001", to: "to building a career in beauty." },
+        { from: "From a childhood Barbie Fan", to: "to a collection exceeding 10,000 dolls." },
+        { from: "From singing since 2001", to: "to building a career in beauty." }, 
+         { from: "From studying law", to: "to creating beauty transformations." },
         { from: "From Lebanon to Germany", to: "and back again." },
-        { from: "From studying law", to: "to creating beauty transformations." },
+      
       ],
       closing: [
         "Alain Martinos has never been only one thing.",

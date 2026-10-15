@@ -40,6 +40,28 @@ export function SiteMusic() {
 
     startMusic();
 
+    // The track is a few MB, so it no longer downloads alongside the page's
+    // first images. A blocked autoplay attempt fetches nothing; once the page
+    // has loaded and the browser is idle, warm up the start of the file so the
+    // first tap or scroll still starts the music straight away.
+    const connection = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection;
+    const hasIdle = typeof window.requestIdleCallback === "function";
+    let idleHandle: number | null = null;
+    const warmUp = () => {
+      if (connection?.saveData || !audio.paused || audio.readyState > 0) return;
+      audio.preload = "metadata";
+      audio.load();
+    };
+    const scheduleWarmUp = () => {
+      idleHandle = hasIdle
+        ? window.requestIdleCallback(warmUp, { timeout: 4000 })
+        : window.setTimeout(warmUp, 1500);
+    };
+    if (document.readyState === "complete") scheduleWarmUp();
+    else window.addEventListener("load", scheduleWarmUp, { once: true });
+
     const startAfterInteraction = async () => {
       // Never fight a video or voice note for the speakers.
       if (!audio.paused || audio.dataset.ducked === "true") return;
@@ -58,9 +80,9 @@ export function SiteMusic() {
     };
 
     document.addEventListener("click", startAfterInteraction);
-    document.addEventListener("touchstart", startAfterInteraction);
+    document.addEventListener("touchstart", startAfterInteraction, { passive: true });
     document.addEventListener("keydown", startAfterInteraction);
-    document.addEventListener("scroll", startAfterInteraction);
+    document.addEventListener("scroll", startAfterInteraction, { passive: true });
 
     /* ---------------------------------------------------------------
        Ducking — fade out and pause while anything else plays
@@ -125,6 +147,11 @@ export function SiteMusic() {
     });
 
     return () => {
+      window.removeEventListener("load", scheduleWarmUp);
+      if (idleHandle !== null) {
+        if (hasIdle) window.cancelIdleCallback(idleHandle);
+        else window.clearTimeout(idleHandle);
+      }
       unsubscribe();
       clearFade();
       setBackgroundMedia(null);
@@ -139,9 +166,8 @@ export function SiteMusic() {
     <audio
       ref={audioRef}
       src="/audio/salon-alain.mp3"
-      autoPlay
       loop
-      preload="auto"
+      preload="none"
     />
   );
 }
