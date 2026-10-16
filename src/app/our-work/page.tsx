@@ -1,53 +1,28 @@
 import type { Metadata } from "next";
-
 import Link from "next/link";
-
 import { CtaBand } from "@/components/CtaBand";
-
 import { LazyIframe } from "@/components/LazyIframe";
-
 import { getContent } from "@/lib/i18n";
-
 import { site } from "@/lib/site";
-
 const w = getContent().work;
-
 export const metadata: Metadata = {
-
   title: `${w.title} – Balayage, Color & Transformations`,
-
   description: w.description,
-
   alternates: { canonical: "/our-work" },
-
   openGraph: {
-
     title: `${w.title} | Salon Alain Hair & Beauty`,
-
     description: w.description,
-
     url: "/our-work",
-
   },
-
 };
-
 /* =========================================================
-
    FEATURED PERSONAL IMAGE
-
    Replace ONLY this path with your real image path.
-
 ========================================================= */
-
 const featuredMemoryImage = "/images/alain-with-mother.jpg";
-
 /* =========================================================
-
    INSTAGRAM POSTS
-
 ========================================================= */
-
 const instagramPosts = [
   "https://www.instagram.com/p/DDqBLmHNUGm/",
   "https://www.instagram.com/p/DKuMBilNmAY/",
@@ -78,7 +53,6 @@ const instagramPosts = [
   "https://www.instagram.com/p/CRoMEoDh0IG/",
   "https://www.instagram.com/p/CRJ6a5sBIrg/",
 ] as const;
-
 // Previously commented-out Instagram posts, all representing Germany.
 // Display these together in one separate, horizontally scrollable row.
 const germanyInstagramPosts = [
@@ -118,429 +92,336 @@ const germanyInstagramPosts = [
   "https://www.instagram.com/p/CWbd3paIp1_/",
   "https://www.instagram.com/p/CWanaw7I9QL/",
 ] as const;
-
 function getInstagramEmbedUrl(postUrl: string) {
   return `${postUrl.replace(/\/$/, "")}/embed/captioned/`;
 }
-
-/* Keep the currently active posts in the original three swipeable rows. */
-
-const instagramRows = Array.from({ length: 3 }, (_, rowIndex) =>
-
-  instagramPosts.filter((_, postIndex) => postIndex % 3 === rowIndex),
-
-);
-
 /* =========================================================
+   YOUR LOCAL PHOTOS (OPTIONAL)
 
-   ATELIER STATS
+   1. Put image files inside public/images/our-work/.
+   2. Add their /images/our-work/... paths here.
+   3. The photos appear directly beside Instagram posts in the
+      existing horizontal, swipeable rows.
 
+   Images keep their original proportions (no cropping).
 ========================================================= */
+type LocalGalleryImage = { src: string; alt: string };
 
-const atelierStats = [
-
-  { value: "100%", label: "Bespoke Tone" },
-
-  { value: "20+", label: "Years Atelier" },
-
-  { value: "Zouk Mikael", label: "Lebanon Studio" },
-
+const additionalCollectionImages: LocalGalleryImage[] = [
+  { src: "/images/our-work/hairstyle-01.jpg", alt: "Blonde balayage hairstyle" },
+  { src: "/images/our-work/hairstyle-02.jpg", alt: "Brunette hair transformation" },
+  { src: "/images/our-work/hairstyle-03.png", alt: "Salon Alain finished look" },
+  { src: "/images/our-work/hairstyle-04.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-05.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-06.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-07.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-08.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-09.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-10.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-11.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-12.jpg", alt: "Salon Alain hair work" },
+  { src: "/images/our-work/hairstyle-13.jpg", alt: "Salon Alain hair work" },
 ];
 
-/* =========================================================
+// Optional: pictures beside Instagram posts in the Germany section.
+const additionalGermanyImages: LocalGalleryImage[] = [
+  // { src: "/images/our-work/germany-01.jpg", alt: "Salon Alain hair work in Germany" },
+];
 
+type GalleryItem =
+  | { type: "instagram"; url: string; number: number }
+  | { type: "image"; src: string; alt: string };
+
+// Alternate Instagram post, local photo, Instagram post, local photo, ...
+function interleaveGalleryItems(
+  posts: ReadonlyArray<{ url: string; number: number }>,
+  images: ReadonlyArray<LocalGalleryImage>,
+): GalleryItem[] {
+  const items: GalleryItem[] = [];
+  for (let index = 0; index < Math.max(posts.length, images.length); index++) {
+    if (posts[index]) {
+      items.push({ type: "instagram", ...posts[index] });
+    }
+    if (images[index]) {
+      items.push({ type: "image", ...images[index] });
+    }
+  }
+  return items;
+}
+
+// Germany stays one long horizontal row.
+const germanyGalleryItems = interleaveGalleryItems(
+  germanyInstagramPosts.map((url, index) => ({ url, number: index + 1 })),
+  additionalGermanyImages,
+);
+
+// Original 3 scrolling rows remain, now with optional local photos.
+// Photo 1 goes into row 1, photo 2 into row 2, photo 3 into row 3, etc.
+const instagramRows = Array.from({ length: 3 }, (_, rowIndex) =>
+  interleaveGalleryItems(
+    instagramPosts
+      .map((url, index) => ({ url, number: index + 1 }))
+      .filter((_, index) => index % 3 === rowIndex),
+    additionalCollectionImages.filter((_, index) => index % 3 === rowIndex),
+  ),
+);
+/* =========================================================
+   ATELIER STATS
+========================================================= */
+const atelierStats = [
+  { value: "100%", label: "Bespoke Tone" },
+  { value: "20+", label: "Years Atelier" },
+  { value: "Zouk Mikael", label: "Lebanon Studio" },
+];
+/* =========================================================
    ICONS
-
 ========================================================= */
-
 function ArrowDown() {
-
   return (
-
     <svg
-
       aria-hidden="true"
-
       viewBox="0 0 24 24"
-
       fill="none"
-
       stroke="currentColor"
-
       strokeWidth="1.9"
-
       className="h-[19px] w-[19px] shrink-0"
-
     >
-
       <path
-
         strokeLinecap="round"
-
         strokeLinejoin="round"
-
         d="M12 4v16m-6-6 6 6 6-6"
-
       />
-
     </svg>
-
   );
-
 }
-
 function CalendarIcon() {
-
   return (
-
     <svg
-
       aria-hidden="true"
-
       viewBox="0 0 24 24"
-
       fill="none"
-
       stroke="currentColor"
-
       strokeWidth="1.8"
-
       className="h-[19px] w-[19px] shrink-0"
-
     >
-
       <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
-
       <path
-
         strokeLinecap="round"
-
         d="M8 3.5V6.5M16 3.5V6.5M3.5 10h17"
-
       />
-
     </svg>
-
   );
-
 }
-
-/* =========================================================
-
-   PAGE
-
-========================================================= */
-
-export default function OurWorkPage() {
-
-  const container =
-
-    "mx-auto w-full max-w-[1440px] px-5 sm:px-10 lg:px-20";
-
+/* One consistent card for both Instagram embeds and local photos. */
+function GalleryCard({
+  item,
+  germany = false,
+}: {
+  item: GalleryItem;
+  germany?: boolean;
+}) {
+  const name = germany ? "Salon Alain Germany" : "Salon Alain";
   return (
-
-    <div className="page-purple-background theme-purple flex w-full min-w-0 flex-col break-words">
-
-      {/* =====================================================
-
-          SECTION 1 — HERO
-
-      ===================================================== */}
-
-      <section
-
-        aria-labelledby="portfolio-heading"
-
-        className="relative flex w-full flex-col items-center justify-center overflow-hidden py-[4.5rem] pt-32 text-center sm:pt-36"
-
-      >
-
-        {/* Ambient violet glow */}
-
-        <div
-
-          aria-hidden="true"
-
-          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[350px] w-[600px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-m3-primary-container/20 blur-[130px]"
-
-        />
-
-        <div
-
-          aria-hidden="true"
-
-          className="pointer-events-none absolute right-1/4 top-0 -z-10 h-[220px] w-[320px] rounded-full bg-m3-secondary-container/30 blur-[90px]"
-
-        />
-
-        <div
-
-          className={`${container} mx-auto flex max-w-4xl flex-col items-center`}
-
+    <article className="relative w-[280px] shrink-0 snap-start overflow-hidden rounded-[1.25rem] bg-white sm:w-[360px] sm:rounded-[1.5rem]">
+      {item.type === "image" ? (
+        <a
+          href={item.src}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View full image: ${item.alt}`}
+          className="block h-[500px] w-full focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-m3-primary/70 sm:h-[620px]"
         >
-
-          {/* Main heading */}
-
-<h1
-
-  id="portfolio-heading"
-
-  className="mb-6 max-w-3xl font-serif italic text-m3-display-mobile !font-semibold tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
-
->
-
-  {w.heading}
-
-</h1>
-
-          {/* HERO SMALL TEXT — BIGGER + BOLDER */}
-
-          <p className="mx-auto mb-11 max-w-2xl font-sans text-[17px] font-semibold leading-[1.75] text-m3-on-surface-variant sm:text-[19px] lg:text-[20px]">
-
-            {w.subtitle} Crafted under the discerning eye of Parisian couture
-
-            technique in our Lebanese atelier.
-
-          </p>
-
-          {/* Pill buttons */}
-
-          <div className="flex flex-wrap items-center justify-center gap-5">
-
-            <a
-
-              href="#collection"
-
-              className="flex items-center gap-2 rounded-full bg-m3-primary px-10 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-m3-on-primary shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-m3-secondary sm:text-[14px] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-
-            >
-
-              <span>Explore Our Work</span>
-
-              <ArrowDown />
-
-            </a>
-
-            <Link
-
-              href="/contact"
-
-              className="flex items-center gap-2 rounded-full bg-m3-high px-10 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-m3-secondary shadow-sm transition-all duration-300 hover:bg-m3-variant hover:text-m3-on-surface sm:text-[14px]"
-
-            >
-
-              <CalendarIcon />
-
-              <span>Book an appointment</span>
-
-            </Link>
-
-          </div>
-
-          {/* Atelier stats */}
-
-          <div className="mt-[4.5rem] grid w-full max-w-2xl grid-cols-3 gap-5 pt-10 sm:gap-10">
-
-            {atelierStats.map((stat) => (
-
-              <div key={stat.label} className="flex flex-col items-center">
-
-                <span className="font-serif text-[24px] !font-semibold leading-tight text-m3-secondary sm:text-[28px]">
-
-                  {stat.value}
-
-                </span>
-
-                {/* STATS SMALL TEXT — BIGGER + BOLDER */}
-
-                <span className="mt-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-m3-tertiary sm:text-[13px]">
-
-                  {stat.label}
-
-                </span>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
+          <img
+            src={item.src}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+            className="block h-full w-full object-contain"
+          />
+        </a>
+      ) : (
+        <>
+          <LazyIframe
+            title={`${name} Instagram post ${item.number}`}
+            src={getInstagramEmbedUrl(item.url)}
+            className="block h-[500px] w-full border-0 sm:h-[620px]"
+            loading="lazy"
+            scrolling="no"
+            allow="encrypted-media"
+          />
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${name} Instagram post ${item.number}`}
+            className="absolute inset-0 z-10 rounded-[1.25rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-m3-primary/70 sm:rounded-[1.5rem]"
+          >
+            <span className="sr-only">Open this Instagram post</span>
+          </a>
+        </>
+      )}
+    </article>
+  );
+}
+/* =========================================================
+   PAGE
+========================================================= */
+export default function OurWorkPage() {
+  const container =
+    "mx-auto w-full max-w-[1440px] px-5 sm:px-10 lg:px-20";
+  return (
+    <div className="page-purple-background theme-purple flex w-full min-w-0 flex-col break-words">
       {/* =====================================================
-
-          SECTION 2 — THE COLLECTION
-
+          SECTION 1 — HERO
       ===================================================== */}
-
       <section
-
-        id="collection"
-
-        aria-labelledby="gallery-heading"
-
-        className="relative w-full scroll-mt-24 bg-m3-low py-[4.5rem]"
-
+        aria-labelledby="portfolio-heading"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden py-[4.5rem] pt-32 text-center sm:pt-36"
       >
-
-        <div className={container}>
-
-          {/* Section header */}
-
-          <div className="mb-5 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-
-            <div className="flex flex-col">
-
-              {/* EYEBROW — BIGGER + BOLDER */}
-
-              <span className="mb-2 font-sans text-[12px] font-bold uppercase tracking-[0.2em] text-m3-secondary sm:text-[14px]">
-
-                The Collection
-
-              </span>
-
-              <h2
-
-                id="gallery-heading"
-
-                className="font-serif text-m3-headline-md !font-semibold tracking-tight !text-m3-on-surface lg:text-m3-headline-lg"
-
-              >
-
-                Colour. Shape. Individuality.
-
-              </h2>
-
-            </div>
-
-            {/* COLLECTION SMALL DESCRIPTION — BIGGER + BOLDER */}
-
-            <p className="max-w-[500px] font-sans text-[16px] font-semibold leading-[1.7] text-m3-tertiary sm:text-[17px] lg:text-[18px]">
-
-              Explore balayage, colour and transformations. Find inspiration
-
-              for your next visit to Salon Alain Hair &amp; Beauty.
-
-            </p>
-
+        {/* Ambient violet glow */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[350px] w-[600px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-m3-primary-container/20 blur-[130px]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-1/4 top-0 -z-10 h-[220px] w-[320px] rounded-full bg-m3-secondary-container/30 blur-[90px]"
+        />
+        <div
+          className={`${container} mx-auto flex max-w-4xl flex-col items-center`}
+        >
+          {/* Main heading */}
+<h1
+  id="portfolio-heading"
+  className="mb-6 max-w-3xl font-serif italic text-m3-display-mobile !font-semibold tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
+>
+  {w.heading}
+</h1>
+          {/* HERO SMALL TEXT — BIGGER + BOLDER */}
+          <p className="mx-auto mb-11 max-w-2xl font-sans text-[17px] font-semibold leading-[1.75] text-m3-on-surface-variant sm:text-[19px] lg:text-[20px]">
+            {w.subtitle} Crafted under the discerning eye of Parisian couture
+            technique in our Lebanese atelier.
+          </p>
+          {/* Pill buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-5">
+            <a
+              href="#collection"
+              className="flex items-center gap-2 rounded-full bg-m3-primary px-10 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-m3-on-primary shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-m3-secondary sm:text-[14px] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            >
+              <span>Explore Our Work</span>
+              <ArrowDown />
+            </a>
+            <Link
+              href="/contact"
+              className="flex items-center gap-2 rounded-full bg-m3-high px-10 py-3.5 font-sans text-[13px] font-bold uppercase tracking-[0.08em] text-m3-secondary shadow-sm transition-all duration-300 hover:bg-m3-variant hover:text-m3-on-surface sm:text-[14px]"
+            >
+              <CalendarIcon />
+              <span>Book an appointment</span>
+            </Link>
           </div>
-
+          {/* Atelier stats */}
+          <div className="mt-[4.5rem] grid w-full max-w-2xl grid-cols-3 gap-5 pt-10 sm:gap-10">
+            {atelierStats.map((stat) => (
+              <div key={stat.label} className="flex flex-col items-center">
+                <span className="font-serif text-[24px] !font-semibold leading-tight text-m3-secondary sm:text-[28px]">
+                  {stat.value}
+                </span>
+                {/* STATS SMALL TEXT — BIGGER + BOLDER */}
+                <span className="mt-2 font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-m3-tertiary sm:text-[13px]">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* =====================================================
+          SECTION 2 — THE COLLECTION
+      ===================================================== */}
+      <section
+        id="collection"
+        aria-labelledby="gallery-heading"
+        className="relative w-full scroll-mt-24 bg-m3-low py-[4.5rem]"
+      >
+        <div className={container}>
+          {/* Section header */}
+          <div className="mb-5 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="flex flex-col">
+              {/* EYEBROW — BIGGER + BOLDER */}
+              <span className="mb-2 font-sans text-[12px] font-bold uppercase tracking-[0.2em] text-m3-secondary sm:text-[14px]">
+                The Collection
+              </span>
+              <h2
+                id="gallery-heading"
+                className="font-serif text-m3-headline-md !font-semibold tracking-tight !text-m3-on-surface lg:text-m3-headline-lg"
+              >
+                Colour. Shape. Individuality.
+              </h2>
+            </div>
+            {/* COLLECTION SMALL DESCRIPTION — BIGGER + BOLDER */}
+            <p className="max-w-[500px] font-sans text-[16px] font-semibold leading-[1.7] text-m3-tertiary sm:text-[17px] lg:text-[18px]">
+              Explore balayage, colour and transformations. Find inspiration
+              for your next visit to Salon Alain Hair &amp; Beauty.
+            </p>
+          </div>
           {/* =================================================
-
               FEATURED PERSONAL IMAGE — ALAIN & HIS MOTHER
-
           ================================================= */}
-
           <div className="relative mx-auto mt-14 flex w-full justify-center sm:mt-18 lg:mt-20">
-
             {/* Soft glow behind photograph */}
-
             <div
-
               aria-hidden="true"
-
               className="pointer-events-none absolute left-1/2 top-1/2 h-[82%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-m3-primary/20 blur-[85px] sm:blur-[110px]"
-
             />
-
             <div className="relative w-full max-w-[760px]">
-
               {/* Large fine outer border */}
-
               <div
-
                 aria-hidden="true"
-
                 className="pointer-events-none absolute -inset-3 rounded-[2rem] border border-white/10 sm:-inset-4 sm:rounded-[2.4rem]"
-
               />
-
               {/* Secondary fine border */}
-
               <div
-
                 aria-hidden="true"
-
                 className="pointer-events-none absolute -inset-1.5 rounded-[1.7rem] border border-m3-secondary/20 sm:-inset-2"
-
               />
-
               {/* Photograph */}
-
 <div className="relative overflow-hidden rounded-[1.5rem] bg-black/10 shadow-[0_30px_90px_rgba(20,5,35,0.30)] sm:rounded-[2rem] lg:left-1/2 lg:w-[115%] lg:max-w-none lg:-translate-x-1/2">
-
   <img
-
     src={featuredMemoryImage}
-
     alt="Alain Martinos with his mother"
-
     loading="eager"
-
     decoding="async"
-
     className="block max-h-[760px] w-full object-contain lg:max-h-[1100px]"
-
   />
-
   {/* Subtle overlay */}
-
   <div
-
     aria-hidden="true"
-
     className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/10 via-transparent to-white/[0.04]"
-
   />
-
   {/* Inner hairline */}
-
   <div
-
     aria-hidden="true"
-
     className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/15"
-
   />
-
 </div>
-
               {/* =================================================
-
                   PERSONAL CAPTION
-
                   Bigger + Bold + Professional
-
               ================================================= */}
-
-           
 <p className="mx-auto mt-8 max-w-[700px] text-center font-serif text-[20px] !font-black leading-[1.55] tracking-[0.01em] text-m3-on-surface sm:text-[22px] lg:text-[24px]">
   My first photograph with my mother Aida Martinos — one of the earliest and
   most meaningful inspirations behind my journey into
   hairdressing.
 </p>
-
-
               {/* Elegant single divider */}
-
               <div
-
                 aria-hidden="true"
-
                 className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-m3-secondary/80 to-transparent sm:w-32"
-
               />
-
             </div>
-
           </div>
-
           {/* =================================================
-
               INSTAGRAM COLLECTION
-
           ================================================= */}
            {/* GERMANY COLLECTION — ALL PREVIOUSLY COMMENTED POSTS IN ONE ROW */}
           <div className="mt-12 sm:mt-16">
@@ -557,137 +438,42 @@ export default function OurWorkPage() {
                 Swipe to explore all posts →
               </p>
             </div>
-
             {/* One single horizontal row on mobile and desktop */}
             <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-3 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6">
-              {germanyInstagramPosts.map((postUrl, postIndex) => (
-                <article
-                  key={postUrl}
-                  className="relative w-[280px] shrink-0 snap-start overflow-hidden rounded-[1.25rem] bg-white sm:w-[360px] sm:rounded-[1.5rem]"
-                >
-                  <LazyIframe
-                    title={`Salon Alain Germany Instagram post ${postIndex + 1}`}
-                    src={getInstagramEmbedUrl(postUrl)}
-                    className="block h-[500px] w-full border-0 sm:h-[620px]"
-                    loading="lazy"
-                    scrolling="no"
-                    allow="encrypted-media"
-                  />
-
-                  <a
-                    href={postUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Open Salon Alain Germany Instagram post ${postIndex + 1}`}
-                    className="absolute inset-0 z-10 rounded-[1.25rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-m3-primary/70 sm:rounded-[1.5rem]"
-                  >
-                    <span className="sr-only">Open this Germany Instagram post</span>
-                  </a>
-                </article>
+              {germanyGalleryItems.map((item, itemIndex) => (
+                <GalleryCard
+                  key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
+                  item={item}
+                  germany
+                />
               ))}
             </div>
           </div>
-
           <div className="mt-16 flex flex-col gap-6 sm:mt-20 sm:gap-8">
-
             {instagramRows.map((row, rowIndex) => (
-
               <div
-
                 key={`instagram-row-${rowIndex}`}
-
                 className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
-
               >
-
-                {row.map((postUrl, postIndex) => {
-
-                  const postNumber = rowIndex + postIndex * 3 + 1;
-
-                  return (
-
-                    <article
-
-                      key={postUrl}
-
-                      className="relative w-[280px] shrink-0 snap-start overflow-hidden rounded-[1.25rem] bg-white sm:w-[360px] sm:rounded-[1.5rem]"
-
-                    >
-
-                      <LazyIframe
-
-                        title={`Salon Alain Instagram post ${postNumber}`}
-
-                        src={getInstagramEmbedUrl(postUrl)}
-
-                        className="block h-[500px] w-full border-0 sm:h-[620px]"
-
-                        loading="lazy"
-
-                        scrolling="no"
-
-                        allow="encrypted-media"
-
-                      />
-
-                      <a
-
-                        href={postUrl}
-
-                        target="_blank"
-
-                        rel="noreferrer"
-
-                        aria-label={`Open Salon Alain Instagram post ${postNumber}`}
-
-                        className="absolute inset-0 z-10 rounded-[1.25rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-m3-primary/70 sm:rounded-[1.5rem]"
-
-                      >
-
-                        <span className="sr-only">
-
-                          Open this Instagram post
-
-                        </span>
-
-                      </a>
-
-                    </article>
-
-                  );
-
-                })}
-
+                {row.map((item, itemIndex) => (
+                  <GalleryCard
+                    key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
+                    item={item}
+                  />
+                ))}
               </div>
-
             ))}
-
           </div>
-
-         
-
         </div>
-
       </section>
-
       {/* =====================================================
-
           SECTION 3 — CLOSING CTA
-
       ===================================================== */}
-
       <CtaBand />
-
       <p className="sr-only">
-
         Salon Alain Hair &amp; Beauty portfolio —{" "}
-
         {site.locations[0].addressLines.join(", ")}
-
       </p>
-
     </div>
-
   );
-
 }
