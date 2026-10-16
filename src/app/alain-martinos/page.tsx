@@ -128,6 +128,24 @@ const chapterImages: Partial<Record<number, Portrait>> = {
 };
 
 /* =========================================================
+   TWO LARGE IMAGES BETWEEN PAGE SECTIONS
+
+   Put your photos inside /public/images/ and change only the
+   two `src` paths below. The images keep their original ratio.
+========================================================= */
+
+const betweenSectionImages: readonly Portrait[] = [
+  {
+    src: "/images/alain-between-sections-01.jpg",
+    alt: "Alain Martinos - featured salon photograph",
+  },
+  {
+    src: "/images/alain-between-sections-02.jpg",
+    alt: "Alain Martinos - featured editorial photograph",
+  },
+];
+
+/* =========================================================
    BARBIE COLLECTION CAROUSEL
 ========================================================= */
 
@@ -342,6 +360,29 @@ function Photo({
         className="am-photo-image"
       />
     </div>
+  );
+}
+
+/* =========================================================
+   FULL-SIZE SECTION IMAGE
+   Natural image ratio, no cropping on mobile or desktop.
+========================================================= */
+
+function BetweenSectionImage({ image }: { image: Portrait }) {
+  return (
+    <section
+      className="am-between-section-image am-container"
+      aria-label={image.alt}
+    >
+      <figure className="am-between-section-figure">
+        <img
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </section>
   );
 }
 
@@ -1043,6 +1084,9 @@ export default function AlainPage() {
         </div>
       </section>
 
+      {/* FIRST LARGE PHOTO - BETWEEN BIOGRAPHY AND INSPIRATION */}
+      <BetweenSectionImage image={betweenSectionImages[0]} />
+
       {/* =====================================================
           INSPIRATION
       ===================================================== */}
@@ -1167,6 +1211,9 @@ export default function AlainPage() {
           </div>
         </div>
       </section>
+
+      {/* SECOND LARGE PHOTO - BETWEEN MEANING AND FILMS */}
+      <BetweenSectionImage image={betweenSectionImages[1]} />
 
       {/* =====================================================
           FILMS
@@ -1839,6 +1886,43 @@ const pageCss = `
 
 .alain-editorial .am-chapter-visual .am-photo{
   aspect-ratio:4/5;
+}
+
+/* =========================================================
+   LARGE PHOTOS BETWEEN SECTIONS
+   Wide and fully visible, with no crop or fixed image height.
+========================================================= */
+
+.alain-editorial .am-between-section-image{
+  padding-block:clamp(18px,3vw,40px) clamp(54px,7vw,90px);
+}
+
+.alain-editorial .am-between-section-figure{
+  width:100%;
+  max-width:1100px;
+  margin-inline:auto;
+  overflow:hidden;
+  border:1px solid rgba(228,181,255,.18);
+  border-radius:24px;
+  background:var(--am-raised);
+  box-shadow:0 24px 55px rgba(16,5,31,.35);
+}
+
+.alain-editorial .am-between-section-figure img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+
+@media(max-width:639px){
+  .alain-editorial .am-between-section-image{
+    padding-block:12px 44px;
+  }
+
+  .alain-editorial .am-between-section-figure{
+    border-radius:18px;
+  }
 }
 
 /* =========================================================
