@@ -24,114 +24,121 @@ const featuredMemoryImage = "/images/alain-with-mother.jpg";
    INSTAGRAM POSTS
 ========================================================= */
 const instagramPosts = [
-  "https://www.instagram.com/p/DDqBLmHNUGm/",
   "https://www.instagram.com/p/DKuMBilNmAY/",
   "https://www.instagram.com/p/DKuJ8_xNvQW/",
-  "https://www.instagram.com/p/C7-IubHNhdh/",
   "https://www.instagram.com/p/DKt6GRzNMGR/",
-  "https://www.instagram.com/p/C7-HxKhN656/",
-  "https://www.instagram.com/p/DDpiEZoNnCq/",
   "https://www.instagram.com/p/C6YaSeht5lO/",
   "https://www.instagram.com/p/C6WmHuaNnXS/",
-  "https://www.instagram.com/p/C7FPGbONKLU/",
-  "https://www.instagram.com/p/C6JLCBBN-84/",
-  "https://www.instagram.com/p/CV6ATOjIums/",
-  "https://www.instagram.com/p/CVyZsBWoPS3/",
-  "https://www.instagram.com/p/CVyXs6nowOE/",
-  "https://www.instagram.com/p/CVyVW4ooFzW/",
-  "https://www.instagram.com/p/CVyT2Vqo5hK/",
-  "https://www.instagram.com/p/CVa2ypQogNA/",
-  "https://www.instagram.com/p/CTouL5vIMMv/",
-  "https://www.instagram.com/p/CTnUabRIbbJ/",
-  "https://www.instagram.com/p/CTnPHv1o77P/",
-  "https://www.instagram.com/p/CTnIwAdIhyO/",
-  "https://www.instagram.com/p/CkrTOdIOqso/",
-  "https://www.instagram.com/p/CfhbgnTIucN/",
-  "https://www.instagram.com/p/CWams9-IgIF/",
-  "https://www.instagram.com/p/CTmpce9oWbA/",
-  "https://www.instagram.com/p/CShuTdzon-j/",
-  "https://www.instagram.com/p/CRoMEoDh0IG/",
-  "https://www.instagram.com/p/CRJ6a5sBIrg/",
+  
 ] as const;
-// Previously commented-out Instagram posts, all representing Germany.
-// Display these together in one separate, horizontally scrollable row.
+// Germany Instagram posts, distributed across two horizontal rows.
 const germanyInstagramPosts = [
   "https://www.instagram.com/p/Czb7CnVIRRz/",
   "https://www.instagram.com/p/Cza0CjcoqLJ/",
   "https://www.instagram.com/p/CzEjUvJIZfA/",
   "https://www.instagram.com/p/Cx_Lmv9oX3t/",
   "https://www.instagram.com/p/Cx_K0Igoxqd/",
+  "https://www.instagram.com/p/DDqBLmHNUGm/",
   "https://www.instagram.com/p/CxYrX8qIjwz/",
+  
+  "https://www.instagram.com/p/CVyXs6nowOE/",
+  "https://www.instagram.com/p/CVa2ypQogNA/",
+   "https://www.instagram.com/p/CVyZsBWoPS3/",
+   "https://www.instagram.com/p/CTnPHv1o77P/",
   "https://www.instagram.com/p/CxYPtokIBZS/",
+  "https://www.instagram.com/p/CV6ATOjIums/",
   "https://www.instagram.com/p/CxLxsB8oobQ/",
+  "https://www.instagram.com/p/C7-IubHNhdh/",
   "https://www.instagram.com/p/Cwdql1DI2C2/",
   "https://www.instagram.com/p/CwYOb4AoNiw/",
   "https://www.instagram.com/p/Cp4kQM7oIDn/",
   "https://www.instagram.com/p/CputLjqIFVq/",
   "https://www.instagram.com/p/Co1vayCoTYt/",
   "https://www.instagram.com/p/Ck_g_1KjEQN/",
+  "https://www.instagram.com/p/C7-HxKhN656/",
+  "https://www.instagram.com/p/CVyVW4ooFzW/", 
+  "https://www.instagram.com/p/CfhbgnTIucN/",
   "https://www.instagram.com/p/Ck_VlzQjzA0/",
-  "https://www.instagram.com/p/C7FNyMZtGn8/",
+  
+  "https://www.instagram.com/p/CVyT2Vqo5hK/",
   "https://www.instagram.com/p/Cwsqy1qIK69/",
   "https://www.instagram.com/p/Ck_coR5Dcqw/",
+  "https://www.instagram.com/p/CTnUabRIbbJ/",
+  "https://www.instagram.com/p/CTouL5vIMMv/",
   "https://www.instagram.com/p/Ck_U5h6DFjZ/",
   "https://www.instagram.com/p/Ck_Thc2jdGK/",
   "https://www.instagram.com/p/CkrUta_ICi4/",
+   "https://www.instagram.com/p/CTnIwAdIhyO/",
   "https://www.instagram.com/p/CkrWjZNOUG9/",
   "https://www.instagram.com/p/CjPqAClo0Zs/",
+  "https://www.instagram.com/p/CTmpce9oWbA/",
   "https://www.instagram.com/p/CjNQXWBIUxz/",
   "https://www.instagram.com/p/Ch63PE7oOUZ/",
   "https://www.instagram.com/p/CfhdbiII_lB/",
+  "https://www.instagram.com/p/CkrTOdIOqso/",
   "https://www.instagram.com/p/CfhLOOIIB4O/",
   "https://www.instagram.com/p/CdGt8UHIJIl/",
   "https://www.instagram.com/p/CYqv01XIxMZ/",
   "https://www.instagram.com/p/CYqxe7VIxSO/",
+  "https://www.instagram.com/p/CWams9-IgIF/",
+   "https://www.instagram.com/p/CShuTdzon-j/",
   "https://www.instagram.com/p/CYqt9KGoRoV/",
+  "https://www.instagram.com/p/CRoMEoDh0IG/",
   "https://www.instagram.com/p/CYquydfo5qH/",
+  "https://www.instagram.com/p/CRJ6a5sBIrg/",
   "https://www.instagram.com/p/CYqm76yo4Ru/",
   "https://www.instagram.com/p/CWbd3paIp1_/",
   "https://www.instagram.com/p/CWanaw7I9QL/",
+  "https://www.instagram.com/p/C7FNyMZtGn8/",
+  "https://www.instagram.com/p/C7FPGbONKLU/",
 ] as const;
 function getInstagramEmbedUrl(postUrl: string) {
   return `${postUrl.replace(/\/$/, "")}/embed/captioned/`;
 }
 /* =========================================================
    YOUR LOCAL PHOTOS (OPTIONAL)
-
    1. Put image files inside public/images/our-work/.
    2. Add their /images/our-work/... paths here.
-   3. The photos appear directly beside Instagram posts in the
-      existing horizontal, swipeable rows.
-
+   3. Germany and Lebanon have separate photo arrays below.
+   4. Photos appear alongside Instagram posts in each collection's
+      own two horizontally swipeable rows.
    Images keep their original proportions (no cropping).
 ========================================================= */
 type LocalGalleryImage = { src: string; alt: string };
-
-const additionalCollectionImages: LocalGalleryImage[] = [
-  { src: "/images/our-work/hairstyle-01.jpg", alt: "Blonde balayage hairstyle" },
-  { src: "/images/our-work/hairstyle-02.jpg", alt: "Brunette hair transformation" },
-  { src: "/images/our-work/hairstyle-03.png", alt: "Salon Alain finished look" },
+// All 13 local hairstyle photos belong to the Germany collection.
+const additionalGermanyImages: LocalGalleryImage[] = [
+ 
+  // { src: "/images/our-work/hairstyle-02.jpg", alt: "Brunette hair transformation" },
+  // { src: "/images/our-work/hairstyle-03.png", alt: "Salon Alain finished look" },
   { src: "/images/our-work/hairstyle-04.jpg", alt: "Salon Alain hair work" },
-  { src: "/images/our-work/hairstyle-05.jpg", alt: "Salon Alain hair work" },
-  { src: "/images/our-work/hairstyle-06.jpg", alt: "Salon Alain hair work" },
+  // { src: "/images/our-work/hairstyle-05.jpg", alt: "Salon Alain hair work" },
+  // { src: "/images/our-work/hairstyle-06.jpg", alt: "Salon Alain hair work" },
   { src: "/images/our-work/hairstyle-07.jpg", alt: "Salon Alain hair work" },
   { src: "/images/our-work/hairstyle-08.jpg", alt: "Salon Alain hair work" },
-  { src: "/images/our-work/hairstyle-09.jpg", alt: "Salon Alain hair work" },
-  { src: "/images/our-work/hairstyle-10.jpg", alt: "Salon Alain hair work" },
+
+  // { src: "/images/our-work/hairstyle-10.jpg", alt: "Salon Alain hair work" },
   { src: "/images/our-work/hairstyle-11.jpg", alt: "Salon Alain hair work" },
   { src: "/images/our-work/hairstyle-12.jpg", alt: "Salon Alain hair work" },
-  { src: "/images/our-work/hairstyle-13.jpg", alt: "Salon Alain hair work" },
+ 
 ];
 
-// Optional: pictures beside Instagram posts in the Germany section.
-const additionalGermanyImages: LocalGalleryImage[] = [
-  // { src: "/images/our-work/germany-01.jpg", alt: "Salon Alain hair work in Germany" },
+// LEBANON - JOUNIEH PHOTOS ONLY
+// Upload files to public/images/our-work/ or update the paths to match
+// the filenames you use. Missing files will not display correctly.
+// Add or remove lines as needed; these photos never appear in Germany.
+const additionalLebanonImages: LocalGalleryImage[] = [
+  { src: "/images/our-work/lebanon-01.jpg", alt: "Salon Alain Lebanon hairstyle 1" },
+  { src: "/images/our-work/lebanon-02.jpg", alt: "Salon Alain Lebanon hairstyle 2" },
+  { src: "/images/our-work/lebanon-03.jpg", alt: "Salon Alain Lebanon hairstyle 3" },
+  { src: "/images/our-work/lebanon-04.jpg", alt: "Salon Alain Lebanon hairstyle 4" },
+  { src: "/images/our-work/lebanon-05.jpg", alt: "Salon Alain Lebanon hairstyle 5" },
+  { src: "/images/our-work/lebanon-06.jpg", alt: "Salon Alain Lebanon hairstyle 6" },
+  
 ];
 
 type GalleryItem =
   | { type: "instagram"; url: string; number: number }
   | { type: "image"; src: string; alt: string };
-
 // Alternate Instagram post, local photo, Instagram post, local photo, ...
 function interleaveGalleryItems(
   posts: ReadonlyArray<{ url: string; number: number }>,
@@ -148,21 +155,24 @@ function interleaveGalleryItems(
   }
   return items;
 }
-
-// Germany stays one long horizontal row.
-const germanyGalleryItems = interleaveGalleryItems(
-  germanyInstagramPosts.map((url, index) => ({ url, number: index + 1 })),
-  additionalGermanyImages,
+// GERMANY: two horizontal rows, retaining all Germany Instagram posts and 13 photos.
+// Posts and photos are spread evenly between the two rows.
+const germanyRows = Array.from({ length: 2 }, (_, rowIndex) =>
+  interleaveGalleryItems(
+    germanyInstagramPosts
+      .map((url, index) => ({ url, number: index + 1 }))
+      .filter((_, index) => index % 2 === rowIndex),
+    additionalGermanyImages.filter((_, index) => index % 2 === rowIndex),
+  ),
 );
-
-// Original 3 scrolling rows remain, now with optional local photos.
-// Photo 1 goes into row 1, photo 2 into row 2, photo 3 into row 3, etc.
-const instagramRows = Array.from({ length: 3 }, (_, rowIndex) =>
+// LEBANON - JOUNIEH: two horizontal rows with Instagram posts AND local photos.
+// Lebanon photos appear in these two rows only, alternating with posts.
+const lebanonRows = Array.from({ length: 2 }, (_, rowIndex) =>
   interleaveGalleryItems(
     instagramPosts
       .map((url, index) => ({ url, number: index + 1 }))
-      .filter((_, index) => index % 3 === rowIndex),
-    additionalCollectionImages.filter((_, index) => index % 3 === rowIndex),
+      .filter((_, index) => index % 2 === rowIndex),
+    additionalLebanonImages.filter((_, index) => index % 2 === rowIndex),
   ),
 );
 /* =========================================================
@@ -291,12 +301,12 @@ export default function OurWorkPage() {
           className={`${container} mx-auto flex max-w-4xl flex-col items-center`}
         >
           {/* Main heading */}
-<h1
-  id="portfolio-heading"
-  className="mb-6 max-w-3xl font-serif italic text-m3-display-mobile !font-semibold tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
->
-  {w.heading}
-</h1>
+          <h1
+            id="portfolio-heading"
+            className="mb-6 max-w-3xl font-serif italic text-m3-display-mobile !font-semibold tracking-tight !text-m3-on-surface sm:text-m3-headline-lg lg:text-m3-display"
+          >
+            {w.heading}
+          </h1>
           {/* HERO SMALL TEXT — BIGGER + BOLDER */}
           <p className="mx-auto mb-11 max-w-2xl font-sans text-[17px] font-semibold leading-[1.75] text-m3-on-surface-variant sm:text-[19px] lg:text-[20px]">
             {w.subtitle} Crafted under the discerning eye of Parisian couture
@@ -361,7 +371,7 @@ export default function OurWorkPage() {
             {/* COLLECTION SMALL DESCRIPTION — BIGGER + BOLDER */}
             <p className="max-w-[500px] font-sans text-[16px] font-semibold leading-[1.7] text-m3-tertiary sm:text-[17px] lg:text-[18px]">
               Explore balayage, colour and transformations. Find inspiration
-              for your next visit to Salon Alain Hair &amp; Beauty.
+              for your next visit to Salon Alain Hair & Beauty.
             </p>
           </div>
           {/* =================================================
@@ -385,34 +395,34 @@ export default function OurWorkPage() {
                 className="pointer-events-none absolute -inset-1.5 rounded-[1.7rem] border border-m3-secondary/20 sm:-inset-2"
               />
               {/* Photograph */}
-<div className="relative overflow-hidden rounded-[1.5rem] bg-black/10 shadow-[0_30px_90px_rgba(20,5,35,0.30)] sm:rounded-[2rem] lg:left-1/2 lg:w-[115%] lg:max-w-none lg:-translate-x-1/2">
-  <img
-    src={featuredMemoryImage}
-    alt="Alain Martinos with his mother"
-    loading="eager"
-    decoding="async"
-    className="block max-h-[760px] w-full object-contain lg:max-h-[1100px]"
-  />
-  {/* Subtle overlay */}
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/10 via-transparent to-white/[0.04]"
-  />
-  {/* Inner hairline */}
-  <div
-    aria-hidden="true"
-    className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/15"
-  />
-</div>
+              <div className="relative overflow-hidden rounded-[1.5rem] bg-black/10 shadow-[0_30px_90px_rgba(20,5,35,0.30)] sm:rounded-[2rem] lg:left-1/2 lg:w-[115%] lg:max-w-none lg:-translate-x-1/2">
+                <img
+                  src={featuredMemoryImage}
+                  alt="Alain Martinos with his mother"
+                  loading="eager"
+                  decoding="async"
+                  className="block max-h-[760px] w-full object-contain lg:max-h-[1100px]"
+                />
+                {/* Subtle overlay */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/10 via-transparent to-white/[0.04]"
+                />
+                {/* Inner hairline */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/15"
+                />
+              </div>
               {/* =================================================
                   PERSONAL CAPTION
                   Bigger + Bold + Professional
               ================================================= */}
-<p className="mx-auto mt-8 max-w-[700px] text-center font-serif text-[20px] !font-black leading-[1.55] tracking-[0.01em] text-m3-on-surface sm:text-[22px] lg:text-[24px]">
-  My first photograph with my mother Aida Martinos — one of the earliest and
-  most meaningful inspirations behind my journey into
-  hairdressing.
-</p>
+              <p className="mx-auto mt-8 max-w-[700px] text-center font-serif text-[20px] !font-black leading-[1.55] tracking-[0.01em] text-m3-on-surface sm:text-[22px] lg:text-[24px]">
+                My first photograph with my mother Aida Martinos — one of the earliest and
+                most meaningful inspirations behind my journey into
+                hairdressing.
+              </p>
               {/* Elegant single divider */}
               <div
                 aria-hidden="true"
@@ -423,7 +433,7 @@ export default function OurWorkPage() {
           {/* =================================================
               INSTAGRAM COLLECTION
           ================================================= */}
-           {/* GERMANY COLLECTION — ALL PREVIOUSLY COMMENTED POSTS IN ONE ROW */}
+          {/* GERMANY COLLECTION — FIRST TWO HORIZONTALLY SCROLLABLE ROWS */}
           <div className="mt-12 sm:mt-16">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
               <div>
@@ -438,31 +448,53 @@ export default function OurWorkPage() {
                 Swipe to explore all posts →
               </p>
             </div>
-            {/* One single horizontal row on mobile and desktop */}
-            <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-3 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6">
-              {germanyGalleryItems.map((item, itemIndex) => (
-                <GalleryCard
-                  key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
-                  item={item}
-                  germany
-                />
+            <div className="flex flex-col gap-6 sm:gap-8">
+              {germanyRows.map((row, rowIndex) => (
+                <div
+                  key={`germany-row-${rowIndex}`}
+                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
+                >
+                  {row.map((item, itemIndex) => (
+                    <GalleryCard
+                      key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
+                      item={item}
+                      germany
+                    />
+                  ))}
+                </div>
               ))}
             </div>
           </div>
-          <div className="mt-16 flex flex-col gap-6 sm:mt-20 sm:gap-8">
-            {instagramRows.map((row, rowIndex) => (
-              <div
-                key={`instagram-row-${rowIndex}`}
-                className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
-              >
-                {row.map((item, itemIndex) => (
-                  <GalleryCard
-                    key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
-                    item={item}
-                  />
-                ))}
+          {/* LEBANON - JOUNIEH COLLECTION — LAST TWO HORIZONTALLY SCROLLABLE ROWS */}
+          <div className="mt-16 sm:mt-20">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="mb-2 font-sans text-[12px] font-bold uppercase tracking-[0.2em] text-m3-secondary sm:text-[14px]">
+                  Special Collection
+                </p>
+                <h3 className="font-serif text-m3-headline-md !font-semibold text-m3-on-surface">
+                  Lebanon - Jounieh
+                </h3>
               </div>
-            ))}
+              <p className="font-sans text-sm font-semibold text-m3-tertiary">
+                Swipe to explore all posts →
+              </p>
+            </div>
+            <div className="flex flex-col gap-6 sm:gap-8">
+              {lebanonRows.map((row, rowIndex) => (
+                <div
+                  key={`lebanon-row-${rowIndex}`}
+                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-2 pr-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
+                >
+                  {row.map((item, itemIndex) => (
+                    <GalleryCard
+                      key={item.type === "instagram" ? item.url : `${item.src}-${itemIndex}`}
+                      item={item}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -471,7 +503,7 @@ export default function OurWorkPage() {
       ===================================================== */}
       <CtaBand />
       <p className="sr-only">
-        Salon Alain Hair &amp; Beauty portfolio —{" "}
+        Salon Alain Hair & Beauty portfolio —{" "}
         {site.locations[0].addressLines.join(", ")}
       </p>
     </div>

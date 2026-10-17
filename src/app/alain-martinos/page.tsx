@@ -70,7 +70,7 @@ type VoiceNote = {
 ========================================================= */
 
 const portrait: Portrait = {
-  src: "/images/alain-intro.jpg",
+  src: "/images/alain-between-sections-01.jpg",
   alt: "Alain Martinos in the salon",
 };
 
@@ -136,7 +136,7 @@ const chapterImages: Partial<Record<number, Portrait>> = {
 
 const betweenSectionImages: readonly Portrait[] = [
   {
-    src: "/images/alain-between-sections-01.jpg",
+    src: "/images/alainoncouch.jpg",
     alt: "Alain Martinos - featured salon photograph",
   },
   {
@@ -659,7 +659,7 @@ function CollectorPassionStory() {
           <div className="am-collector-story-prose">
             <p>{"Barbie is far more than a childhood toy. For adult collectors around the world, she represents fashion history, artistic creativity, design, nostalgia and a lifelong passion that transcends age, gender and cultural boundaries."}</p>
             <p>{"My name is Alain Martinos, and I am a Lebanese-German Barbie collector whose passion began in 2002. Today, my collection exceeds 10,000 Barbie dolls, reflecting more than two decades of dedication to preserving and celebrating Barbie’s extraordinary history."}</p>
-            <p>{"My collection focuses particularly on Barbie dolls released between 1976 and 2003, a remarkable period encompassing iconic fashions, memorable face sculpts, changing hairstyles, diverse characters and some of the most beloved eras in Barbie’s history. I have a special appreciation for the vintage and classic dolls that represent Barbie’s evolution through fashion, beauty and popular culture."}</p>
+            <p>{"My collection focuses particularly on Barbie dolls released between 1976 till 2003, a remarkable period encompassing iconic fashions, memorable face sculpts, changing hairstyles, diverse characters and some of the most beloved eras in Barbie’s history. I have a special appreciation for the vintage and classic dolls that represent Barbie’s evolution through fashion, beauty and popular culture."}</p>
             <p>{"As an adult male collector in the Middle East, I want to demonstrate that a passion for dolls is not defined by gender, nationality or society’s expectations."}</p>
           </div>
         </section>
@@ -722,7 +722,7 @@ function CollectorPassionStory() {
         <section className="am-collector-story-section am-collector-story-message" aria-labelledby="collector-story-5">
           <h4 id="collector-story-5">{"My Message to the World 💜"}</h4>
           <div className="am-collector-story-prose">
-            <p>{"As a male Barbie collector from the Middle East with more than 10,000 dolls, particularly focused on the years 1976–2003, I stand for the freedom to pursue one’s passion openly and proudly."}</p>
+            <p>{"As a male Barbie collector from the Middle East with more than 10,000 dolls, particularly focused on the years 1976 till 2003, I stand for the freedom to pursue one’s passion openly and proudly."}</p>
             <p>{"Barbie belongs to everyone. Passion has no gender. Collecting has no age limit. And authenticity has no boundaries."}</p>
             <p>{"Because the freedom to love what you love should never depend on where you were born, how you identify or what society expects of you."}</p>
           </div>

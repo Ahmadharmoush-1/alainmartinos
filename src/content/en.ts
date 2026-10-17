@@ -849,7 +849,7 @@ p2: [
         number: "VI",
         title: "Education beyond beauty",
         paragraphs: [
-          "Although Alain Martinos is known professionally for hair and beauty, his academic background extends into another field: law  bachelors in civil law , and  D.E.A Informatique Law ",
+          "Although Alain Martinos is known professionally for hair and beauty, his academic background extends into another field: law  bachelors in civil law , and  D.E.A Informatique Juridique Law ",
           " He completed advanced legal studies, including a D.E.A. En Informatique Juridique/ cybercriminalité sur internet , propriété intellectuelle, nom de domaines, etc…",
           "Alain speaks , writes and reads 4 different languages fluently: German , French , English and Arabic. ",
         ],
